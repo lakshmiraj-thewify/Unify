@@ -1,0 +1,333 @@
+/*
+ * `source(none)` disables Tailwind's automatic source detection, and the
+ * @source globs below re-declare it explicitly.
+ *
+ * This is deliberate, not tidying. Automatic detection scans every file in the
+ * repository that is not git-ignored — including JSON tooling config, CI YAML
+ * and lockfiles — and any string in any of them that merely *looks* like a
+ * utility becomes real CSS. A grep pattern sitting in a local editor-settings
+ * file (`max-w-[a-zA-Z0-9_.[:punct:]]`) was enough to compile to
+ * `max-width: a-zA-Z0-9 .[:punct:]` and break the production build outright.
+ *
+ * Scoping to the four directories that can actually render markup makes the
+ * generated stylesheet a function of the source, and nothing else.
+ */
+@import 'tailwindcss' source(none);
+
+@source './**/*.{ts,tsx}';
+@source '../components/**/*.{ts,tsx}';
+@source '../content/**/*.ts';
+@source '../lib/**/*.ts';
+
+/* ===========================================================================
+   Unify Wi-Fi — design tokens
+   ---------------------------------------------------------------------------
+   Family alignment: the blue/cyan/navy hues, tinted shadows and 8px-ish radius
+   rhythm are shared with thewify.com and guestwifi.thewify.com so Unify reads
+   as the same house.
+   Sibling distinction: navy is used as *structure* (not just a footer), the
+   colour contract is semantic and closed (ink / surface / line / primary /
+   signal / ok / warn / danger — no decorative accents), radii are capped at
+   16px, and numeric data is always set in mono.
+   Every colour below is one of the two family sites' measured values or a
+   tonal step inside those ramps. Nothing is a new brand decision.
+   =========================================================================== */
+
+@theme {
+  /* ── Typography ───────────────────────────────────────────────────────── */
+  --font-sans:
+    var(--font-plus-jakarta), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ── Ink: text on light surfaces ──────────────────────────────────────── */
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-ink-muted: #52647f;
+  --color-ink-faint: #7c8ca5;
+
+  /* ── Surfaces + hairlines: light bands ────────────────────────────────── */
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f8fafc;
+  --color-surface-tint: #f5f8fc;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+
+  /* ── Navy: structural dark bands, console chrome, footer ──────────────── */
+  --color-navy-950: #070f1e;
+  --color-navy-900: #0b1424;
+  --color-navy-800: #101c33;
+  --color-navy-700: #17263f;
+  --color-navy-600: #24344f;
+
+  /* ── Foreground + hairlines on dark ───────────────────────────────────── */
+  --color-dark-fg: #e8eef7;
+  --color-dark-fg-muted: #a3b6d1;
+  --color-dark-line: #1e3050;
+  --color-dark-line-strong: #2b4066;
+
+  /* ── Primary: the family blue. Actions, links, emphasis ───────────────── */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  /* ── Signal: cyan. Reserved for live / real-time / throughput ─────────── */
+  --color-signal-50: #ecfeff;
+  --color-signal-100: #cffafe;
+  --color-signal-200: #a5f3fc;
+  --color-signal-300: #67e8f9;
+  --color-signal-400: #22d3ee;
+  --color-signal-500: #06b6d4;
+  --color-signal-600: #0891b2;
+  --color-signal-700: #0e7490;
+
+  /* ── Status: ok / warn / danger. Never decorative ─────────────────────── */
+  --color-ok-50: #ecfdf5;
+  --color-ok-200: #a7f3d0;
+  --color-ok-500: #10b981;
+  --color-ok-600: #059669;
+  --color-ok-700: #047857;
+  --color-warn-50: #fffbeb;
+  --color-warn-200: #fde68a;
+  --color-warn-500: #f59e0b;
+  --color-warn-600: #d97706;
+  --color-warn-700: #b45309;
+  --color-danger-50: #fef2f2;
+  --color-danger-200: #fecaca;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+
+  /* ── Radii: capped at 16px. No pill-shaped cards ──────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+
+  /* ── Shadows: tinted, never neutral grey ──────────────────────────────── */
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-lift: 0 12px 24px -8px rgb(15 23 42 / 0.12);
+  --shadow-primary: 0 8px 18px rgb(37 99 235 / 0.22);
+  --shadow-signal: 0 8px 18px rgb(6 182 212 / 0.22);
+  --shadow-console: 0 32px 64px -24px rgb(7 15 30 / 0.45);
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --animate-pulse-dot: pulse-dot 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.45;
+      transform: scale(0.8);
+    }
+  }
+
+  /* ── Layout: named container widths ───────────────────────────────────── */
+  --container-page: 80rem;
+  --container-content: 56rem;
+  --container-readable: 48rem;
+}
+
+/* ===========================================================================
+   Base layer
+   =========================================================================== */
+
+@layer base {
+  :root {
+    /* Height of the fixed header. Drives anchor scroll offsets. */
+    --header-h: 4rem;
+
+    /* Focus ring colour. Dark bands override this so the ring stays visible
+       against navy — see the `dark` tone in components/ui/section.tsx. */
+    --focus-ring: var(--color-primary-600);
+  }
+
+  @media (width >= 64rem) {
+    :root {
+      --header-h: 4.5rem;
+    }
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    text-underline-offset: 0.2em;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* One focus treatment for the whole site: visible, offset, never removed. */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-900);
+  }
+
+  /* Anchored sections must not land underneath the fixed header. */
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  }
+
+  /* Numeric data is mono + tabular everywhere, so figures never jitter as
+     they change. This is a deliberate sibling marker vs the family sites. */
+  [data-numeric] {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+}
+
+/* ===========================================================================
+   Custom utilities
+   =========================================================================== */
+
+/* The one gradient in the system. Used for the logo tile, icon chips and
+   selective headline emphasis — never as a full-section background. */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-primary-900) 0%,
+    var(--color-primary-600) 55%,
+    var(--color-signal-500) 100%
+  );
+}
+
+@utility text-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-primary-800) 0%,
+    var(--color-primary-600) 45%,
+    var(--color-signal-600) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grid-faint {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* ===========================================================================
+   Component layer
+   =========================================================================== */
+
+@layer components {
+  /*
+   * Scroll reveal. The hidden start state is applied ONLY when scripting is
+   * enabled, so a no-JS visitor (or a crawler that does not run JS) always
+   * gets fully visible content instead of an invisible page. Browsers that do
+   * not support the `scripting` media feature simply skip the animation.
+   */
+  .reveal {
+    opacity: 1;
+  }
+
+  @media (scripting: enabled) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 520ms var(--ease-out-soft),
+        transform 520ms var(--ease-out-soft);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    .reveal[data-revealed='true'] {
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+  }
+
+  /* Visually hidden, still announced. Used by the skip link and by labels
+     that are implied visually but required for assistive technology. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* ===========================================================================
+   Reduced motion — global, non-negotiable
+   =========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===========================================================================
+   Print
+   ---------------------------------------------------------------------------
+   A printed page produces no scroll, so nothing below the fold would ever
+   intersect and every un-revealed block would print blank. Reset the reveal
+   state unconditionally here.
+   =========================================================================== */
+
+@media print {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

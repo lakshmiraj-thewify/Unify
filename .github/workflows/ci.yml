@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Cancel superseded runs on the same ref — the newest push is the only one that matters.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: typecheck · lint · build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          # Matches the `engines.node` floor in package.json.
+          node-version: 22
+          cache: npm
+
+      # `npm ci` fails on a lockfile that has drifted from package.json, which is
+      # exactly what we want in CI — dependencies are pinned to exact versions.
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://unify.thewify.com
+
+      - name: Check formatting
+        run: npm run format:check
+
+# No test job yet: the test tooling is installed in Phase 5, alongside the first
+# logic worth testing (the savings calculator and the booking flow). An empty
+# test step that always passes is worse than no step — it reads as coverage.
