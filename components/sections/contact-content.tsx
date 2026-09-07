@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Calendar, CheckCircle2, Clock, Mail, MapPin, MessageSquare, Phone } from 'lucide-react'
+import { AlertCircle, Calendar, CheckCircle2, Clock, Loader2, Mail, MapPin, MessageSquare, Phone } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -33,27 +33,84 @@ export function ContactContent() {
   const [selectedSlot, setSelectedSlot] = useState<string>(demoTimeSlots[0])
   const [selectedDate, setSelectedDate] = useState<string>('Tomorrow')
   const [demoSubmitted, setDemoSubmitted] = useState(false)
+  const [demoLoading, setDemoLoading] = useState(false)
+  const [demoError, setDemoError] = useState<string | null>(null)
+  /** 'demo' | 'live' | null — set after a successful submission. */
+  const [demoMode, setDemoMode] = useState<'demo' | 'live' | null>(null)
 
   // Quick message state
   const [quickName, setQuickName] = useState('')
   const [quickEmail, setQuickEmail] = useState('')
   const [quickMessage, setQuickMessage] = useState('')
   const [quickSubmitted, setQuickSubmitted] = useState(false)
+  const [quickLoading, setQuickLoading] = useState(false)
+  const [quickError, setQuickError] = useState<string | null>(null)
+  const [quickMode, setQuickMode] = useState<'demo' | 'live' | null>(null)
 
-  const handleDemoSubmit = (e: React.FormEvent) => {
+  const handleDemoSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (demoStep === 1) {
       setDemoStep(2)
-    } else {
-      // Form submission boundary (backend integration in Phase 8)
+      return
+    }
+
+    // Step 2: POST to the demo booking API.
+    setDemoLoading(true)
+    setDemoError(null)
+    try {
+      const res = await fetch('/api/demo-booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: demoName,
+          email: demoEmail,
+          company: demoCompany,
+          subscribers: demoSubscribers,
+          hardware: demoHardware,
+          date: selectedDate,
+          slot: selectedSlot,
+        }),
+      })
+      const data = await res.json() as { ok: boolean; mode?: 'demo' | 'live'; error?: string }
+      if (!res.ok || !data.ok) {
+        setDemoError(data.error ?? 'Something went wrong. Please try again.')
+        return
+      }
+      setDemoMode(data.mode ?? 'demo')
       setDemoSubmitted(true)
+    } catch {
+      setDemoError('Network error. Please check your connection and try again.')
+    } finally {
+      setDemoLoading(false)
     }
   }
 
-  const handleQuickSubmit = (e: React.FormEvent) => {
+  const handleQuickSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Form submission boundary (backend integration in Phase 8)
-    setQuickSubmitted(true)
+    setQuickLoading(true)
+    setQuickError(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: quickName,
+          email: quickEmail,
+          message: quickMessage,
+        }),
+      })
+      const data = await res.json() as { ok: boolean; mode?: 'demo' | 'live'; error?: string }
+      if (!res.ok || !data.ok) {
+        setQuickError(data.error ?? 'Something went wrong. Please try again.')
+        return
+      }
+      setQuickMode(data.mode ?? 'demo')
+      setQuickSubmitted(true)
+    } catch {
+      setQuickError('Network error. Please check your connection and try again.')
+    } finally {
+      setQuickLoading(false)
+    }
   }
 
   return (
@@ -150,13 +207,20 @@ export function ContactContent() {
                         <CheckCircle2 className="size-10 text-ok-600 mx-auto mb-3" />
                         <h3 className={cn(heading.h4, 'text-ink')}>Demo Request Received</h3>
                         <p className={cn(bodyText.small, 'text-ink-muted mt-2 max-w-md mx-auto')}>
-                          Thank you, <span className="font-bold text-ink">{demoName}</span>. A
-                          Google Meet calendar invitation for {selectedDate} at {selectedSlot} is
-                          being routed to <span className="font-bold text-ink">{demoEmail}</span>.
+                          Thank you, <span className="font-bold text-ink">{demoName}</span>. Your
+                          request for {selectedDate} at {selectedSlot} has been recorded.
                         </p>
-                        <p className={cn(bodyText.micro, 'text-ink-faint mt-4')}>
-                          (Backend integration active in Phase 8)
-                        </p>
+                        {demoMode === 'demo' ? (
+                          <p className={cn(bodyText.micro, 'text-warn-700 mt-4 rounded-lg border border-warn-200 bg-warn-50 px-3 py-2')}>
+                            Demo mode — no real calendar event or Google Meet link was created.
+                            Live integrations are configured in Phase 8 Steps 2–3.
+                          </p>
+                        ) : (
+                          <p className={cn(bodyText.micro, 'text-ink-faint mt-4')}>
+                            A calendar invite has been sent to{' '}
+                            <span className="font-semibold">{demoEmail}</span>.
+                          </p>
+                        )}
                         <Button
                           variant="secondary"
                           size="sm"
@@ -164,6 +228,7 @@ export function ContactContent() {
                           onClick={() => {
                             setDemoSubmitted(false)
                             setDemoStep(1)
+                            setDemoMode(null)
                           }}
                         >
                           Book another slot
@@ -276,6 +341,12 @@ export function ContactContent() {
                             <Button type="submit" size="lg" fullWidth className="mt-4">
                               Continue to Select Time Slot →
                             </Button>
+                            {demoError !== null && demoStep === 1 ? (
+                              <p role="alert" className={cn(bodyText.micro, 'text-danger-700 flex items-center gap-1.5')}>
+                                <AlertCircle className="size-3.5 shrink-0" />
+                                {demoError}
+                              </p>
+                            ) : null}
                           </>
                         ) : (
                           <>
@@ -332,16 +403,35 @@ export function ContactContent() {
                               </div>
                             </fieldset>
 
+                            {demoError !== null ? (
+                              <p role="alert" className={cn(bodyText.micro, 'text-danger-700 flex items-center gap-1.5 mt-2')}>
+                                <AlertCircle className="size-3.5 shrink-0" />
+                                {demoError}
+                              </p>
+                            ) : null}
                             <div className="flex items-center gap-3 mt-4">
                               <Button
                                 variant="secondary"
                                 size="md"
                                 onClick={() => setDemoStep(1)}
+                                disabled={demoLoading}
                               >
                                 ← Back
                               </Button>
-                              <Button type="submit" size="md" fullWidth>
-                                Confirm Live Demo Booking
+                              <Button
+                                type="submit"
+                                size="md"
+                                fullWidth
+                                disabled={demoLoading}
+                              >
+                                {demoLoading ? (
+                                  <span className="flex items-center justify-center gap-2">
+                                    <Loader2 className="size-4 animate-spin" />
+                                    Booking…
+                                  </span>
+                                ) : (
+                                  'Confirm Live Demo Booking'
+                                )}
                               </Button>
                             </div>
                           </>
@@ -366,21 +456,32 @@ export function ContactContent() {
                     {quickSubmitted ? (
                       <div className="rounded-xl border border-ok-200 bg-ok-50 p-6 text-center">
                         <CheckCircle2 className="size-10 text-ok-600 mx-auto mb-3" />
-                        <h3 className={cn(heading.h4, 'text-ink')}>Message Dispatched</h3>
+                        <h3 className={cn(heading.h4, 'text-ink')}>Message Received</h3>
                         <p className={cn(bodyText.small, 'text-ink-muted mt-2 max-w-md mx-auto')}>
-                          Thank you, <span className="font-bold text-ink">{quickName}</span>. Your
-                          inquiry has been routed directly to{' '}
-                          <span className="font-bold text-ink">{site.contact.email}</span>. Our team
-                          will respond within 2 business hours.
+                          Thank you, <span className="font-bold text-ink">{quickName}</span>.
+                          {quickMode === 'live' ? (
+                            <>
+                              {' '}Your message has been delivered to{' '}
+                              <span className="font-bold text-ink">{site.contact.email}</span>. Our
+                              team will respond within 2 business hours.
+                            </>
+                          ) : (
+                            <> Your message has been recorded.</>)}
                         </p>
-                        <p className={cn(bodyText.micro, 'text-ink-faint mt-4')}>
-                          (Backend integration active in Phase 8)
-                        </p>
+                        {quickMode === 'demo' ? (
+                          <p className={cn(bodyText.micro, 'text-warn-700 mt-4 rounded-lg border border-warn-200 bg-warn-50 px-3 py-2')}>
+                            Demo mode — no email was delivered. Live email integration is
+                            configured in Phase 8 Step 2.
+                          </p>
+                        ) : null}
                         <Button
                           variant="secondary"
                           size="sm"
                           className="mt-5"
-                          onClick={() => setQuickSubmitted(false)}
+                          onClick={() => {
+                            setQuickSubmitted(false)
+                            setQuickMode(null)
+                          }}
                         >
                           Send another message
                         </Button>
@@ -441,8 +542,27 @@ export function ContactContent() {
                           />
                         </div>
 
-                        <Button type="submit" size="lg" fullWidth className="mt-2">
-                          Send Message to Engineering Lead
+                        {quickError !== null ? (
+                          <p role="alert" className={cn(bodyText.micro, 'text-danger-700 flex items-center gap-1.5')}>
+                            <AlertCircle className="size-3.5 shrink-0" />
+                            {quickError}
+                          </p>
+                        ) : null}
+                        <Button
+                          type="submit"
+                          size="lg"
+                          fullWidth
+                          className="mt-2"
+                          disabled={quickLoading}
+                        >
+                          {quickLoading ? (
+                            <span className="flex items-center justify-center gap-2">
+                              <Loader2 className="size-4 animate-spin" />
+                              Sending…
+                            </span>
+                          ) : (
+                            'Send Message to Engineering Lead'
+                          )}
                         </Button>
                       </form>
                     )}

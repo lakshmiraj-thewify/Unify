@@ -14,18 +14,18 @@ copy, stats, pricing state and section order come from that document and are not
 
 **Phase 1 of 10 complete.** Foundation only — the homepage is a `noindex` placeholder until Phase 2.
 
-| Phase | Scope                                            | State  |
-| ----- | ------------------------------------------------ | ------ |
-| 1     | Scaffold, tokens, fonts, UI primitives, shell    | done   |
-| 2     | Header / footer / hero / hero console / hardware | queued |
-| 3     | Pillars, trust stats, how it works               | queued |
-| 4     | Features, ISP solutions                          | queued |
-| 5     | Savings calculator, business model, test tooling | queued |
-| 6     | Architecture, FAQ, closing CTA                   | queued |
-| 7     | `/pricing`, `/blog`, `/contact`                  | queued |
-| 8     | Interactions + integration interfaces            | queued |
-| 9     | Responsive refinement                            | queued |
-| 10    | A11y, performance, SEO, CSP, JSON-LD, final QA   | queued |
+| Phase | Scope                                            | State      |
+| ----- | ------------------------------------------------ | ---------- |
+| 1     | Scaffold, tokens, fonts, UI primitives, shell    | done       |
+| 2     | Header / footer / hero / hero console / hardware | done       |
+| 3     | Pillars, trust stats, how it works               | done       |
+| 4     | Features, ISP solutions                          | done       |
+| 5     | Savings calculator, business model, test tooling | done       |
+| 6     | Architecture, FAQ, closing CTA                   | done       |
+| 7     | `/pricing`, `/blog`, `/contact`                  | done       |
+| 8     | Interactions + integration interfaces            | in progress |
+| 9     | Responsive refinement                            | queued     |
+| 10    | A11y, performance, SEO, CSP, JSON-LD, final QA   | queued     |
 
 Each phase is reviewed and approved before the next begins.
 
@@ -146,9 +146,12 @@ feature runs in DEMO mode, the UI says so, and nothing is presented as a real de
 - **TypeScript 6.0.3**, not 7.x — `typescript-eslint` peers `<6.1.0`, so 7 would break linting.
 - **ESLint 9.39.5** — `eslint-config-next@16.3.4` pulls plugins that cap at `^9`. npm prints a
   deprecation warning for 9.x; ESLint 10 has to wait for those plugins.
-- **`typedRoutes: false`** until Phase 10 — the approved nav links to `/pricing`, `/blog` and
-  `/contact`, which do not exist until Phase 7. `LinkHref` is derived from `next/link`, so flipping
-  the flag later needs no component edits.
+- **`typedRoutes: true`** enabled in Phase 7 (not Phase 10) — the full route tree
+  (`/`, `/pricing`, `/blog`, `/contact`, `/legal/privacy`, `/legal/terms`) was complete at
+  that point, so there was no reason to wait.
 - **No test tooling yet** — Phase 5, per the approved plan, with the first logic worth testing.
 - **Logo and favicon are provisional** geometric stand-ins, isolated to
   `components/brand/unify-logo.tsx` and `app/icon.svg` so the real asset is a one-file swap.
+- **`zod@3.25.67`** added in Phase 8 — server-side validation for the contact and demo-booking
+  API routes. Pinned to an exact version per the project convention. The alternative (manual
+  validation) would be more code with worse error messages and no type inference.
