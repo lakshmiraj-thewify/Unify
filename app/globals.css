@@ -138,6 +138,20 @@
     }
   }
 
+  /* The trailing bar of a telemetry sparkline, to suggest a reading still in
+     progress. Opacity only — no transform, so it never triggers layout. */
+  --animate-bar-live: bar-live 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+  @keyframes bar-live {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
   /* ── Layout: named container widths ───────────────────────────────────── */
   --container-page: 80rem;
   --container-content: 56rem;
@@ -229,6 +243,41 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+/*
+ * The same emphasis on a navy band. The light-surface ramp bottoms out around
+ * primary-800, which is nearly invisible against navy-900, so this steps up the
+ * ramp rather than reusing it. Used on a single word of the hero headline.
+ */
+@utility text-brand-gradient-dark {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-primary-300) 0%,
+    var(--color-signal-300) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/*
+ * Hero backdrop: two wide, low-opacity radial washes mixed from the brand ramps
+ * so the navy band has depth without becoming a gradient panel. Deliberately
+ * subtle — this is infrastructure software, not a landing-page light show.
+ */
+@utility bg-hero-glow {
+  background-image:
+    radial-gradient(
+      44rem 26rem at 10% -12%,
+      color-mix(in oklab, var(--color-primary-600) 28%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36rem 22rem at 94% 4%,
+      color-mix(in oklab, var(--color-signal-500) 14%, transparent),
+      transparent 70%
+    );
 }
 
 @utility bg-grid-faint {

@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google'
 import type { ReactNode } from 'react'
+import { FloatingContact } from '@/components/layout/floating-contact'
+import { Footer } from '@/components/layout/footer'
+import { Header } from '@/components/layout/header'
 import { SkipLink } from '@/components/layout/skip-link'
 import { site } from '@/content/site'
 import './globals.css'
@@ -49,14 +52,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en-IN" className={`${sans.variable} ${mono.variable}`}>
       <body className="flex min-h-dvh flex-col bg-surface text-ink antialiased">
         <SkipLink />
-
-        {/* Header — Phase 2. */}
+        <Header />
 
         <main id="main" tabIndex={-1} className="flex-1 focus-visible:outline-none">
           {children}
         </main>
 
-        {/* Footer — Phase 2. */}
+        <Footer />
+        <FloatingContact />
       </body>
     </html>
   )

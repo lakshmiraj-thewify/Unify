@@ -25,13 +25,11 @@ const nextConfig: NextConfig = {
 
   // Compile-time checking of every `href` against the real route tree.
   //
-  // Deliberately OFF until Phase 10. `typedRoutes` validates href literals
-  // against routes that actually exist, so enabling it now would reject the
-  // links to /pricing, /blog and /contact that the navigation needs before
-  // those routes are built in Phase 7. `LinkHref` in lib/links.ts is derived
-  // from next/link, so flipping this to `true` once the route tree is complete
-  // upgrades every href in the codebase without touching a single component.
-  typedRoutes: false,
+  // Enabled now that the full route tree is in place: /, /pricing, /blog,
+  // /contact, /legal/privacy, /legal/terms. This narrows LinkHref to the
+  // generated route union and catches any typo in an internal href at build
+  // time without touching any component.
+  typedRoutes: true,
 
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
