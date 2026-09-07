@@ -58,8 +58,8 @@ export const site: SiteConfig = {
     'Connect MikroTik in 10 minutes. Automate PPPoE & Hotspot billing. Manage every subscriber from one dashboard — no servers required.',
 
   contact: {
-    /** The only contact detail the blueprint actually specifies. */
-    email: 'charan@thewify.com',
+    /** Updated to support@thewify.com — the website contact and notification recipient. */
+    email: 'support@thewify.com',
     /** PENDING(Q10): the blueprint says a phone number is shown but never gives one. */
     phone: null,
     /** PENDING(Q10): the blueprint says a WhatsApp number is shown but never gives one. */

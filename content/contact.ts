@@ -11,8 +11,8 @@
  *     - Step 3: Time slot (10:00 AM / 11:30 AM / 2:00 PM / 4:00 PM IST)
  *
  *   Option B: Quick Contact Form
- *     - Name, Email, Message -> sends to charan@thewify.com
- *     - Direct email shown: charan@thewify.com
+ *     - Name, Email, Message -> sends to support@thewify.com
+ *     - Direct email shown: support@thewify.com
  *     - Phone / WhatsApp number shown (or PENDING)
  *
  * Section 12 FAQ (Embedded on contact page):
