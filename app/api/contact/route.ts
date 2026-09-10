@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { ZodError } from 'zod'
 import { contactSchema } from '@/lib/schemas/contact'
 import { sendEmail, buildContactAlertEmail } from '@/lib/notify/email'
+import { checkContactRatelimit } from '@/lib/ratelimit'
 
 /**
  * ---------------------------------------------------------------------------
@@ -21,6 +22,19 @@ import { sendEmail, buildContactAlertEmail } from '@/lib/notify/email'
  * ---------------------------------------------------------------------------
  */
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  // 0. Rate limiting — checked before any body parsing.
+  //    Credentials absent → DEMO mode (pass through with a server-side warning).
+  const ratelimit = await checkContactRatelimit(request)
+  if (ratelimit.limited) {
+    return NextResponse.json(
+      { ok: false, error: 'Too many requests. Please wait a moment before trying again.' },
+      {
+        status: 429,
+        headers: { 'Retry-After': String(ratelimit.retryAfter) },
+      },
+    )
+  }
+
   // 1. Parse and validate the request body.
   let body: unknown
   try {

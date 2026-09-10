@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { SkipLink } from '@/components/layout/skip-link'
 import { site } from '@/content/site'
+import { OG_IMAGE_URL } from '@/lib/seo'
 import './globals.css'
 
 /*
@@ -37,6 +38,24 @@ export const metadata: Metadata = {
   creator: site.legalEntity,
   publisher: site.legalEntity,
   formatDetection: { telephone: false, address: false, email: false },
+  openGraph: {
+    siteName: site.name,
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — Cloud RADIUS & ISP Management Platform`,
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [OG_IMAGE_URL],
+  },
 }
 
 export const viewport: Viewport = {

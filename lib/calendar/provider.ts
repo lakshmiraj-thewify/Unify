@@ -1,34 +1,53 @@
 /**
  * ---------------------------------------------------------------------------
- * Calendar provider abstraction — Phase 8 integration interface.
+ * Calendar provider — Google Calendar + Google Meet integration.
+ * Phase 8 Step 3 (complete implementation).
  *
- * Contract (from .env.example):
- *   GOOGLE_CALENDAR_ID + GOOGLE_SERVICE_ACCOUNT_EMAIL +
- *   GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY present → live Google Calendar path
- *   Any credential absent                       → deterministic mock provider
+ * Authentication: Service Account (JSON key via env vars).
+ * This is the simplest server-to-server auth method for Google Workspace
+ * calendars. No OAuth redirect or user consent is required.
  *
- * The slot picker in contact-content.tsx currently renders three static date
- * labels ("Tomorrow", "In 2 Days", "Next Monday") and four IST time slots
- * from content/contact.ts. The mock provider preserves this deterministic
- * behaviour so the UI works identically in demo mode.
+ * Environment contract (see .env.example):
+ *   GOOGLE_CALENDAR_ID            — Calendar ID to create events on.
+ *                                   Usually the primary team calendar email,
+ *                                   e.g. demos@thewify.com
+ *   GOOGLE_SERVICE_ACCOUNT_EMAIL  — Service account email from Google Cloud.
+ *                                   e.g. unify-booking@project.iam.gserviceaccount.com
+ *   GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY — RSA private key from the downloaded
+ *                                   JSON key file. In .env.local, paste the
+ *                                   -----BEGIN RSA PRIVATE KEY----- block as a
+ *                                   single line with literal \n sequences, or
+ *                                   use a multiline value (Next.js handles both).
  *
- * When Google Calendar credentials are available, replace `bookLive()` and
- * `getAvailabilityLive()` with real Google Calendar API calls. The interface
- * (CalendarBookingRequest in, CalendarBookingResult out) must not change so
- * that the API route is untouched.
+ * Mode contract:
+ *   All three credentials present → live Google Calendar event + Meet link
+ *   Any credential absent          → DEMO mode (nothing created, UI says so)
+ *
+ * Security:
+ *   - This file is server-only. Never imported into client bundles.
+ *   - Private key is read only at call time inside server functions.
+ *   - Personal booking data is never logged.
+ *   - Google API errors are sanitised before returning to the caller.
  * ---------------------------------------------------------------------------
  */
+
+import { google } from 'googleapis'
+import { buildIstDatetime, addMinutes } from './datetime'
+
+// ---------------------------------------------------------------------------
+// Shared types — unchanged so the demo-booking API route does not change.
+// ---------------------------------------------------------------------------
 
 export type CalendarBookingRequest = {
   /** Booker's display name. */
   name: string
-  /** Booker's email — receives the invite in the live path. */
+  /** Booker's email — receives the calendar invite in live mode. */
   email: string
   /** Company or ISP name — included in the event title. */
   company: string
   /**
    * Date label from the slot picker ("Tomorrow" | "In 2 Days" | "Next Monday").
-   * Replaced with a real ISO date string when Google Calendar is integrated.
+   * Resolved into a real calendar date in IST by buildIstDatetime().
    */
   date: string
   /** IST time slot string, e.g. "10:00 AM IST". */
@@ -59,9 +78,10 @@ export type CalendarBookingResult =
       error: string
     }
 
-/**
- * Check whether all three required Google Calendar credentials are present.
- */
+// ---------------------------------------------------------------------------
+// Credential check — single source of truth.
+// ---------------------------------------------------------------------------
+
 function isCalendarConfigured(): boolean {
   return (
     typeof process.env['GOOGLE_CALENDAR_ID'] === 'string' &&
@@ -73,42 +93,131 @@ function isCalendarConfigured(): boolean {
   )
 }
 
-/**
- * Live booking path — called only when all three credentials are present.
- *
- * PROVIDER PLUG-IN POINT: replace the body of this function with the
- * Google Calendar API call. Required steps:
- *   1. Parse the date label into a real calendar date in IST (UTC+5:30).
- *   2. Parse the slot string into a start time.
- *   3. Create a 30-minute Google Calendar event with conferenceData (Meet).
- *   4. Send invite to request.email.
- *   5. Return eventId, meetUrl, startsAt.
- *
- * Packages needed (not yet installed — add when implementing this step):
- *   npm install googleapis
- */
-async function bookLive(
-  _request: CalendarBookingRequest,
-): Promise<CalendarBookingResult> {
-  return {
-    ok: false,
-    mode: 'live',
-    error:
-      'Google Calendar credentials are set but the live integration has not ' +
-      'been implemented yet. Implement bookLive() in lib/calendar/provider.ts ' +
-      'to complete Phase 8 Step 3.',
+// ---------------------------------------------------------------------------
+// Service Account auth helper — creates a fresh auth client per request.
+// No singleton — private key is read at call time on the server.
+// ---------------------------------------------------------------------------
+
+function buildAuth() {
+  // The private key is stored in .env.local with literal \n sequences.
+  // Replace them with real newlines so the PEM is valid for the JWT signer.
+  const privateKey = (process.env['GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY'] as string).replace(
+    /\\n/g,
+    '\n',
+  )
+
+  return new google.auth.JWT({
+    email: process.env['GOOGLE_SERVICE_ACCOUNT_EMAIL'] as string,
+    key: privateKey,
+    scopes: ['https://www.googleapis.com/auth/calendar'],
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Conference request ID generator.
+// Resend with the same requestId is idempotent — Google will return the same
+// Meet link if the event was already created with that ID.
+// ---------------------------------------------------------------------------
+
+function buildConferenceRequestId(date: string, slot: string, email: string): string {
+  // Simple deterministic ID from the booking triple — no UUID dependency.
+  const raw = `${date}|${slot}|${email}`
+  return raw
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '-')
+    .slice(0, 64)
+}
+
+// ---------------------------------------------------------------------------
+// Live booking path.
+// ---------------------------------------------------------------------------
+
+async function bookLive(request: CalendarBookingRequest): Promise<CalendarBookingResult> {
+  const calendarId = process.env['GOOGLE_CALENDAR_ID'] as string
+
+  const startsAt = buildIstDatetime(request.date, request.slot)
+  const endsAt = addMinutes(startsAt, 30) // 30-minute demo session
+  const conferenceRequestId = buildConferenceRequestId(request.date, request.slot, request.email)
+
+  const auth = buildAuth()
+  const calendar = google.calendar({ version: 'v3', auth })
+
+  try {
+    const response = await calendar.events.insert({
+      calendarId,
+      // conferenceDataVersion=1 triggers Meet link creation.
+      conferenceDataVersion: 1,
+      sendUpdates: 'all',
+      requestBody: {
+        summary: `Unify Wi-Fi Demo — ${request.company}`,
+        description: [
+          `Booker: ${request.name}`,
+          `Email: ${request.email}`,
+          `Company / ISP: ${request.company}`,
+          `Preferred slot: ${request.date} at ${request.slot}`,
+          '',
+          'This event was created automatically by the Unify Wi-Fi booking form.',
+        ].join('\n'),
+        start: { dateTime: startsAt, timeZone: 'Asia/Kolkata' },
+        end: { dateTime: endsAt, timeZone: 'Asia/Kolkata' },
+        attendees: [{ email: request.email, displayName: request.name }],
+        conferenceData: {
+          createRequest: {
+            requestId: conferenceRequestId,
+            conferenceSolutionKey: { type: 'hangoutsMeet' },
+          },
+        },
+        reminders: {
+          useDefault: false,
+          overrides: [
+            { method: 'email', minutes: 60 },
+            { method: 'popup', minutes: 15 },
+          ],
+        },
+      },
+    })
+
+    const event = response.data
+
+    // Extract the Meet link — the video entry point holds the meet.google.com URL.
+    const entryPoints = event.conferenceData?.entryPoints ?? []
+    const meetUrl =
+      entryPoints.find(
+        (ep: { entryPointType?: string | null }) => ep.entryPointType === 'video',
+      )?.uri ?? null
+
+    if (!event.id || !meetUrl) {
+      console.error('[calendar:live] Event created but missing id or Meet URL:', event.id ?? 'null')
+      return {
+        ok: false,
+        mode: 'live',
+        error: 'Booking was recorded but the Meet link could not be generated. Please contact us directly.',
+      }
+    }
+
+    return { ok: true, mode: 'live', eventId: event.id, meetUrl, startsAt }
+  } catch (err) {
+    // Never surface Google API internals to the visitor.
+    const msg = err instanceof Error ? err.message : 'unknown'
+    console.error('[calendar:live] Google Calendar API error:', msg)
+    return {
+      ok: false,
+      mode: 'live',
+      error: 'Could not create the calendar booking. Please try again or email us directly.',
+    }
   }
 }
+
+// ---------------------------------------------------------------------------
+// Public API — unchanged interface so the demo-booking route doesn't change.
+// ---------------------------------------------------------------------------
+
 
 /**
  * Book a demo slot.
  *
- * Behaviour:
- * - Credentials absent  → returns a DEMO result immediately (no network call)
- * - Credentials present → delegates to bookLive()
- *
- * DEMO mode returns `meetUrl: null` explicitly — the UI must not fabricate
- * a Meet URL or imply that a real calendar event was created.
+ * - Credentials absent  → DEMO mode (no network call, meetUrl is null)
+ * - Credentials present → creates a real Google Calendar event with Meet link
  */
 export async function bookDemoSlot(
   request: CalendarBookingRequest,
@@ -118,8 +227,6 @@ export async function bookDemoSlot(
       '[calendar:demo] Credentials absent. Would book slot:',
       request.date,
       request.slot,
-      '| Booker:',
-      request.email,
     )
     return {
       ok: true,
@@ -138,24 +245,21 @@ export async function bookDemoSlot(
 /**
  * Returns the available time slots for a given date label.
  *
- * In demo mode this mirrors the static slots defined in content/contact.ts
- * so the slot picker renders identically. In live mode this would query the
- * business calendar for real availability.
- *
- * Currently returns the full slot list for every date — the live path should
- * filter by actual calendar free/busy status.
+ * Demo mode mirrors the static slots from content/contact.ts.
+ * Live mode falls back to the same list until a real free/busy query
+ * is implemented (a separate task — slot availability filtering is not
+ * part of Phase 8 Step 3).
  */
 export async function getAvailableSlots(
   _dateLabel: string,
 ): Promise<{ slots: readonly string[]; mode: 'live' | 'demo' }> {
-  // Import inline to avoid a circular dep: content → lib → content.
   const { demoTimeSlots } = await import('@/content/contact')
 
   if (!isCalendarConfigured()) {
     return { slots: demoTimeSlots, mode: 'demo' }
   }
 
-  // Live path: replace with real Google Calendar free/busy query.
-  // For now fall back to the full list even in live mode until implemented.
+  // Live path: return the same full list for now.
+  // TODO(future): query Google Calendar free/busy to filter unavailable slots.
   return { slots: demoTimeSlots, mode: 'live' }
 }

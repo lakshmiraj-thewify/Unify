@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AlertCircle, Calendar, CheckCircle2, Clock, Loader2, Mail, MapPin, MessageSquare, Phone } from 'lucide-react'
+import { AlertCircle, Calendar, CheckCircle2, Clock, Loader2, Mail, MapPin, MessageSquare, Phone, Video } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -37,6 +37,8 @@ export function ContactContent() {
   const [demoError, setDemoError] = useState<string | null>(null)
   /** 'demo' | 'live' | null — set after a successful submission. */
   const [demoMode, setDemoMode] = useState<'demo' | 'live' | null>(null)
+  /** Google Meet URL returned by the API in live mode. Null in demo mode. */
+  const [meetUrl, setMeetUrl] = useState<string | null>(null)
 
   // Quick message state
   const [quickName, setQuickName] = useState('')
@@ -71,12 +73,18 @@ export function ContactContent() {
           slot: selectedSlot,
         }),
       })
-      const data = await res.json() as { ok: boolean; mode?: 'demo' | 'live'; error?: string }
+      const data = await res.json() as {
+        ok: boolean
+        mode?: 'demo' | 'live'
+        error?: string
+        meetUrl?: string | null
+      }
       if (!res.ok || !data.ok) {
         setDemoError(data.error ?? 'Something went wrong. Please try again.')
         return
       }
       setDemoMode(data.mode ?? 'demo')
+      setMeetUrl(data.meetUrl ?? null)
       setDemoSubmitted(true)
     } catch {
       setDemoError('Network error. Please check your connection and try again.')
@@ -208,19 +216,41 @@ export function ContactContent() {
                         <h3 className={cn(heading.h4, 'text-ink')}>Demo Request Received</h3>
                         <p className={cn(bodyText.small, 'text-ink-muted mt-2 max-w-md mx-auto')}>
                           Thank you, <span className="font-bold text-ink">{demoName}</span>. Your
-                          request for {selectedDate} at {selectedSlot} has been recorded.
+                          demo for <span className="font-semibold text-ink">{selectedDate}</span> at{' '}
+                          <span className="font-semibold text-ink">{selectedSlot}</span> has been booked.
                         </p>
-                        {demoMode === 'demo' ? (
-                          <p className={cn(bodyText.micro, 'text-warn-700 mt-4 rounded-lg border border-warn-200 bg-warn-50 px-3 py-2')}>
-                            Demo mode — no real calendar event or Google Meet link was created.
-                            Live integrations are configured in Phase 8 Steps 2–3.
-                          </p>
-                        ) : (
+
+                        {/* Live mode: show the Meet link prominently */}
+                        {demoMode === 'live' && meetUrl !== null ? (
+                          <div className="mt-5 rounded-xl border border-primary-200 bg-primary-50 p-4">
+                            <p className={cn(bodyText.micro, 'text-primary-700 mb-3 font-semibold uppercase tracking-wider')}>
+                              Your Google Meet link
+                            </p>
+                            <a
+                              href={meetUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-primary-700 transition-colors"
+                            >
+                              <Video className="size-4" />
+                              Join Google Meet
+                            </a>
+                            <p className={cn(bodyText.micro, 'text-primary-600 mt-2')}>
+                              A calendar invite with this link has been sent to{' '}
+                              <span className="font-semibold">{demoEmail}</span>.
+                            </p>
+                          </div>
+                        ) : demoMode === 'live' ? (
                           <p className={cn(bodyText.micro, 'text-ink-faint mt-4')}>
                             A calendar invite has been sent to{' '}
                             <span className="font-semibold">{demoEmail}</span>.
                           </p>
+                        ) : (
+                          <p className={cn(bodyText.micro, 'text-warn-700 mt-4 rounded-lg border border-warn-200 bg-warn-50 px-3 py-2')}>
+                            Demo mode — no real calendar event or Google Meet link was created.
+                          </p>
                         )}
+
                         <Button
                           variant="secondary"
                           size="sm"
@@ -229,6 +259,7 @@ export function ContactContent() {
                             setDemoSubmitted(false)
                             setDemoStep(1)
                             setDemoMode(null)
+                            setMeetUrl(null)
                           }}
                         >
                           Book another slot

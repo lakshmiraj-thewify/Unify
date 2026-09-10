@@ -54,9 +54,9 @@ export const footerNav: NavGroup[] = [
   {
     heading: 'Legal',
     items: [
-      // PENDING(Q13): approved copy for both documents is still outstanding.
       { label: 'Privacy Policy', href: '/legal/privacy' },
       { label: 'Terms of Service', href: '/legal/terms' },
+      { label: 'Cookie Policy', href: '/legal/cookies' },
     ],
   },
 ]
