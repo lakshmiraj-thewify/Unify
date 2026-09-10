@@ -47,5 +47,6 @@ yarn-error.log*
 !.vscode/extensions.json
 !.vscode/settings.json
 
-# local agent/editor state — machine-specific, not shared config
+# local agent / editor state
+AGENTS.md
 .claude/
