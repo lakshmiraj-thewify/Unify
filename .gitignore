@@ -48,4 +48,4 @@ yarn-error.log*
 !.vscode/settings.json
 
 # local agent/editor state — machine-specific, not shared config
-.claude/settings.local.json
+.claude/
