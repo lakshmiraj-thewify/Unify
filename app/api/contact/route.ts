@@ -63,10 +63,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       )
     }
     // Unknown parse error — treat as bad request.
-    return NextResponse.json(
-      { ok: false, error: 'Invalid request payload.' },
-      { status: 400 },
-    )
+    return NextResponse.json({ ok: false, error: 'Invalid request payload.' }, { status: 400 })
   }
 
   // 2. Attempt to send the internal notification email.
@@ -80,7 +77,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     emailResult = await sendEmail(emailPayload)
   } catch (err) {
     // Unexpected error in the notify layer — don't expose details.
-    console.error('[api/contact] Unexpected error in sendEmail:', err instanceof Error ? err.message : 'unknown')
+    console.error(
+      '[api/contact] Unexpected error in sendEmail:',
+      err instanceof Error ? err.message : 'unknown',
+    )
     return NextResponse.json(
       { ok: false, error: 'An unexpected error occurred. Please try again.' },
       { status: 500 },
@@ -93,7 +93,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     // The notify layer returned a provider error — safe to surface a generic message.
     console.error('[api/contact] Email send failed:', emailResult.error)
     return NextResponse.json(
-      { ok: false, error: 'Could not deliver your message. Please try again or email us directly.' },
+      {
+        ok: false,
+        error: 'Could not deliver your message. Please try again or email us directly.',
+      },
       { status: 502 },
     )
   }

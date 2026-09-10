@@ -112,7 +112,7 @@ export function RevenueCalculator() {
                 {result.value}
               </span>
               <span className="text-xs font-semibold text-ink-muted">{result.label}</span>
-              <span className="mt-1 text-[0.65rem] font-medium uppercase tracking-wider text-ink-faint">
+              <span className="mt-1 text-[0.65rem] font-medium tracking-wider text-ink-faint uppercase">
                 Estimate
               </span>
             </div>

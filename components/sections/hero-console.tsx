@@ -153,9 +153,7 @@ export function HeroConsole() {
                 style={{ height: `${point}%` }}
                 className={cn(
                   'flex-1 rounded-t-[2px]',
-                  index === lastBarIndex
-                    ? 'animate-bar-live bg-signal-400'
-                    : 'bg-primary-500/45',
+                  index === lastBarIndex ? 'animate-bar-live bg-signal-400' : 'bg-primary-500/45',
                 )}
               />
             ))}
@@ -193,7 +191,9 @@ export function HeroConsole() {
                     >
                       {row.usage ?? '—'}
                     </span>
-                    <span className={cn('font-bold whitespace-nowrap', meta.tone)}>{meta.text}</span>
+                    <span className={cn('font-bold whitespace-nowrap', meta.tone)}>
+                      {meta.text}
+                    </span>
                   </span>
                 </li>
               )

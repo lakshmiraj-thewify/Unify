@@ -182,16 +182,16 @@ async function bookLive(request: CalendarBookingRequest): Promise<CalendarBookin
     // Extract the Meet link — the video entry point holds the meet.google.com URL.
     const entryPoints = event.conferenceData?.entryPoints ?? []
     const meetUrl =
-      entryPoints.find(
-        (ep: { entryPointType?: string | null }) => ep.entryPointType === 'video',
-      )?.uri ?? null
+      entryPoints.find((ep: { entryPointType?: string | null }) => ep.entryPointType === 'video')
+        ?.uri ?? null
 
     if (!event.id || !meetUrl) {
       console.error('[calendar:live] Event created but missing id or Meet URL:', event.id ?? 'null')
       return {
         ok: false,
         mode: 'live',
-        error: 'Booking was recorded but the Meet link could not be generated. Please contact us directly.',
+        error:
+          'Booking was recorded but the Meet link could not be generated. Please contact us directly.',
       }
     }
 
@@ -212,7 +212,6 @@ async function bookLive(request: CalendarBookingRequest): Promise<CalendarBookin
 // Public API — unchanged interface so the demo-booking route doesn't change.
 // ---------------------------------------------------------------------------
 
-
 /**
  * Book a demo slot.
  *
@@ -223,11 +222,7 @@ export async function bookDemoSlot(
   request: CalendarBookingRequest,
 ): Promise<CalendarBookingResult> {
   if (!isCalendarConfigured()) {
-    console.log(
-      '[calendar:demo] Credentials absent. Would book slot:',
-      request.date,
-      request.slot,
-    )
+    console.log('[calendar:demo] Credentials absent. Would book slot:', request.date, request.slot)
     return {
       ok: true,
       mode: 'demo',

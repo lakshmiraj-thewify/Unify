@@ -43,7 +43,10 @@ export function HomePricingBand() {
             key={tier.name}
             as="li"
             padding="md"
-            className={cn('h-full gap-5', tier.popular && 'border-primary-400 ring-1 ring-primary-300')}
+            className={cn(
+              'h-full gap-5',
+              tier.popular && 'border-primary-400 ring-1 ring-primary-300',
+            )}
           >
             {tier.popular && (
               <div className="-mt-1">

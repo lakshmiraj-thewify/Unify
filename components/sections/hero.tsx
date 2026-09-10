@@ -37,10 +37,7 @@ export function Hero() {
               <span className="truncate">{hero.badge}</span>
             </Badge>
 
-            <h1
-              id="hero-heading"
-              className={cn(heading.display, 'mt-5 text-balance text-dark-fg')}
-            >
+            <h1 id="hero-heading" className={cn(heading.display, 'mt-5 text-balance text-dark-fg')}>
               {hero.headline.before}{' '}
               <span className="text-brand-gradient-dark">{hero.headline.emphasis}</span>{' '}
               {hero.headline.after}

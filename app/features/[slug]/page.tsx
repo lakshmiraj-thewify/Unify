@@ -61,11 +61,7 @@ export async function generateMetadata({
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
-export default async function FeatureDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
+export default async function FeatureDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const feature = getFeatureDetail(slug)
 
@@ -96,7 +92,7 @@ export default async function FeatureDetailPage({
             </div>
 
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-signal-400 mb-2">
+              <p className="mb-2 text-xs font-bold tracking-widest text-signal-400 uppercase">
                 {feature.eyebrow}
               </p>
               <h1 className="text-3xl font-extrabold tracking-tight text-dark-fg lg:text-4xl">
@@ -118,13 +114,13 @@ export default async function FeatureDetailPage({
             <div className="flex flex-col gap-8">
               {/* Overview */}
               <Card tone="light" padding="lg" className="border-line shadow-card">
-                <h2 className="text-lg font-bold text-ink mb-3">Overview</h2>
+                <h2 className="mb-3 text-lg font-bold text-ink">Overview</h2>
                 <p className="text-base leading-relaxed text-ink-muted">{feature.body}</p>
               </Card>
 
               {/* Capabilities */}
               <div>
-                <h2 className="text-lg font-bold text-ink mb-4">What it includes</h2>
+                <h2 className="mb-4 text-lg font-bold text-ink">What it includes</h2>
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {feature.capabilities.map((cap, i) => (
                     <Reveal key={cap} as="li" delay={i * 40}>
@@ -145,20 +141,16 @@ export default async function FeatureDetailPage({
             <aside className="flex flex-col gap-6">
               {/* Who it helps */}
               <Card tone="light" padding="md" className="border-line shadow-card">
-                <h2 className="text-sm font-bold uppercase tracking-wider text-ink-muted mb-3">
+                <h2 className="mb-3 text-sm font-bold tracking-wider text-ink-muted uppercase">
                   Who this helps
                 </h2>
                 <p className="text-sm leading-relaxed text-ink-soft">{feature.whoItHelps}</p>
               </Card>
 
               {/* CTA */}
-              <Card
-                tone="dark"
-                padding="md"
-                className="border-dark-line"
-              >
-                <p className="text-sm font-bold text-dark-fg mb-1">Ready to see it live?</p>
-                <p className="text-xs text-dark-fg-muted mb-4">
+              <Card tone="dark" padding="md" className="border-dark-line">
+                <p className="mb-1 text-sm font-bold text-dark-fg">Ready to see it live?</p>
+                <p className="mb-4 text-xs text-dark-fg-muted">
                   Book a 20-minute demo and we&apos;ll walk you through this module in action.
                 </p>
                 <Button href="/contact" size="sm" className="w-full justify-center">
@@ -169,7 +161,7 @@ export default async function FeatureDetailPage({
               {/* Related */}
               {related.length > 0 && (
                 <div>
-                  <h2 className="text-sm font-bold uppercase tracking-wider text-ink-muted mb-3">
+                  <h2 className="mb-3 text-sm font-bold tracking-wider text-ink-muted uppercase">
                     Related modules
                   </h2>
                   <ul className="flex flex-col gap-2">
@@ -182,9 +174,7 @@ export default async function FeatureDetailPage({
                             className="group flex items-center gap-3 rounded-xl border border-line bg-surface p-3 shadow-card transition-[border-color,box-shadow] duration-200 hover:border-primary-300 hover:shadow-lift"
                           >
                             <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600 group-hover:bg-primary-100">
-                              {RelIcon ? (
-                                <RelIcon className="size-4" aria-hidden="true" />
-                              ) : null}
+                              {RelIcon ? <RelIcon className="size-4" aria-hidden="true" /> : null}
                             </span>
                             <span className="text-sm font-semibold text-ink group-hover:text-primary-700">
                               {rel.title}

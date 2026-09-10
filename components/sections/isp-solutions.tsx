@@ -52,7 +52,7 @@ export function IspSolutions() {
                     {Icon ? <Icon /> : null}
                   </span>
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary-600">
+                    <span className="text-xs font-bold tracking-widest text-primary-600 uppercase">
                       {sol.segment}
                     </span>
                     <h3 className="text-sm font-bold text-ink">{sol.tagline}</h3>

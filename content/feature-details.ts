@@ -76,7 +76,7 @@ export const featureDetails: FeatureDetail[] = [
     icon: 'Users',
     description:
       'Add, suspend, or modify subscribers in seconds. Live session view, bandwidth graphs, and plan history.',
-    body: 'The subscriber dashboard is your ISP\'s operations centre. Every subscriber in your network is listed with their live session status, current plan, data usage, payment status, and expiry date — all on one screen. Adding a new subscriber takes under a minute. Suspending a subscriber cuts off their session immediately via RADIUS CoA without you touching the router. Plan changes take effect in real time. You can filter by active, suspended, or expired subscribers, search by phone number or username, and drill into any subscriber\'s full authentication history and billing record.',
+    body: "The subscriber dashboard is your ISP's operations centre. Every subscriber in your network is listed with their live session status, current plan, data usage, payment status, and expiry date — all on one screen. Adding a new subscriber takes under a minute. Suspending a subscriber cuts off their session immediately via RADIUS CoA without you touching the router. Plan changes take effect in real time. You can filter by active, suspended, or expired subscribers, search by phone number or username, and drill into any subscriber's full authentication history and billing record.",
     capabilities: [
       'Full subscriber registry with live session status',
       'One-click suspend, unsuspend, and plan change',
@@ -98,7 +98,7 @@ export const featureDetails: FeatureDetail[] = [
     icon: 'ReceiptText',
     description:
       'GST-compliant invoices auto-generated at renewal. Stripe, Razorpay, and UPI payment collection built in.',
-    body: 'Unify Wi-Fi automates the full billing cycle so your team never has to manually chase payments or generate invoices. When a subscriber\'s plan is due for renewal, an invoice is auto-generated, the payment gateway link is attached, and the subscriber is notified via WhatsApp. Payments are accepted through UPI, Razorpay, or Stripe — whichever your ISP uses. GST-compliant invoice PDFs are generated automatically and can be downloaded by the subscriber or your team. Failed or late payments are tracked, and subscribers are suspended automatically if they do not renew within the configured grace period.',
+    body: "Unify Wi-Fi automates the full billing cycle so your team never has to manually chase payments or generate invoices. When a subscriber's plan is due for renewal, an invoice is auto-generated, the payment gateway link is attached, and the subscriber is notified via WhatsApp. Payments are accepted through UPI, Razorpay, or Stripe — whichever your ISP uses. GST-compliant invoice PDFs are generated automatically and can be downloaded by the subscriber or your team. Failed or late payments are tracked, and subscribers are suspended automatically if they do not renew within the configured grace period.",
     capabilities: [
       'Automatic invoice generation at renewal date',
       'GST-compliant PDF invoice with your ISP branding',
@@ -164,7 +164,7 @@ export const featureDetails: FeatureDetail[] = [
     icon: 'Building2',
     description:
       'Custom domain, custom brand, full isolation. LCO partners manage their own subscribers without seeing your infrastructure.',
-    body: 'If you work with LCO (Local Cable Operator) partners who handle last-mile subscriber connections, Unify Wi-Fi\'s white-label reseller portal gives each partner their own branded management dashboard. The portal runs on your LCO\'s own domain, shows their logo, and is completely isolated — they cannot see your other partners or your master infrastructure. Each LCO can add subscribers, manage plans, collect payments, and generate reports independently. You retain master-level visibility across all resellers from the parent dashboard. This is the fastest way to scale your ISP through a partner network without building separate infrastructure for each LCO.',
+    body: "If you work with LCO (Local Cable Operator) partners who handle last-mile subscriber connections, Unify Wi-Fi's white-label reseller portal gives each partner their own branded management dashboard. The portal runs on your LCO's own domain, shows their logo, and is completely isolated — they cannot see your other partners or your master infrastructure. Each LCO can add subscribers, manage plans, collect payments, and generate reports independently. You retain master-level visibility across all resellers from the parent dashboard. This is the fastest way to scale your ISP through a partner network without building separate infrastructure for each LCO.",
     capabilities: [
       'Fully isolated portal per LCO partner',
       'Custom domain and brand per reseller (white-label)',
@@ -184,8 +184,7 @@ export const featureDetails: FeatureDetail[] = [
     title: 'Hardware Integrations & API',
     eyebrow: 'Connectivity & extensibility',
     icon: 'Plug',
-    description:
-      'Works with MikroTik via standard RADIUS. REST API for custom integrations.',
+    description: 'Works with MikroTik via standard RADIUS. REST API for custom integrations.',
     body: 'Unify Wi-Fi connects to MikroTik routers via the standard RADIUS protocol — the same protocol RouterOS has supported for over a decade. There are no proprietary agents, no custom firmware, and no changes to your existing router configuration beyond three RADIUS settings. For teams building custom integrations — billing apps, CRM connections, or custom monitoring dashboards — Unify provides a REST API covering subscriber management, plan assignment, session data, and billing events. The API is documented and authenticated with per-token scoped access.',
     capabilities: [
       'MikroTik RADIUS integration via standard RFC 2865/2866',

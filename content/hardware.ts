@@ -15,7 +15,7 @@
 export const hardware = {
   eyebrow: 'Official hardware partner',
   heading: 'Built for MikroTik. Optimised for MikroTik.',
-  lead: 'Unify Wi-Fi is purpose-built around MikroTik\'s RouterOS. Connect your existing router in under 10 minutes — no other hardware is needed.',
+  lead: "Unify Wi-Fi is purpose-built around MikroTik's RouterOS. Connect your existing router in under 10 minutes — no other hardware is needed.",
   setupTime: '10 min',
   setupLabel: 'Average setup time',
   features: [
@@ -26,6 +26,5 @@ export const hardware = {
     'MikroTik CHR supported',
     'No firmware changes required',
   ],
-  compatibilityNote:
-    'Works with any MikroTik router running RouterOS — from hEX to CCR2.',
+  compatibilityNote: 'Works with any MikroTik router running RouterOS — from hEX to CCR2.',
 } as const

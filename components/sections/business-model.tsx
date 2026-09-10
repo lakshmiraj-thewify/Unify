@@ -15,7 +15,7 @@ function OwnershipColumn({
 }) {
   return (
     <div className="flex flex-col gap-5 rounded-2xl border border-dark-line bg-navy-800/60 p-8 backdrop-blur-sm">
-      <p className={`text-sm font-bold uppercase tracking-[0.12em] ${accent}`}>{side}</p>
+      <p className={`text-sm font-bold tracking-[0.12em] uppercase ${accent}`}>{side}</p>
       <ul className="flex flex-col gap-3">
         {items.map((item) => (
           <li key={item} className="flex items-start gap-2.5">
@@ -45,16 +45,8 @@ export function BusinessModel() {
       />
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2">
-        <OwnershipColumn
-          side="You Own"
-          items={businessModel.youOwn}
-          accent="text-primary-400"
-        />
-        <OwnershipColumn
-          side="We Run"
-          items={businessModel.weRun}
-          accent="text-signal-400"
-        />
+        <OwnershipColumn side="You Own" items={businessModel.youOwn} accent="text-primary-400" />
+        <OwnershipColumn side="We Run" items={businessModel.weRun} accent="text-signal-400" />
       </div>
     </Section>
   )

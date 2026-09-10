@@ -107,6 +107,5 @@ export const blogArticles: BlogArticle[] = [
 export const blogMeta = {
   eyebrow: 'Knowledge Hub',
   heading: "The ISP Operator's Knowledge Hub",
-  lead:
-    'Practical guides, MikroTik configurations, and business strategies built specifically for Indian WISPs, LCOs, and network engineers.',
+  lead: 'Practical guides, MikroTik configurations, and business strategies built specifically for Indian WISPs, LCOs, and network engineers.',
 }

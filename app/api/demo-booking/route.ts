@@ -73,10 +73,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         { status: 422 },
       )
     }
-    return NextResponse.json(
-      { ok: false, error: 'Invalid request payload.' },
-      { status: 400 },
-    )
+    return NextResponse.json({ ok: false, error: 'Invalid request payload.' }, { status: 400 })
   }
 
   // 2. Attempt to create a calendar booking (or enter demo mode).
@@ -90,7 +87,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       slot: payload.slot,
     })
   } catch (err) {
-    console.error('[api/demo-booking] Unexpected error in bookDemoSlot:', err instanceof Error ? err.message : 'unknown')
+    console.error(
+      '[api/demo-booking] Unexpected error in bookDemoSlot:',
+      err instanceof Error ? err.message : 'unknown',
+    )
     return NextResponse.json(
       { ok: false, error: 'An unexpected error occurred. Please try again.' },
       { status: 500 },
@@ -100,7 +100,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   if (!calendarResult.ok) {
     console.error('[api/demo-booking] Calendar booking failed:', calendarResult.error)
     return NextResponse.json(
-      { ok: false, error: 'Could not create your demo booking. Please try again or email us directly.' },
+      {
+        ok: false,
+        error: 'Could not create your demo booking. Please try again or email us directly.',
+      },
       { status: 502 },
     )
   }
@@ -121,7 +124,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   } catch (err) {
     // Email failure must not prevent the booker from getting a response.
     // Log and continue — the booking itself succeeded (or is in demo mode).
-    console.error('[api/demo-booking] Unexpected error in sendEmail:', err instanceof Error ? err.message : 'unknown')
+    console.error(
+      '[api/demo-booking] Unexpected error in sendEmail:',
+      err instanceof Error ? err.message : 'unknown',
+    )
     emailResult = { ok: false, mode: 'demo', error: 'Notification email failed unexpectedly.' }
   }
 

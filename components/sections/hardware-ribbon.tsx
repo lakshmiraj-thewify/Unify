@@ -25,7 +25,7 @@ export function HardwareRibbon() {
       aria-labelledby="hardware-heading"
     >
       {/* Section label */}
-      <p className="text-center text-xs font-bold uppercase tracking-widest text-primary-600 mb-4">
+      <p className="mb-4 text-center text-xs font-bold tracking-widest text-primary-600 uppercase">
         {hardware.eyebrow}
       </p>
 
@@ -35,11 +35,11 @@ export function HardwareRibbon() {
           {/* Decorative background ring */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full border border-primary-100 opacity-60"
+            className="pointer-events-none absolute -top-20 -right-20 size-72 rounded-full border border-primary-100 opacity-60"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -left-16 -bottom-16 size-56 rounded-full border border-primary-100 opacity-40"
+            className="pointer-events-none absolute -bottom-16 -left-16 size-56 rounded-full border border-primary-100 opacity-40"
           />
 
           <div className="relative grid gap-10 px-6 py-10 sm:px-10 sm:py-12 lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-12">
@@ -75,7 +75,7 @@ export function HardwareRibbon() {
                 <span className="text-center text-sm font-extrabold tracking-tight text-ink">
                   MikroTik
                 </span>
-                <span className="rounded-full bg-ok-50 border border-ok-200 px-3 py-1 text-xs font-bold text-ok-700">
+                <span className="rounded-full border border-ok-200 bg-ok-50 px-3 py-1 text-xs font-bold text-ok-700">
                   Official partner
                 </span>
               </div>
@@ -85,10 +85,7 @@ export function HardwareRibbon() {
             <ul className="flex flex-col gap-2.5 lg:justify-center">
               {hardware.features.map((feat) => (
                 <li key={feat} className="flex items-start gap-2.5">
-                  <CheckCircle2
-                    aria-hidden="true"
-                    className="mt-0.5 size-4 shrink-0 text-ok-600"
-                  />
+                  <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ok-600" />
                   <span className="text-sm font-semibold text-ink-soft">{feat}</span>
                 </li>
               ))}

@@ -17,13 +17,8 @@ import { AnimatedStat } from '@/components/ui/animated-stat'
  */
 export function TrustStats() {
   return (
-    <Section
-      tone="dark"
-      spacing="compact"
-      divider="none"
-      aria-label="Platform trust statistics"
-    >
-      <dl className="grid grid-cols-2 gap-y-8 gap-x-6 lg:grid-cols-4">
+    <Section tone="dark" spacing="compact" divider="none" aria-label="Platform trust statistics">
+      <dl className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
         {/* 200+ Active ISPs & WISPs */}
         <AnimatedStat
           numericTarget={200}

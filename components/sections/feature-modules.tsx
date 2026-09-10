@@ -61,19 +61,15 @@ export function FeatureModules() {
           const Icon = iconMap[feature.icon as IconKey]
           return (
             <Reveal key={feature.slug} as="li" delay={i * 50}>
-              <Card
-                href={`/features/${feature.slug}`}
-                padding="md"
-                className="group h-full gap-3"
-              >
+              <Card href={`/features/${feature.slug}`} padding="md" className="group h-full gap-3">
                 <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600 transition-colors duration-200 group-hover:bg-primary-100 [&_svg]:size-[1.1rem]">
                   {Icon ? <Icon /> : null}
                 </span>
-                <div className="flex flex-col gap-1 flex-1">
+                <div className="flex flex-1 flex-col gap-1">
                   <h3 className="text-sm font-bold text-ink">{feature.title}</h3>
                   <p className="text-sm leading-relaxed text-ink-muted">{feature.description}</p>
                 </div>
-                <div className="flex items-center gap-1 text-xs font-semibold text-primary-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100 mt-1">
+                <div className="mt-1 flex items-center gap-1 text-xs font-semibold text-primary-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                   Learn more
                   <ArrowRight className="size-3.5" aria-hidden="true" />
                 </div>

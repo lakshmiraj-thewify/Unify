@@ -110,9 +110,7 @@ export function addMinutes(isoWithOffset: string, minutes: number): string {
 
   // Rebuild the string with the original offset preserved
   const [datePart] = isoWithOffset.split('T')
-  const endTime = end
-    .toISOString()
-    .slice(11, 19) // HH:MM:SS from UTC representation
+  const endTime = end.toISOString().slice(11, 19) // HH:MM:SS from UTC representation
 
   // Re-add the IST offset to the end time
   const endInIst = new Date(end.getTime() + IST_OFFSET_MINUTES * 60 * 1000)

@@ -23,9 +23,9 @@ export function HomeContactCta() {
             Show us your network.
             <br className="hidden sm:block" /> We&apos;ll show you the opportunity.
           </h2>
-          <p className={`${bodyText.lead} text-dark-fg-muted max-w-xl`}>
-            Book a live 30-minute demo. We&apos;ll walk through your exact setup — MikroTik, subscriber
-            count, and billing workflow — and show you how Unify fits in.
+          <p className={`${bodyText.lead} max-w-xl text-dark-fg-muted`}>
+            Book a live 30-minute demo. We&apos;ll walk through your exact setup — MikroTik,
+            subscriber count, and billing workflow — and show you how Unify fits in.
           </p>
         </div>
 

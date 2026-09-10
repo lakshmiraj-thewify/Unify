@@ -25,11 +25,13 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
         className={cn(
           'flex w-full items-center justify-between gap-4 py-5 text-left',
           'text-sm font-semibold text-ink transition-colors duration-200 hover:text-primary-700',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus-visible:rounded',
+          'focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus-visible:outline-none',
         )}
       >
         <span>
-          <span className="mr-2 font-mono text-xs text-ink-faint">{String(index + 1).padStart(2, '0')}</span>
+          <span className="mr-2 font-mono text-xs text-ink-faint">
+            {String(index + 1).padStart(2, '0')}
+          </span>
           {question}
         </span>
         <ChevronDown
@@ -55,17 +57,8 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
 
 export function FaqSection() {
   return (
-    <Section
-      id={sectionIds.faq}
-      tone="subtle"
-      divider="y"
-      aria-labelledby="faq-heading"
-    >
-      <SectionHeading
-        id="faq-heading"
-        eyebrow={faqSection.eyebrow}
-        title={faqSection.heading}
-      />
+    <Section id={sectionIds.faq} tone="subtle" divider="y" aria-labelledby="faq-heading">
+      <SectionHeading id="faq-heading" eyebrow={faqSection.eyebrow} title={faqSection.heading} />
 
       <div className="mx-auto mt-12 max-w-2xl">
         {homepageFaqs.map((item, i) => (

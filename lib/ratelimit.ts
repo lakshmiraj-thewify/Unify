@@ -120,9 +120,7 @@ function getIp(request: NextRequest): string {
 // Public API
 // ---------------------------------------------------------------------------
 
-export type RatelimitResult =
-  | { limited: false }
-  | { limited: true; retryAfter: number }
+export type RatelimitResult = { limited: false } | { limited: true; retryAfter: number }
 
 /**
  * Check whether the contact form rate limit is exceeded for this request.
@@ -130,9 +128,7 @@ export type RatelimitResult =
  * @returns `{ limited: false }` if the request should proceed.
  *          `{ limited: true, retryAfter }` if the caller should return 429.
  */
-export async function checkContactRatelimit(
-  request: NextRequest,
-): Promise<RatelimitResult> {
+export async function checkContactRatelimit(request: NextRequest): Promise<RatelimitResult> {
   if (!isRatelimitConfigured()) {
     console.warn(
       '[ratelimit] UPSTASH credentials absent — contact form rate limiting is INACTIVE (DEMO mode).',
@@ -157,9 +153,7 @@ export async function checkContactRatelimit(
  * @returns `{ limited: false }` if the request should proceed.
  *          `{ limited: true, retryAfter }` if the caller should return 429.
  */
-export async function checkDemoRatelimit(
-  request: NextRequest,
-): Promise<RatelimitResult> {
+export async function checkDemoRatelimit(request: NextRequest): Promise<RatelimitResult> {
   if (!isRatelimitConfigured()) {
     console.warn(
       '[ratelimit] UPSTASH credentials absent — demo booking rate limiting is INACTIVE (DEMO mode).',

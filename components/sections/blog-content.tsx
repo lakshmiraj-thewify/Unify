@@ -99,10 +99,15 @@ export function BlogContent() {
             <Badge variant="signal" tone="dark" size="md" dot className="mb-4">
               {blogMeta.eyebrow}
             </Badge>
-            <h1 className={cn(heading.display, 'w-full text-balance text-dark-fg max-w-readable')}>
+            <h1 className={cn(heading.display, 'w-full max-w-readable text-balance text-dark-fg')}>
               {blogMeta.heading}
             </h1>
-            <p className={cn(bodyText.lead, 'mt-5 w-full max-w-readable text-pretty text-dark-fg-muted')}>
+            <p
+              className={cn(
+                bodyText.lead,
+                'mt-5 w-full max-w-readable text-pretty text-dark-fg-muted',
+              )}
+            >
               {blogMeta.lead}
             </p>
           </div>
@@ -116,11 +121,11 @@ export function BlogContent() {
             <Card
               tone="light"
               padding="lg"
-              className="border-primary-200/80 shadow-lift bg-surface-subtle"
+              className="border-primary-200/80 bg-surface-subtle shadow-lift"
             >
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-3">
+                  <div className="mb-3 flex items-center gap-2">
                     <Badge variant="primary" size="sm">
                       Featured Guide
                     </Badge>
@@ -130,10 +135,10 @@ export function BlogContent() {
                     <span className="text-xs text-ink-faint">{featured.publishedDate}</span>
                   </div>
 
-                  <h2 className={cn(heading.h3, 'text-ink text-xl lg:text-2xl')}>
+                  <h2 className={cn(heading.h3, 'text-xl text-ink lg:text-2xl')}>
                     {featured.title}
                   </h2>
-                  <p className={cn(bodyText.base, 'text-ink-muted mt-3 max-w-3xl')}>
+                  <p className={cn(bodyText.base, 'mt-3 max-w-3xl text-ink-muted')}>
                     {featured.summary}
                   </p>
 
@@ -151,7 +156,7 @@ export function BlogContent() {
                   </div>
                 </div>
 
-                <div className="hidden lg:flex size-36 shrink-0 items-center justify-center rounded-2xl bg-primary-50 border border-primary-200 text-primary-600">
+                <div className="hidden size-36 shrink-0 items-center justify-center rounded-2xl border border-primary-200 bg-primary-50 text-primary-600 lg:flex">
                   <BookOpen className="size-16" />
                 </div>
               </div>
@@ -161,7 +166,11 @@ export function BlogContent() {
           {/* Filter Tags */}
           <div className="flex flex-col gap-3">
             <p className={cn(label.mono, 'text-ink-faint')}>Filter by topic</p>
-            <div role="group" aria-label="Filter articles by topic" className="flex flex-wrap items-center gap-2">
+            <div
+              role="group"
+              aria-label="Filter articles by topic"
+              className="flex flex-wrap items-center gap-2"
+            >
               {blogTags.map((tag) => {
                 const isSelected = selectedTag === tag
                 return (
@@ -171,10 +180,10 @@ export function BlogContent() {
                     aria-pressed={isSelected}
                     onClick={() => setSelectedTag(tag)}
                     className={cn(
-                      'inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold transition-[background-color,border-color,color] duration-200 ease-std cursor-pointer',
+                      'inline-flex cursor-pointer items-center rounded-lg px-3 py-1.5 text-xs font-semibold transition-[background-color,border-color,color] duration-200 ease-std',
                       isSelected
                         ? 'bg-primary-600 text-white shadow-primary'
-                        : 'bg-surface border border-line text-ink-muted hover:border-primary-300 hover:text-ink',
+                        : 'border border-line bg-surface text-ink-muted hover:border-primary-300 hover:text-ink',
                     )}
                   >
                     {tag}
@@ -191,33 +200,33 @@ export function BlogContent() {
                 key={article.slug}
                 tone="light"
                 padding="md"
-                className="flex flex-col justify-between hover:border-primary-300 hover:shadow-lift transition-[border-color,box-shadow]"
+                className="flex flex-col justify-between transition-[border-color,box-shadow] hover:border-primary-300 hover:shadow-lift"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="mb-3 flex items-center justify-between gap-2">
                     <Badge variant="signal" size="sm">
                       {article.category}
                     </Badge>
-                    <span className="text-xs text-ink-faint flex items-center gap-1">
+                    <span className="flex items-center gap-1 text-xs text-ink-faint">
                       <Clock className="size-3" />
                       {article.readTime}
                     </span>
                   </div>
 
-                  <h3 className={cn(heading.h4, 'text-ink hover:text-primary-700 transition-colors')}>
+                  <h3
+                    className={cn(heading.h4, 'text-ink transition-colors hover:text-primary-700')}
+                  >
                     {article.title}
                   </h3>
 
-                  <p className={cn(bodyText.small, 'text-ink-muted mt-2.5')}>
-                    {article.summary}
-                  </p>
+                  <p className={cn(bodyText.small, 'mt-2.5 text-ink-muted')}>{article.summary}</p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-line flex items-center justify-between">
+                <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
                   <button
                     type="button"
                     onClick={() => setActiveArticle(article)}
-                    className="text-xs font-bold text-primary-600 hover:text-primary-800 flex items-center gap-1 cursor-pointer"
+                    className="flex cursor-pointer items-center gap-1 text-xs font-bold text-primary-600 hover:text-primary-800"
                   >
                     View Overview <ArrowRight className="size-3" />
                   </button>
@@ -250,10 +259,10 @@ export function BlogContent() {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={`${dialogId}-title`}
-                className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+                className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4"
               >
-                <div className="relative w-full max-w-2xl rounded-2xl bg-surface border border-line shadow-lift p-6 sm:p-8 overflow-y-auto max-h-[90vh] pointer-events-auto">
-                  <div className="flex items-center justify-between gap-4 border-b border-line pb-4 mb-4">
+                <div className="pointer-events-auto relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-line bg-surface p-6 shadow-lift sm:p-8">
+                  <div className="mb-4 flex items-center justify-between gap-4 border-b border-line pb-4">
                     <div className="flex items-center gap-2">
                       <Badge variant="primary" size="sm">
                         {activeArticle.category}
@@ -270,7 +279,7 @@ export function BlogContent() {
                         type="button"
                         onClick={closeArticle}
                         aria-label="Close article preview"
-                        className="inline-flex size-8 items-center justify-center rounded-lg text-ink-muted hover:bg-surface-subtle hover:text-ink transition-colors"
+                        className="inline-flex size-8 items-center justify-center rounded-lg text-ink-muted transition-colors hover:bg-surface-subtle hover:text-ink"
                       >
                         <X className="size-4" aria-hidden="true" />
                       </button>
@@ -281,16 +290,14 @@ export function BlogContent() {
                     {activeArticle.title}
                   </h2>
 
-                  <p className={cn(bodyText.base, 'text-ink-soft mt-4')}>
-                    {activeArticle.summary}
-                  </p>
+                  <p className={cn(bodyText.base, 'mt-4 text-ink-soft')}>{activeArticle.summary}</p>
 
                   <div className="mt-6 rounded-xl border border-dashed border-line-strong bg-surface-subtle p-5">
                     <div className="flex items-center gap-2 text-ink">
                       <FileText className="size-5 text-primary-600" />
                       <span className="text-sm font-bold">Full Article Content Scheduled</span>
                     </div>
-                    <p className={cn(bodyText.small, 'text-ink-muted mt-2')}>
+                    <p className={cn(bodyText.small, 'mt-2 text-ink-muted')}>
                       Per the approved blueprint (Section 11), article titles and knowledge hub
                       topics are signed off, while comprehensive long-form publication text is
                       currently undergoing technical editorial review before production publication.

@@ -20,10 +20,15 @@ export function PricingContent() {
             <Badge variant="signal" tone="dark" size="md" dot className="mb-4">
               {pricingMeta.badge}
             </Badge>
-            <h1 className={cn(heading.display, 'w-full text-balance text-dark-fg max-w-readable')}>
+            <h1 className={cn(heading.display, 'w-full max-w-readable text-balance text-dark-fg')}>
               {pricingMeta.heading}
             </h1>
-            <p className={cn(bodyText.lead, 'mt-5 w-full max-w-readable text-pretty text-dark-fg-muted')}>
+            <p
+              className={cn(
+                bodyText.lead,
+                'mt-5 w-full max-w-readable text-pretty text-dark-fg-muted',
+              )}
+            >
               {pricingMeta.lead}
             </p>
           </div>
@@ -33,7 +38,7 @@ export function PricingContent() {
       <Section tone="subtle" spacing="default" aria-labelledby="pricing-tiers-heading" id="pricing">
         <div className="flex flex-col gap-16">
           {/* 3 Tier Pricing Cards */}
-          <div className="grid gap-8 lg:grid-cols-3 items-stretch">
+          <div className="grid items-stretch gap-8 lg:grid-cols-3">
             {pricingTiers.map((tier) => (
               <Card
                 key={tier.name}
@@ -64,7 +69,7 @@ export function PricingContent() {
                   </div>
 
                   {/* Price display with strict PENDING support */}
-                  <div className="my-6 pb-6 border-b border-line">
+                  <div className="my-6 border-b border-line pb-6">
                     {isProvided(tier.monthlyPrice) ? (
                       <div className="flex items-baseline gap-1">
                         <span className="text-sm font-semibold text-ink-muted">₹</span>
@@ -101,7 +106,7 @@ export function PricingContent() {
                         <li key={feature} className="flex items-start gap-2 text-sm text-ink-soft">
                           <Check
                             aria-hidden="true"
-                            className="size-4 shrink-0 text-ok-600 mt-0.5"
+                            className="mt-0.5 size-4 shrink-0 text-ok-600"
                           />
                           <span>{feature}</span>
                         </li>
@@ -125,10 +130,10 @@ export function PricingContent() {
           </div>
 
           {/* Pricing Guarantee / Trust Banner */}
-          <div className="rounded-2xl border border-line bg-surface p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-line bg-surface p-6 sm:flex-row sm:p-8">
             <div>
               <h3 className={cn(heading.h4, 'text-ink')}>30-Day Risk-Free Trial</h3>
-              <p className={cn(bodyText.small, 'text-ink-muted mt-1 max-w-xl')}>
+              <p className={cn(bodyText.small, 'mt-1 max-w-xl text-ink-muted')}>
                 Connect your router today. Test with real subscriber PPPoE/Hotspot sessions in our
                 cloud environment. No payment details required.
               </p>
@@ -139,7 +144,7 @@ export function PricingContent() {
           </div>
 
           {/* Pricing FAQ */}
-          <div className="pt-8 border-t border-line">
+          <div className="border-t border-line pt-8">
             <SectionHeading
               eyebrow="Pricing FAQ"
               title="Frequently asked questions about pricing"
@@ -148,14 +153,14 @@ export function PricingContent() {
               size="h2"
               className="mb-10"
             />
-            <div className="mx-auto max-w-readable grid gap-4">
+            <div className="mx-auto grid max-w-readable gap-4">
               {pricingFaqs.map((faq) => (
                 <Card key={faq.question} padding="md" tone="light">
                   <div className="flex items-start gap-3">
-                    <HelpCircle className="size-5 shrink-0 text-primary-600 mt-0.5" />
+                    <HelpCircle className="mt-0.5 size-5 shrink-0 text-primary-600" />
                     <div>
                       <h4 className={cn(heading.h4, 'text-ink')}>{faq.question}</h4>
-                      <p className={cn(bodyText.small, 'text-ink-muted mt-2')}>{faq.answer}</p>
+                      <p className={cn(bodyText.small, 'mt-2 text-ink-muted')}>{faq.answer}</p>
                     </div>
                   </div>
                 </Card>

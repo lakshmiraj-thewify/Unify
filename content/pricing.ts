@@ -98,6 +98,5 @@ export const pricingFaqs = [
 export const pricingMeta = {
   badge: 'Free 30-day trial · No credit card required',
   heading: 'Transparent pricing that scales with your subscriber base',
-  lead:
-    'No hidden setup fees, no expensive server appliances. Predictable cloud RADIUS and ISP billing tailored for Indian WISPs and LCOs.',
+  lead: 'No hidden setup fees, no expensive server appliances. Predictable cloud RADIUS and ISP billing tailored for Indian WISPs and LCOs.',
 }

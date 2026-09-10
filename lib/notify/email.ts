@@ -53,11 +53,7 @@ export type EmailResult =
 // The three addresses below are the approved defaults from the task brief.
 // ---------------------------------------------------------------------------
 
-const DEFAULT_RECIPIENTS = [
-  'anusha@thewify.com',
-  'Subbu@thewify.com',
-  'rakesh@thewify.com',
-]
+const DEFAULT_RECIPIENTS = ['anusha@thewify.com', 'Subbu@thewify.com', 'rakesh@thewify.com']
 
 function getRecipients(): string[] {
   const raw = process.env['LEAD_NOTIFY_TO']

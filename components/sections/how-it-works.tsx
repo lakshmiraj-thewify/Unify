@@ -1,10 +1,4 @@
-import {
-  ClipboardList,
-  LayoutDashboard,
-  RefreshCcw,
-  Router,
-  Wifi,
-} from 'lucide-react'
+import { ClipboardList, LayoutDashboard, RefreshCcw, Router, Wifi } from 'lucide-react'
 import { Reveal } from '@/components/ui/reveal'
 import { Section } from '@/components/ui/section'
 import { SectionHeading } from '@/components/ui/section-heading'
@@ -64,14 +58,16 @@ export function HowItWorks() {
                     {Icon ? <Icon /> : null}
                   </span>
 
-                  <span className="text-xs font-bold uppercase tracking-widest text-primary-600 lg:mt-3">
+                  <span className="text-xs font-bold tracking-widest text-primary-600 uppercase lg:mt-3">
                     Step {step.step}
                   </span>
                 </div>
 
                 <div className="lg:mt-1">
                   <h3 className="text-base font-bold text-ink">{step.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{step.description}</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">
+                    {step.description}
+                  </p>
                 </div>
               </div>
             </Reveal>

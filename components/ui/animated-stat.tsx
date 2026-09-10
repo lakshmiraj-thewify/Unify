@@ -105,9 +105,7 @@ export function AnimatedStat({
   }, [numericTarget, duration])
 
   const formatted =
-    decimals > 0
-      ? displayValue.toFixed(decimals)
-      : Math.floor(displayValue).toLocaleString('en-IN')
+    decimals > 0 ? displayValue.toFixed(decimals) : Math.floor(displayValue).toLocaleString('en-IN')
 
   return (
     <div

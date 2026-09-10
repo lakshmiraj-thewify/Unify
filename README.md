@@ -14,18 +14,18 @@ copy, stats, pricing state and section order come from that document and are not
 
 **Phase 1 of 10 complete.** Foundation only — the homepage is a `noindex` placeholder until Phase 2.
 
-| Phase | Scope                                            | State      |
-| ----- | ------------------------------------------------ | ---------- |
-| 1     | Scaffold, tokens, fonts, UI primitives, shell    | done       |
-| 2     | Header / footer / hero / hero console / hardware | done       |
-| 3     | Pillars, trust stats, how it works               | done       |
-| 4     | Features, ISP solutions                          | done       |
-| 5     | Savings calculator, business model, test tooling | done       |
-| 6     | Architecture, FAQ, closing CTA                   | done       |
-| 7     | `/pricing`, `/blog`, `/contact`                  | done       |
+| Phase | Scope                                            | State       |
+| ----- | ------------------------------------------------ | ----------- |
+| 1     | Scaffold, tokens, fonts, UI primitives, shell    | done        |
+| 2     | Header / footer / hero / hero console / hardware | done        |
+| 3     | Pillars, trust stats, how it works               | done        |
+| 4     | Features, ISP solutions                          | done        |
+| 5     | Savings calculator, business model, test tooling | done        |
+| 6     | Architecture, FAQ, closing CTA                   | done        |
+| 7     | `/pricing`, `/blog`, `/contact`                  | done        |
 | 8     | Interactions + integration interfaces            | in progress |
-| 9     | Responsive refinement                            | queued     |
-| 10    | A11y, performance, SEO, CSP, JSON-LD, final QA   | queued     |
+| 9     | Responsive refinement                            | queued      |
+| 10    | A11y, performance, SEO, CSP, JSON-LD, final QA   | queued      |
 
 Each phase is reviewed and approved before the next begins.
 

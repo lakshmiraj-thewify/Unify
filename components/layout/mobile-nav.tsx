@@ -123,7 +123,10 @@ export function MobileNav() {
             <p className={`${label.mono} mb-2 text-[var(--color-ink-faint)]`}>Navigate</p>
             <ul className="flex flex-col">
               {primaryNav.map((item) => (
-                <li key={item.label} className="border-b border-[var(--color-line)] last:border-b-0">
+                <li
+                  key={item.label}
+                  className="border-b border-[var(--color-line)] last:border-b-0"
+                >
                   <Button
                     href={item.href}
                     variant="ghost"

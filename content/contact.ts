@@ -58,12 +58,7 @@ export const contactFaqs = [
   },
 ]
 
-export const demoTimeSlots = [
-  '10:00 AM IST',
-  '11:30 AM IST',
-  '2:00 PM IST',
-  '4:00 PM IST',
-] as const
+export const demoTimeSlots = ['10:00 AM IST', '11:30 AM IST', '2:00 PM IST', '4:00 PM IST'] as const
 
 export const subscriberRanges = [
   'Under 250 subscribers',
@@ -84,6 +79,5 @@ export const hardwareOptions = [
 export const contactMeta = {
   eyebrow: 'Direct Contact & Demo',
   heading: "Show us your network. We'll show you the opportunity.",
-  lead:
-    'Schedule a 20-minute live demonstration tailored to your router topology and billing requirements, or send our engineering team a direct message.',
+  lead: 'Schedule a 20-minute live demonstration tailored to your router topology and billing requirements, or send our engineering team a direct message.',
 }
