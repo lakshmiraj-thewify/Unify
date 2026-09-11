@@ -11,12 +11,12 @@ const tones = {
   light: 'bg-surface text-ink border-line',
   subtle: 'bg-surface-subtle text-ink border-line',
   tint: 'bg-surface-tint text-ink border-line',
-  dark: 'bg-navy-900 text-dark-fg border-dark-line [--focus-ring:var(--color-signal-300)]',
+  dark: 'bg-navy-900 text-dark-fg border-dark-line [--focus-ring:var(--color-primary-300)]',
 } as const
 
 const spacings = {
-  default: 'py-20 lg:py-28',
-  compact: 'py-12 lg:py-16',
+  default: 'py-14 lg:py-[7.5rem]',
+  compact: 'py-10 lg:py-16',
   tight: 'py-8 lg:py-10',
   flush: '',
 } as const

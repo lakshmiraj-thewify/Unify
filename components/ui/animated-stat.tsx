@@ -120,7 +120,7 @@ export function AnimatedStat({
         data-numeric=""
         aria-label={`${numericTarget}${suffix} ${labelText}`}
         className={cn(
-          'leading-none font-extrabold tracking-tight tabular-nums',
+          'leading-none font-bold tracking-tight tabular-nums',
           valueSizes[size],
           valueTones[tone],
         )}

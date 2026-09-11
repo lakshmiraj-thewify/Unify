@@ -73,9 +73,8 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
   return (
     <>
       {/* Dark header band */}
-      <Section tone="dark" spacing="flush" contained={false} className="relative overflow-hidden">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-hero-glow" />
-        <div className="relative mx-auto w-full max-w-page px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <Section tone="dark" spacing="flush" contained={false}>
+        <div className="mx-auto w-full max-w-page px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
           {/* Back link */}
           <Link
             href="/#features"
@@ -87,15 +86,15 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
 
           <div className="flex flex-col items-start gap-5 lg:flex-row lg:items-center lg:gap-8">
             {/* Icon */}
-            <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary-600 shadow-primary lg:size-20">
+            <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl border border-primary-400/40 bg-primary-500 lg:size-20">
               {Icon ? <Icon className="size-8 text-white lg:size-10" strokeWidth={1.5} /> : null}
             </div>
 
             <div>
-              <p className="mb-2 text-xs font-bold tracking-widest text-signal-400 uppercase">
+              <p className="mb-2 text-xs font-bold tracking-widest text-primary-400 uppercase">
                 {feature.eyebrow}
               </p>
-              <h1 className="text-3xl font-extrabold tracking-tight text-dark-fg lg:text-4xl">
+              <h1 className="text-3xl font-bold font-heading tracking-tight text-dark-fg lg:text-4xl">
                 {feature.title}
               </h1>
               <p className="mt-3 max-w-2xl text-lg leading-relaxed text-dark-fg-muted">
@@ -113,23 +112,23 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
             {/* Main content */}
             <div className="flex flex-col gap-8">
               {/* Overview */}
-              <Card tone="light" padding="lg" className="border-line shadow-card">
-                <h2 className="mb-3 text-lg font-bold text-ink">Overview</h2>
+              <Card tone="light" padding="lg" className="rounded-2xl border border-line bg-white shadow-card p-6 sm:p-8">
+                <h2 className="mb-3 text-lg font-bold font-heading text-ink">Overview</h2>
                 <p className="text-base leading-relaxed text-ink-muted">{feature.body}</p>
               </Card>
 
               {/* Capabilities */}
               <div>
-                <h2 className="mb-4 text-lg font-bold text-ink">What it includes</h2>
+                <h2 className="mb-4 text-lg font-bold font-heading text-ink">What it includes</h2>
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {feature.capabilities.map((cap, i) => (
                     <Reveal key={cap} as="li" delay={i * 40}>
-                      <div className="flex items-start gap-3 rounded-xl border border-line bg-surface p-4 shadow-card">
+                      <div className="flex items-start gap-3 rounded-xl border border-line bg-white p-4 shadow-card">
                         <CheckCircle2
                           aria-hidden="true"
-                          className="mt-0.5 size-4 shrink-0 text-ok-600"
+                          className="mt-0.5 size-4 shrink-0 text-primary-500"
                         />
-                        <span className="text-sm font-semibold text-ink-soft">{cap}</span>
+                        <span className="text-sm font-medium text-ink-soft">{cap}</span>
                       </div>
                     </Reveal>
                   ))}
@@ -140,20 +139,20 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
             {/* Sidebar */}
             <aside className="flex flex-col gap-6">
               {/* Who it helps */}
-              <Card tone="light" padding="md" className="border-line shadow-card">
-                <h2 className="mb-3 text-sm font-bold tracking-wider text-ink-muted uppercase">
+              <Card tone="light" padding="md" className="rounded-2xl border border-line bg-white shadow-card p-6">
+                <h2 className="mb-3 text-xs font-bold tracking-wider text-ink-muted uppercase">
                   Who this helps
                 </h2>
                 <p className="text-sm leading-relaxed text-ink-soft">{feature.whoItHelps}</p>
               </Card>
 
               {/* CTA */}
-              <Card tone="dark" padding="md" className="border-dark-line">
+              <Card tone="dark" padding="md" className="rounded-2xl border border-white/10 bg-navy-800/90 shadow-card p-6">
                 <p className="mb-1 text-sm font-bold text-dark-fg">Ready to see it live?</p>
                 <p className="mb-4 text-xs text-dark-fg-muted">
                   Book a 20-minute demo and we&apos;ll walk you through this module in action.
                 </p>
-                <Button href="/contact" size="sm" className="w-full justify-center">
+                <Button href="/contact" size="sm" variant="primary" className="w-full justify-center">
                   Book a demo
                 </Button>
               </Card>
@@ -161,7 +160,7 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
               {/* Related */}
               {related.length > 0 && (
                 <div>
-                  <h2 className="mb-3 text-sm font-bold tracking-wider text-ink-muted uppercase">
+                  <h2 className="mb-3 text-xs font-bold tracking-wider text-ink-muted uppercase">
                     Related modules
                   </h2>
                   <ul className="flex flex-col gap-2">
@@ -171,12 +170,12 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
                         <li key={rel.slug}>
                           <Link
                             href={`/features/${rel.slug}`}
-                            className="group flex items-center gap-3 rounded-xl border border-line bg-surface p-3 shadow-card transition-[border-color,box-shadow] duration-200 hover:border-primary-300 hover:shadow-lift"
+                            className="group flex items-center gap-3 rounded-xl border border-line bg-white p-3.5 shadow-card transition-colors duration-200 hover:border-primary-400 hover:text-primary-600"
                           >
-                            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600 group-hover:bg-primary-100">
+                            <span className="flex size-8 shrink-0 items-center justify-center text-primary-600">
                               {RelIcon ? <RelIcon className="size-4" aria-hidden="true" /> : null}
                             </span>
-                            <span className="text-sm font-semibold text-ink group-hover:text-primary-700">
+                            <span className="text-sm font-semibold text-ink group-hover:text-primary-600">
                               {rel.title}
                             </span>
                           </Link>
@@ -190,8 +189,8 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* Bottom back link */}
-          <div className="mt-10">
-            <Button href="/#features" variant="secondary" size="md" leadingIcon={<ArrowLeft />}>
+          <div className="mt-12">
+            <Button href="/#features" variant="outline" size="md" leadingIcon={<ArrowLeft />}>
               Back to all features
             </Button>
           </div>

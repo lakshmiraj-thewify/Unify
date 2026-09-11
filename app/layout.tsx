@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google'
+import { Inter, JetBrains_Mono, Sora } from 'next/font/google'
 import type { ReactNode } from 'react'
 import { FloatingContact } from '@/components/layout/floating-contact'
 import { Footer } from '@/components/layout/footer'
@@ -10,14 +10,22 @@ import { OG_IMAGE_URL } from '@/lib/seo'
 import './globals.css'
 
 /*
- * Both faces are variable fonts, self-hosted by next/font at build time: no
- * request to Google at runtime, `display: swap`, and a metric-adjusted fallback
- * so swapping in the real face does not shift layout.
+ * Sora for headings, Inter for body. Both are variable fonts, self-hosted by
+ * next/font at build time: no request to Google at runtime, `display: swap`,
+ * and a metric-adjusted fallback so swapping in the real face does not shift
+ * layout.
  */
-const sans = Plus_Jakarta_Sans({
+const heading = Sora({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-sora',
+})
+
+const body = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-plus-jakarta',
+  variable: '--font-inter',
 })
 
 const mono = JetBrains_Mono({
@@ -60,15 +68,15 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#070f1e' },
+    { media: '(prefers-color-scheme: light)', color: '#FAFAF8' },
+    { media: '(prefers-color-scheme: dark)', color: '#1C1C1C' },
   ],
   colorScheme: 'light',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-IN" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en-IN" className={`${heading.variable} ${body.variable} ${mono.variable}`}>
       <body className="flex min-h-dvh flex-col bg-surface text-ink antialiased">
         <SkipLink />
         <Header />

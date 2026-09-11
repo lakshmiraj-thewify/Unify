@@ -16,12 +16,17 @@ const iconMap = {
 
 type IconKey = keyof typeof iconMap
 
+/**
+ * ISP Solutions — blueprint Section 7.
+ * Operator segment solutions as clean white cards with circular icon badges.
+ */
 export function IspSolutions() {
   return (
     <Section
       id={sectionIds.solutions}
-      tone="subtle"
-      divider="y"
+      tone="light"
+      spacing="default"
+      divider="bottom"
       aria-labelledby="solutions-heading"
     >
       <SectionHeading
@@ -31,39 +36,37 @@ export function IspSolutions() {
         lead={solutionsSection.lead}
       />
 
-      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
         {ispSolutions.map((sol, i) => {
           const Icon = iconMap[sol.icon as IconKey]
-          const isLast = i === ispSolutions.length - 1
           return (
-            <Reveal key={sol.segment} as="li" delay={i * 60}>
+            <Reveal key={sol.segment} as="div" delay={i * 70}>
               <Card
-                padding="md"
-                className={[
-                  'h-full gap-4',
-                  // Centre the 5th card on desktop when it's the only item in its row
-                  isLast ? 'sm:col-span-2 lg:col-span-1' : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
+                tone="light"
+                padding="none"
+                interactive
+                className="h-full flex flex-col justify-between p-6"
               >
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600 [&_svg]:size-5">
-                    {Icon ? <Icon /> : null}
+                <div>
+                  <span className="inline-flex size-12 items-center justify-center rounded-full bg-primary-50 text-primary-500 border border-primary-100 group-hover:bg-primary-500 group-hover:text-white transition-colors">
+                    {Icon ? <Icon className="size-6" /> : null}
                   </span>
-                  <div>
-                    <span className="text-xs font-bold tracking-widest text-primary-600 uppercase">
-                      {sol.segment}
-                    </span>
-                    <h3 className="text-sm font-bold text-ink">{sol.tagline}</h3>
-                  </div>
+
+                  <p className="mt-5 font-mono text-[0.6875rem] font-semibold tracking-[0.12em] text-primary-500 uppercase">
+                    {sol.segment}
+                  </p>
+                  <h3 className="mt-2 font-heading text-base font-semibold text-ink group-hover:text-primary-500 transition-colors">
+                    {sol.tagline}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+                    {sol.description}
+                  </p>
                 </div>
-                <p className="text-sm leading-relaxed text-ink-muted">{sol.description}</p>
               </Card>
             </Reveal>
           )
         })}
-      </ul>
+      </div>
     </Section>
   )
 }

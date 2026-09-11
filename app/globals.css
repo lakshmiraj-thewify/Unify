@@ -22,103 +22,126 @@
 /* ===========================================================================
    Unify Wi-Fi — design tokens
    ---------------------------------------------------------------------------
-   Family alignment: the blue/cyan/navy hues, tinted shadows and 8px-ish radius
-   rhythm are shared with thewify.com and guestwifi.thewify.com so Unify reads
-   as the same house.
-   Sibling distinction: navy is used as *structure* (not just a footer), the
-   colour contract is semantic and closed (ink / surface / line / primary /
-   signal / ok / warn / danger — no decorative accents), radii are capped at
-   16px, and numeric data is always set in mono.
-   Every colour below is one of the two family sites' measured values or a
-   tonal step inside those ramps. Nothing is a new brand decision.
+   Warm white + orange accent palette.
+   Body is warm off-white (#FAFAF8), cards are pure white, orange (#E8590C) is
+   reserved for CTAs, eyebrows, and interactive highlights. Dark bands use
+   charcoal (#1C1C1C) — not navy blue. Teal (#0D9488) is used sparingly for
+   success states and checkmarks only.
    =========================================================================== */
 
 @theme {
   /* ── Typography ───────────────────────────────────────────────────────── */
+  --font-heading:
+    var(--font-sora), 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sans:
-    var(--font-plus-jakarta), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-    sans-serif;
+    var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* ── Ink: text on light surfaces ──────────────────────────────────────── */
-  --color-ink: #0f172a;
-  --color-ink-soft: #334155;
-  --color-ink-muted: #52647f;
-  --color-ink-faint: #7c8ca5;
+  /* ── Ink: near-black charcoal text ───────────────────────────────────── */
+  --color-ink: #1C1C1C;
+  --color-ink-soft: #2D2D2D;
+  --color-ink-muted: #6B7280;
+  --color-ink-faint: #9CA3AF;
 
-  /* ── Surfaces + hairlines: light bands ────────────────────────────────── */
-  --color-surface: #ffffff;
-  --color-surface-subtle: #f8fafc;
-  --color-surface-tint: #f5f8fc;
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
+  /* ── Surfaces: warm off-white base ───────────────────────────────────── */
+  --color-surface: #FAFAF8;
+  --color-surface-subtle: #F3F0EB;
+  --color-surface-tint: #F3F0EB;
+  --color-line: #E8E4DE;
+  --color-line-strong: #D1CBC2;
 
-  /* ── Navy: structural dark bands, console chrome, footer ──────────────── */
-  --color-navy-950: #070f1e;
-  --color-navy-900: #0b1424;
-  --color-navy-800: #101c33;
-  --color-navy-700: #17263f;
-  --color-navy-600: #24344f;
+  /* ── Dark bands: charcoal — hero, footer, CTA sections ───────────────── */
+  --color-navy-950: #1C1C1C;
+  --color-navy-900: #1C1C1C;
+  --color-navy-800: #2D2D2D;
+  --color-navy-700: #3A3A3A;
+  --color-navy-600: #525252;
 
   /* ── Foreground + hairlines on dark ───────────────────────────────────── */
-  --color-dark-fg: #e8eef7;
-  --color-dark-fg-muted: #a3b6d1;
-  --color-dark-line: #1e3050;
-  --color-dark-line-strong: #2b4066;
+  --color-dark-fg: #FFFFFF;
+  --color-dark-fg-muted: #A3A3A3;
+  --color-dark-line: #404040;
+  --color-dark-line-strong: #525252;
 
-  /* ── Primary: the family blue. Actions, links, emphasis ───────────────── */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
-  --color-primary-950: #172554;
+  /* ── Primary: warm orange palette (#E8590C) ──────────────────────────── */
+  --color-primary-50: #FFF7ED;
+  --color-primary-100: #FFEDD5;
+  --color-primary-200: #FED7AA;
+  --color-primary-300: #FDBA74;
+  --color-primary-400: #FB923C;
+  --color-primary-500: #E8590C;
+  --color-primary-600: #C94A08;
+  --color-primary-700: #9A3412;
+  --color-primary-800: #7C2D12;
+  --color-primary-900: #431407;
+  --color-primary-950: #27130A;
 
-  /* ── Signal: cyan. Reserved for live / real-time / throughput ─────────── */
-  --color-signal-50: #ecfeff;
-  --color-signal-100: #cffafe;
-  --color-signal-200: #a5f3fc;
-  --color-signal-300: #67e8f9;
-  --color-signal-400: #22d3ee;
-  --color-signal-500: #06b6d4;
-  --color-signal-600: #0891b2;
-  --color-signal-700: #0e7490;
+  /* ── Secondary: alias to primary (golden amber removed) ──────────────── */
+  --color-secondary-50: #FFF7ED;
+  --color-secondary-100: #FFEDD5;
+  --color-secondary-200: #FED7AA;
+  --color-secondary-300: #FDBA74;
+  --color-secondary-400: #FB923C;
+  --color-secondary-500: #E8590C;
+  --color-secondary-600: #C94A08;
+  --color-secondary-700: #9A3412;
+  --color-secondary-800: #7C2D12;
+  --color-secondary-900: #431407;
+  --color-secondary-950: #27130A;
 
-  /* ── Status: ok / warn / danger. Never decorative ─────────────────────── */
-  --color-ok-50: #ecfdf5;
-  --color-ok-200: #a7f3d0;
-  --color-ok-500: #10b981;
-  --color-ok-600: #059669;
-  --color-ok-700: #047857;
-  --color-warn-50: #fffbeb;
-  --color-warn-200: #fde68a;
-  --color-warn-500: #f59e0b;
-  --color-warn-600: #d97706;
-  --color-warn-700: #b45309;
-  --color-danger-50: #fef2f2;
-  --color-danger-200: #fecaca;
-  --color-danger-500: #ef4444;
-  --color-danger-600: #dc2626;
-  --color-danger-700: #b91c1c;
+  /* ── Accent: alias to primary ────────────────────────────────────────── */
+  --color-accent-50: #FFF7ED;
+  --color-accent-100: #FFEDD5;
+  --color-accent-200: #FED7AA;
+  --color-accent-300: #FDBA74;
+  --color-accent-400: #FB923C;
+  --color-accent-500: #E8590C;
+  --color-accent-600: #C94A08;
 
-  /* ── Radii: capped at 16px. No pill-shaped cards ──────────────────────── */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
-  --radius-xl: 12px;
+  /* ── Signal: teal for status and live indicators ─────────────────────── */
+  --color-signal-50: #F0FDFA;
+  --color-signal-100: #CCFBF1;
+  --color-signal-200: #99F6E4;
+  --color-signal-300: #5EEAD4;
+  --color-signal-400: #2DD4BF;
+  --color-signal-500: #14B8A6;
+  --color-signal-600: #0D9488;
+  --color-signal-700: #0F766E;
+
+  /* ── Status: ok (teal) / warn / danger. Never decorative ─────────────── */
+  --color-ok-50: #F0FDFA;
+  --color-ok-200: #99F6E4;
+  --color-ok-500: #0D9488;
+  --color-ok-600: #0F766E;
+  --color-ok-700: #115E59;
+  --color-warn-50: #FFFBEB;
+  --color-warn-200: #FDE68A;
+  --color-warn-500: #F59E0B;
+  --color-warn-600: #D97706;
+  --color-warn-700: #B45309;
+  --color-danger-50: #FEF2F2;
+  --color-danger-200: #FECACA;
+  --color-danger-500: #EF4444;
+  --color-danger-600: #DC2626;
+  --color-danger-700: #B91C1C;
+
+  /* ── Radii ───────────────────────────────────────────────────────────── */
+  --radius-xs: 0.0625rem;
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-2xl: 16px;
+  --radius-card: 16px;
+  --radius-pill: 9999px;
 
-  /* ── Shadows: tinted, never neutral grey ──────────────────────────────── */
-  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.06);
-  --shadow-lift: 0 12px 24px -8px rgb(15 23 42 / 0.12);
-  --shadow-primary: 0 8px 18px rgb(37 99 235 / 0.22);
-  --shadow-signal: 0 8px 18px rgb(6 182 212 / 0.22);
-  --shadow-console: 0 32px 64px -24px rgb(7 15 30 / 0.45);
+  /* ── Shadows: soft, warm ─────────────────────────────────────────────── */
+  --shadow-card: 0 4px 20px rgba(28, 28, 28, 0.05);
+  --shadow-lift: 0 8px 30px rgba(28, 28, 28, 0.08);
+  --shadow-visp: 0 4px 20px rgba(28, 28, 28, 0.05);
+  --shadow-heavy: 0 8px 30px rgba(28, 28, 28, 0.08);
+  --shadow-primary: 0 4px 14px rgba(232, 89, 12, 0.20);
+  --shadow-accent: 0 4px 14px rgba(232, 89, 12, 0.20);
 
   /* ── Motion ───────────────────────────────────────────────────────────── */
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
@@ -138,8 +161,6 @@
     }
   }
 
-  /* The trailing bar of a telemetry sparkline, to suggest a reading still in
-     progress. Opacity only — no transform, so it never triggers layout. */
   --animate-bar-live: bar-live 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 
   @keyframes bar-live {
@@ -167,9 +188,9 @@
     /* Height of the fixed header. Drives anchor scroll offsets. */
     --header-h: 4rem;
 
-    /* Focus ring colour. Dark bands override this so the ring stays visible
-       against navy — see the `dark` tone in components/ui/section.tsx. */
-    --focus-ring: var(--color-primary-600);
+    /* Focus ring colour — orange accent. Dark bands override this so the
+       ring stays visible against charcoal. */
+    --focus-ring: var(--color-primary-500);
   }
 
   @media (width >= 64rem) {
@@ -210,7 +231,7 @@
   }
 
   /* Numeric data is mono + tabular everywhere, so figures never jitter as
-     they change. This is a deliberate sibling marker vs the family sites. */
+     they change. */
   [data-numeric] {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
@@ -222,62 +243,42 @@
    Custom utilities
    =========================================================================== */
 
-/* The one gradient in the system. Used for the logo tile, icon chips and
-   selective headline emphasis — never as a full-section background. */
+/* Warm gradient — charcoal to orange, used sparingly. */
 @utility bg-brand-gradient {
   background-image: linear-gradient(
     135deg,
-    var(--color-primary-900) 0%,
+    var(--color-navy-900) 0%,
     var(--color-primary-600) 55%,
-    var(--color-signal-500) 100%
+    var(--color-primary-400) 100%
   );
 }
 
 @utility text-brand-gradient {
   background-image: linear-gradient(
     135deg,
-    var(--color-primary-800) 0%,
-    var(--color-primary-600) 45%,
-    var(--color-signal-600) 100%
+    var(--color-ink) 0%,
+    var(--color-primary-500) 45%,
+    var(--color-primary-400) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
-/*
- * The same emphasis on a navy band. The light-surface ramp bottoms out around
- * primary-800, which is nearly invisible against navy-900, so this steps up the
- * ramp rather than reusing it. Used on a single word of the hero headline.
- */
 @utility text-brand-gradient-dark {
   background-image: linear-gradient(
     135deg,
     var(--color-primary-300) 0%,
-    var(--color-signal-300) 100%
+    var(--color-primary-200) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
-/*
- * Hero backdrop: two wide, low-opacity radial washes mixed from the brand ramps
- * so the navy band has depth without becoming a gradient panel. Deliberately
- * subtle — this is infrastructure software, not a landing-page light show.
- */
 @utility bg-hero-glow {
-  background-image:
-    radial-gradient(
-      44rem 26rem at 10% -12%,
-      color-mix(in oklab, var(--color-primary-600) 28%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      36rem 22rem at 94% 4%,
-      color-mix(in oklab, var(--color-signal-500) 14%, transparent),
-      transparent 70%
-    );
+  background-image: linear-gradient(to right, rgb(232 89 12 / 0.06) 1px, transparent 1px);
+  background-size: 5rem 100%;
 }
 
 @utility bg-grid-faint {
@@ -337,6 +338,15 @@
     clip-path: inset(50%);
     white-space: nowrap;
     border-width: 0;
+  }
+
+  .asset-slot {
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+    opacity: 0.92;
   }
 }
 

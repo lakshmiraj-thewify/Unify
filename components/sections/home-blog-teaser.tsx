@@ -1,12 +1,11 @@
+import Link from 'next/link'
 import { ArrowRight, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Eyebrow } from '@/components/ui/eyebrow'
 import { Section } from '@/components/ui/section'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { blogArticles } from '@/content/blog'
 import { sectionIds } from '@/content/nav'
-import { heading } from '@/components/ui/typography'
 
 /** Show the 3 most recent articles on the homepage. */
 const TEASER_COUNT = 3
@@ -18,6 +17,7 @@ export function HomeBlogTeaser() {
     <Section
       id={sectionIds.blog}
       tone="light"
+      spacing="default"
       divider="bottom"
       aria-labelledby="blog-teaser-heading"
     >
@@ -28,29 +28,42 @@ export function HomeBlogTeaser() {
         lead="Practical guides, setup tutorials, and technical deep-dives — written specifically for MikroTik operators, WISPs, and LCOs."
       />
 
-      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
         {articles.map((article) => (
-          <Card key={article.slug} as="li" padding="md" className="gap-4">
-            <div className="flex items-center gap-2">
-              <Eyebrow>{article.tag}</Eyebrow>
+          <Card
+            key={article.slug}
+            tone="light"
+            padding="none"
+            interactive
+            className="flex flex-col justify-between p-6"
+          >
+            <div>
+              <span className="rounded-[10px] bg-primary-50 px-2.5 py-1 font-mono text-[0.6875rem] font-semibold tracking-wider uppercase text-primary-600">
+                {article.tag}
+              </span>
+              <h3 className="mt-4 font-heading text-lg font-semibold leading-snug text-ink group-hover:text-primary-500 transition-colors line-clamp-2">
+                <Link href={`/blog/${article.slug}`}>
+                  {article.title}
+                </Link>
+              </h3>
+              <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-muted">
+                {article.summary}
+              </p>
             </div>
 
-            <h3 className={`${heading.h3} line-clamp-2 text-ink`}>{article.title}</h3>
-            <p className="line-clamp-3 text-sm leading-relaxed text-ink-muted">{article.summary}</p>
-
-            <div className="mt-auto flex items-center justify-between pt-2">
-              <span className="flex items-center gap-1.5 text-xs text-ink-faint">
-                <Clock className="size-3.5" />
+            <div className="mt-6 flex items-center justify-between border-t border-line pt-4 text-xs text-ink-muted">
+              <span className="flex items-center gap-1.5 font-medium">
+                <Clock className="size-3.5 text-primary-500" />
                 {article.readTime}
               </span>
-              <span className="text-xs text-ink-faint">{article.publishedDate}</span>
+              <span className="font-mono text-ink-faint">{article.publishedDate}</span>
             </div>
           </Card>
         ))}
-      </ul>
+      </div>
 
       <div className="mt-10 flex justify-center">
-        <Button href="/blog" variant="secondary" trailingIcon={<ArrowRight />}>
+        <Button href="/blog" variant="outline" trailingIcon={<ArrowRight className="size-4" />}>
           View all articles
         </Button>
       </div>

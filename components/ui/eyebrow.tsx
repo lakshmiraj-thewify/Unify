@@ -3,8 +3,8 @@ import { cn } from '@/lib/cn'
 import { label } from './typography'
 
 const tones = {
-  light: 'text-primary-600',
-  dark: 'text-signal-300',
+  light: 'text-primary-500',
+  dark: 'text-primary-300',
 } as const
 
 export type EyebrowTone = keyof typeof tones

@@ -16,9 +16,8 @@ export default function CookiePolicyPage() {
   return (
     <>
       {/* Dark header band — consistent with other inner pages */}
-      <Section tone="dark" spacing="flush" contained={false} className="relative overflow-hidden">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-hero-glow" />
-        <div className="relative mx-auto w-full max-w-page px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <Section tone="dark" spacing="flush" contained={false}>
+        <div className="mx-auto w-full max-w-page px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="flex flex-col items-center text-center">
             <Badge variant="signal" tone="dark" size="md" dot className="mb-4">
               Legal
@@ -38,7 +37,7 @@ export default function CookiePolicyPage() {
 
       <Section tone="subtle" spacing="default">
         <div className="mx-auto max-w-content">
-          <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-card">
+          <div className="overflow-hidden border-y border-line bg-surface">
             {/* Header bar */}
             <div className="flex items-center gap-3 border-b border-line bg-surface-subtle px-6 py-4">
               <div className="flex-shrink-0 rounded-lg border border-primary-200 bg-primary-50 p-2">

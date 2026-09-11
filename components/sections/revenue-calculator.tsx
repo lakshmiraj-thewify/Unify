@@ -42,7 +42,7 @@ export function RevenueCalculator() {
   return (
     <Section
       id={sectionIds.calculator}
-      tone="tint"
+      tone="subtle"
       divider="y"
       aria-labelledby="calculator-heading"
     >
@@ -69,11 +69,11 @@ export function RevenueCalculator() {
               step={100}
               value={subscribers}
               onChange={(e) => setSubscribers(Number(e.target.value))}
-              className="w-full accent-primary-600"
+              className="w-full accent-primary-500"
             />
             <span
               data-numeric=""
-              className="min-w-[5rem] rounded-lg border border-line bg-surface px-3 py-1.5 text-center text-sm font-bold text-ink"
+              className="min-w-[5rem] rounded-[10px] border border-line bg-white px-3 py-1.5 text-center text-sm font-bold text-ink"
             >
               {subscribers.toLocaleString('en-IN')}
             </span>
@@ -91,28 +91,31 @@ export function RevenueCalculator() {
             {
               value: `${hoursSaved} hrs`,
               label: 'Monthly billing hours saved',
+              color: 'text-primary-500',
             },
             {
               value: `~${churnReductionPct}%`,
               label: 'Estimated churn reduction',
+              color: 'text-signal-600',
             },
             {
               value: formatINR(onPremCostINR),
               label: 'On-prem RADIUS cost avoided',
+              color: 'text-primary-500',
             },
           ].map((result) => (
             <div
               key={result.label}
-              className="flex flex-col items-center gap-1 rounded-2xl border border-line bg-surface p-5 text-center"
+              className="flex flex-col items-center gap-1 rounded-[16px] border border-line bg-white p-5 text-center shadow-card"
             >
               <span
                 data-numeric=""
-                className="text-3xl font-extrabold tracking-tight text-primary-600"
+                className={`text-3xl font-bold tracking-tight ${result.color}`}
               >
                 {result.value}
               </span>
               <span className="text-xs font-semibold text-ink-muted">{result.label}</span>
-              <span className="mt-1 text-[0.65rem] font-medium tracking-wider text-ink-faint uppercase">
+              <span className="mt-1 text-[0.65rem] font-semibold tracking-wider text-ink-faint uppercase">
                 Estimate
               </span>
             </div>

@@ -13,24 +13,25 @@ import { cn } from '@/lib/cn'
 export function PricingContent() {
   return (
     <>
-      <Section tone="dark" spacing="flush" contained={false} className="relative overflow-hidden">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-hero-glow" />
-        <Container className="relative py-12 lg:py-16">
-          <div className="flex flex-col items-center text-center">
-            <Badge variant="signal" tone="dark" size="md" dot className="mb-4">
-              {pricingMeta.badge}
-            </Badge>
-            <h1 className={cn(heading.display, 'w-full max-w-readable text-balance text-dark-fg')}>
-              {pricingMeta.heading}
-            </h1>
-            <p
-              className={cn(
-                bodyText.lead,
-                'mt-5 w-full max-w-readable text-pretty text-dark-fg-muted',
-              )}
-            >
-              {pricingMeta.lead}
-            </p>
+      <Section tone="dark" spacing="flush" contained={false}>
+        <Container className="py-14 lg:py-20">
+          <div className="grid gap-6 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <Badge variant="primary" tone="dark" size="md" dot className="mb-4">
+                {pricingMeta.badge}
+              </Badge>
+              <h1 className={cn(heading.display, 'w-full max-w-readable text-balance text-dark-fg')}>
+                {pricingMeta.heading}
+              </h1>
+              <p
+                className={cn(
+                  bodyText.lead,
+                  'mt-5 w-full max-w-readable text-pretty text-dark-fg-muted',
+                )}
+              >
+                {pricingMeta.lead}
+              </p>
+            </div>
           </div>
         </Container>
       </Section>
@@ -38,20 +39,20 @@ export function PricingContent() {
       <Section tone="subtle" spacing="default" aria-labelledby="pricing-tiers-heading" id="pricing">
         <div className="flex flex-col gap-16">
           {/* 3 Tier Pricing Cards */}
-          <div className="grid items-stretch gap-8 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3 max-w-6xl mx-auto w-full items-stretch">
             {pricingTiers.map((tier) => (
               <Card
                 key={tier.name}
-                tone={tier.popular ? 'light' : 'subtle'}
+                tone="light"
                 padding="lg"
                 className={cn(
-                  'relative flex flex-col justify-between',
-                  tier.popular && 'border-primary-500 shadow-lift ring-1 ring-primary-500',
+                  'relative flex flex-col justify-between rounded-2xl border border-line bg-white shadow-card transition-all duration-300 hover:shadow-card-hover p-8',
+                  tier.popular && 'border-2 border-primary-500 shadow-lift ring-2 ring-primary-500/10 md:-translate-y-2 z-10',
                 )}
               >
                 {tier.popular ? (
                   <div className="absolute top-4 right-4">
-                    <Badge variant="primary" size="sm">
+                    <Badge variant="primary" size="sm" dot>
                       Most Popular
                     </Badge>
                   </div>
@@ -61,7 +62,7 @@ export function PricingContent() {
                   <div className="mb-4">
                     <h2
                       id={tier.popular ? 'pricing-tiers-heading' : undefined}
-                      className={cn(heading.h3, 'text-ink')}
+                      className={cn(heading.h3, 'text-ink font-heading')}
                     >
                       {tier.name}
                     </h2>
@@ -69,13 +70,13 @@ export function PricingContent() {
                   </div>
 
                   {/* Price display with strict PENDING support */}
-                  <div className="my-6 border-b border-line pb-6">
+                  <div className="my-6 border-y border-line/60 py-5">
                     {isProvided(tier.monthlyPrice) ? (
                       <div className="flex items-baseline gap-1">
                         <span className="text-sm font-semibold text-ink-muted">₹</span>
                         <span
                           data-numeric=""
-                          className="text-4xl font-extrabold tracking-tight text-ink"
+                          className="text-4xl font-bold tracking-tight text-ink"
                         >
                           {tier.monthlyPrice}
                         </span>
@@ -84,10 +85,10 @@ export function PricingContent() {
                     ) : (
                       <div className="flex flex-col items-start gap-2">
                         {tier.name === 'Scale' ? (
-                          <span className="text-2xl font-extrabold text-ink">Custom Pricing</span>
+                          <span className="text-2xl font-bold text-ink">Custom Pricing</span>
                         ) : (
                           <div className="flex items-center gap-2">
-                            <span className="text-2xl font-extrabold text-ink">₹</span>
+                            <span className="text-2xl font-bold text-ink">₹</span>
                             <Badge variant="pending" size="sm">
                               Amount pending confirmation
                             </Badge>
@@ -101,12 +102,12 @@ export function PricingContent() {
                   {/* Feature checklist */}
                   <div className="mb-8">
                     <p className={cn(label.mono, 'mb-3 text-ink-faint')}>Included features</p>
-                    <ul className="flex flex-col gap-2.5">
+                    <ul className="flex flex-col gap-3">
                       {tier.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-2 text-sm text-ink-soft">
+                        <li key={feature} className="flex items-start gap-2.5 text-sm text-ink-soft">
                           <Check
                             aria-hidden="true"
-                            className="mt-0.5 size-4 shrink-0 text-ok-600"
+                            className="mt-0.5 size-4 shrink-0 text-primary-500"
                           />
                           <span>{feature}</span>
                         </li>
@@ -115,10 +116,10 @@ export function PricingContent() {
                   </div>
                 </div>
 
-                <div>
+                <div className="pt-4">
                   <Button
                     href={tier.ctaHref}
-                    variant={tier.popular ? 'primary' : 'secondary'}
+                    variant={tier.popular ? 'primary' : 'outline'}
                     size="lg"
                     fullWidth
                   >
@@ -130,21 +131,21 @@ export function PricingContent() {
           </div>
 
           {/* Pricing Guarantee / Trust Banner */}
-          <div className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-line bg-surface p-6 sm:flex-row sm:p-8">
+          <div className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-line bg-white shadow-card p-6 sm:p-8 max-w-6xl mx-auto w-full sm:flex-row">
             <div>
-              <h3 className={cn(heading.h4, 'text-ink')}>30-Day Risk-Free Trial</h3>
+              <h3 className={cn(heading.h4, 'text-ink font-heading')}>30-Day Risk-Free Trial</h3>
               <p className={cn(bodyText.small, 'mt-1 max-w-xl text-ink-muted')}>
                 Connect your router today. Test with real subscriber PPPoE/Hotspot sessions in our
                 cloud environment. No payment details required.
               </p>
             </div>
-            <Button href="/contact" size="md" className="shrink-0">
+            <Button href="/contact" size="md" variant="primary" className="shrink-0">
               Start Free Trial
             </Button>
           </div>
 
           {/* Pricing FAQ */}
-          <div className="border-t border-line pt-8">
+          <div className="border-t border-line pt-12">
             <SectionHeading
               eyebrow="Pricing FAQ"
               title="Frequently asked questions about pricing"
@@ -155,11 +156,11 @@ export function PricingContent() {
             />
             <div className="mx-auto grid max-w-readable gap-4">
               {pricingFaqs.map((faq) => (
-                <Card key={faq.question} padding="md" tone="light">
+                <Card key={faq.question} padding="md" tone="light" className="rounded-xl border border-line bg-white shadow-card">
                   <div className="flex items-start gap-3">
-                    <HelpCircle className="mt-0.5 size-5 shrink-0 text-primary-600" />
+                    <HelpCircle className="mt-0.5 size-5 shrink-0 text-primary-500" />
                     <div>
-                      <h4 className={cn(heading.h4, 'text-ink')}>{faq.question}</h4>
+                      <h4 className={cn(heading.h4, 'text-ink font-heading')}>{faq.question}</h4>
                       <p className={cn(bodyText.small, 'mt-2 text-ink-muted')}>{faq.answer}</p>
                     </div>
                   </div>

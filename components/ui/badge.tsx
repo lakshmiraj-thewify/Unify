@@ -8,7 +8,9 @@ import { cn } from '@/lib/cn'
  */
 const lightVariants = {
   neutral: 'bg-surface-subtle text-ink-muted border-line',
-  primary: 'bg-primary-50 text-primary-800 border-primary-200',
+  primary: 'bg-primary-50 text-primary-700 border-primary-200',
+  secondary: 'bg-primary-50 text-primary-700 border-primary-200',
+  accent: 'bg-primary-50 text-primary-700 border-primary-200',
   signal: 'bg-signal-50 text-signal-700 border-signal-200',
   ok: 'bg-ok-50 text-ok-700 border-ok-200',
   warn: 'bg-warn-50 text-warn-700 border-warn-200',
@@ -18,7 +20,9 @@ const lightVariants = {
 
 const darkVariants = {
   neutral: 'bg-white/[0.08] text-dark-fg-muted border-dark-line-strong',
-  primary: 'bg-primary-500/15 text-primary-200 border-primary-400/30',
+  primary: 'bg-primary-500/20 text-primary-200 border-primary-400/40',
+  secondary: 'bg-primary-500/20 text-primary-200 border-primary-400/40',
+  accent: 'bg-primary-500/20 text-primary-200 border-primary-400/40',
   signal: 'bg-signal-400/15 text-signal-200 border-signal-400/35',
   ok: 'bg-ok-500/15 text-ok-200 border-ok-500/30',
   warn: 'bg-warn-500/15 text-warn-200 border-warn-500/30',
@@ -34,6 +38,8 @@ const sizes = {
 const dotColours = {
   neutral: 'bg-ink-faint',
   primary: 'bg-primary-500',
+  secondary: 'bg-primary-500',
+  accent: 'bg-primary-500',
   signal: 'bg-signal-400',
   ok: 'bg-ok-500',
   warn: 'bg-warn-500',
@@ -74,7 +80,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center rounded-full border font-bold whitespace-nowrap',
+        'inline-flex shrink-0 items-center rounded-full border font-medium whitespace-nowrap',
         palette[variant],
         sizes[size],
         mono && 'font-mono tabular tracking-[0.04em]',

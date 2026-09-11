@@ -4,16 +4,18 @@ import { cn } from '@/lib/cn'
 import type { LinkHref } from '@/lib/links'
 
 const tones = {
-  light: 'bg-surface border-line shadow-card text-ink',
-  subtle: 'bg-surface-subtle border-line text-ink',
-  dark: 'bg-navy-800/60 border-dark-line text-dark-fg backdrop-blur-sm',
+  light: 'bg-white border-line text-ink shadow-card',
+  subtle: 'bg-surface border-line/60 text-ink shadow-card',
+  visp: 'bg-white border-line text-ink shadow-card',
+  dark: 'bg-navy-800 border-dark-line text-dark-fg',
 } as const
 
 /** Applied on top of the tone when the card is hoverable or is a link. */
 const interactiveTones = {
-  light: 'hover:border-primary-300 hover:shadow-lift',
-  subtle: 'hover:border-primary-300 hover:bg-surface hover:shadow-lift',
-  dark: 'hover:border-signal-400/40 hover:bg-navy-800/80',
+  light: 'hover:border-primary-400 hover:shadow-lift hover:-translate-y-0.5',
+  subtle: 'hover:border-primary-400 hover:shadow-lift hover:-translate-y-0.5',
+  visp: 'hover:border-primary-400 hover:shadow-lift hover:-translate-y-0.5',
+  dark: 'hover:border-primary-400/50 hover:bg-navy-700/90 hover:-translate-y-0.5',
 } as const
 
 const paddings = {
@@ -58,10 +60,10 @@ function cardClasses({
 }: SharedCardProps & { isLink: boolean }) {
   const hoverable = interactive === true || isLink
   return cn(
-    'group relative flex flex-col overflow-hidden rounded-2xl border',
+    'group relative flex flex-col overflow-hidden rounded-[16px] border',
     tones[tone],
     paddings[padding],
-    hoverable && ['transition-[background-color,border-color,box-shadow] duration-300', 'ease-std'],
+    hoverable && ['transition-[background-color,border-color,box-shadow,transform] duration-300', 'ease-std'],
     hoverable && interactiveTones[tone],
     isLink && 'focus-visible:outline-offset-4',
     className,
@@ -69,9 +71,8 @@ function cardClasses({
 }
 
 /**
- * The container every content block sits in. Radius is fixed at 16px by the
- * token scale, so cards stay square-shouldered rather than drifting into the
- * pill shapes that read as generic SaaS.
+ * The container every content block sits in. Radius is 16px by the token
+ * scale, giving cards a consistent, modern shape.
  */
 export function Card(props: CardProps) {
   if (props.href !== undefined) {

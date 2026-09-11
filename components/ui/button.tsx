@@ -5,23 +5,26 @@ import { cn } from '@/lib/cn'
 import type { LinkHref } from '@/lib/links'
 
 const base =
-  'group/btn inline-flex items-center justify-center gap-2 rounded-lg font-bold whitespace-nowrap ' +
+  'group/btn inline-flex items-center justify-center gap-2 rounded-[10px] font-semibold whitespace-nowrap ' +
   'select-none transition-[background-color,border-color,color,box-shadow,transform] duration-200 ' +
   'ease-std active:translate-y-px [&_svg]:shrink-0 ' +
   'disabled:pointer-events-none disabled:opacity-55 aria-disabled:pointer-events-none aria-disabled:opacity-55'
 
 const variants = {
-  /** The one high-emphasis action per view. */
-  primary: 'bg-primary-600 text-white shadow-primary hover:bg-primary-700',
-  /** Paired with primary. Reads as a real button, not a link. */
-  secondary:
-    'bg-surface text-ink border border-line-strong shadow-card hover:border-primary-300 hover:text-primary-700',
-  /** Low emphasis, e.g. nav items and Sign In. */
-  ghost: 'text-ink-soft hover:bg-surface-subtle hover:text-primary-700',
-  /** Secondary action inside a navy band. */
-  dark: 'bg-white/10 text-dark-fg border border-dark-line-strong backdrop-blur-sm hover:bg-white/[0.16] hover:border-signal-400/50',
-  /** Inline text action. Underlined so it is not colour-only. */
-  link: 'text-primary-600 decoration-primary-300 rounded-sm font-bold underline decoration-2 underline-offset-4 hover:text-primary-800 hover:decoration-primary-600',
+  /** The primary action: warm orange. */
+  primary: 'bg-primary-500 text-white hover:bg-primary-600 shadow-sm',
+  /** Outline secondary — charcoal border. */
+  secondary: 'bg-transparent text-ink border border-line-strong hover:border-primary-500 hover:text-primary-500',
+  /** White button for dark backgrounds. */
+  white: 'bg-white text-ink hover:bg-surface-subtle shadow-sm',
+  /** Paired outline button. */
+  outline: 'bg-transparent text-ink border border-line-strong hover:border-primary-500 hover:text-primary-500',
+  /** Low emphasis, e.g. nav items. */
+  ghost: 'text-ink-soft hover:bg-surface-subtle hover:text-primary-500',
+  /** Secondary action inside a dark band. */
+  dark: 'bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/60',
+  /** Inline text action. */
+  link: 'text-primary-500 decoration-primary-300 rounded-sm font-semibold underline decoration-2 underline-offset-4 hover:text-primary-600 hover:decoration-primary-500',
 } as const
 
 const sizes = {

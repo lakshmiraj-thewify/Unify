@@ -31,21 +31,15 @@ const iconMap = {
 type IconKey = keyof typeof iconMap
 
 /**
- * Feature Modules — blueprint Section 6.
- *
- * Each card is now a link to its dedicated detail page at /features/[slug].
- * The detail pages contain the full capability breakdown, who-it-helps context,
- * and a demo CTA — giving visitors enough space to understand each module
- * without the homepage becoming overwhelming.
- *
- * Cards retain the original visual design; the only change is that they are
- * now interactive (hover affordance + arrow indicator + link href).
+ * Feature Modules — clean card grid with circular icon badges,
+ * white cards on off-white background, orange accent on hover.
  */
 export function FeatureModules() {
   return (
     <Section
       id={sectionIds.features}
-      tone="light"
+      tone="subtle"
+      spacing="default"
       divider="bottom"
       aria-labelledby="features-heading"
     >
@@ -56,28 +50,49 @@ export function FeatureModules() {
         lead={featuresSection.lead}
       />
 
-      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {featureDetails.map((feature, i) => {
           const Icon = iconMap[feature.icon as IconKey]
           return (
-            <Reveal key={feature.slug} as="li" delay={i * 50}>
-              <Card href={`/features/${feature.slug}`} padding="md" className="group h-full gap-3">
-                <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600 transition-colors duration-200 group-hover:bg-primary-100 [&_svg]:size-[1.1rem]">
-                  {Icon ? <Icon /> : null}
-                </span>
-                <div className="flex flex-1 flex-col gap-1">
-                  <h3 className="text-sm font-bold text-ink">{feature.title}</h3>
-                  <p className="text-sm leading-relaxed text-ink-muted">{feature.description}</p>
+            <Reveal
+              key={feature.slug}
+              as="div"
+              delay={i * 60}
+            >
+              <Card
+                href={`/features/${feature.slug}`}
+                tone="light"
+                padding="none"
+                interactive
+                className="h-full flex flex-col justify-between p-6"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex size-12 items-center justify-center rounded-full bg-primary-50 text-primary-500 border border-primary-100 group-hover:bg-primary-500 group-hover:text-white transition-colors">
+                      {Icon ? <Icon className="size-6" /> : null}
+                    </span>
+                    <span className="font-mono text-xs font-semibold text-ink-faint">
+                      0{i + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-5 font-heading text-lg font-semibold text-ink group-hover:text-primary-500 transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
+                    {feature.description}
+                  </p>
                 </div>
-                <div className="mt-1 flex items-center gap-1 text-xs font-semibold text-primary-600 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  Learn more
-                  <ArrowRight className="size-3.5" aria-hidden="true" />
+
+                <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-primary-500 pt-4 border-t border-line group-hover:text-primary-600">
+                  <span>Learn more</span>
+                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </div>
               </Card>
             </Reveal>
           )
         })}
-      </ul>
+      </div>
     </Section>
   )
 }

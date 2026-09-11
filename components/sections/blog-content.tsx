@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
-import { ArrowRight, BookOpen, Clock, FileText, X } from 'lucide-react'
+import { ArrowRight, Clock, FileText, X } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -92,21 +92,17 @@ export function BlogContent() {
   return (
     <>
       {/* ── Dark hero banner ── */}
-      <Section tone="dark" spacing="flush" contained={false} className="relative overflow-hidden">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-hero-glow" />
-        <Container className="relative py-12 lg:py-16">
-          <div className="flex flex-col items-center text-center">
-            <Badge variant="signal" tone="dark" size="md" dot className="mb-4">
+      <Section tone="dark" spacing="flush" contained={false}>
+        <Container className="py-14 lg:py-20">
+          <div className="max-w-readable">
+            <Badge variant="primary" tone="dark" size="md" dot className="mb-4">
               {blogMeta.eyebrow}
             </Badge>
             <h1 className={cn(heading.display, 'w-full max-w-readable text-balance text-dark-fg')}>
               {blogMeta.heading}
             </h1>
             <p
-              className={cn(
-                bodyText.lead,
-                'mt-5 w-full max-w-readable text-pretty text-dark-fg-muted',
-              )}
+              className={cn(bodyText.lead, 'mt-5 text-pretty text-dark-fg-muted')}
             >
               {blogMeta.lead}
             </p>
@@ -121,7 +117,7 @@ export function BlogContent() {
             <Card
               tone="light"
               padding="lg"
-              className="border-primary-200/80 bg-surface-subtle shadow-lift"
+              className="rounded-2xl border border-line bg-white shadow-card p-6 sm:p-8"
             >
               <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
                 <div className="flex-1">
@@ -135,7 +131,7 @@ export function BlogContent() {
                     <span className="text-xs text-ink-faint">{featured.publishedDate}</span>
                   </div>
 
-                  <h2 className={cn(heading.h3, 'text-xl text-ink lg:text-2xl')}>
+                  <h2 className={cn(heading.h3, 'text-xl text-ink font-heading lg:text-2xl')}>
                     {featured.title}
                   </h2>
                   <p className={cn(bodyText.base, 'mt-3 max-w-3xl text-ink-muted')}>
@@ -154,10 +150,6 @@ export function BlogContent() {
                       Article body pending sign-off (Q13)
                     </Badge>
                   </div>
-                </div>
-
-                <div className="hidden size-36 shrink-0 items-center justify-center rounded-2xl border border-primary-200 bg-primary-50 text-primary-600 lg:flex">
-                  <BookOpen className="size-16" />
                 </div>
               </div>
             </Card>
@@ -180,10 +172,10 @@ export function BlogContent() {
                     aria-pressed={isSelected}
                     onClick={() => setSelectedTag(tag)}
                     className={cn(
-                      'inline-flex cursor-pointer items-center rounded-lg px-3 py-1.5 text-xs font-semibold transition-[background-color,border-color,color] duration-200 ease-std',
+                      'inline-flex cursor-pointer items-center rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-[background-color,border-color,color] duration-200 ease-std',
                       isSelected
-                        ? 'bg-primary-600 text-white shadow-primary'
-                        : 'border border-line bg-surface text-ink-muted hover:border-primary-300 hover:text-ink',
+                        ? 'bg-primary-500 text-white shadow-sm'
+                        : 'border border-line bg-white text-ink-muted hover:border-primary-300 hover:text-ink',
                     )}
                   >
                     {tag}
@@ -200,11 +192,11 @@ export function BlogContent() {
                 key={article.slug}
                 tone="light"
                 padding="md"
-                className="flex flex-col justify-between transition-[border-color,box-shadow] hover:border-primary-300 hover:shadow-lift"
+                className="flex flex-col justify-between rounded-2xl border border-line bg-white shadow-card transition-all duration-300 hover:shadow-card-hover p-6"
               >
                 <div>
                   <div className="mb-3 flex items-center justify-between gap-2">
-                    <Badge variant="signal" size="sm">
+                    <Badge variant="primary" size="sm">
                       {article.category}
                     </Badge>
                     <span className="flex items-center gap-1 text-xs text-ink-faint">
@@ -214,7 +206,7 @@ export function BlogContent() {
                   </div>
 
                   <h3
-                    className={cn(heading.h4, 'text-ink transition-colors hover:text-primary-700')}
+                    className={cn(heading.h4, 'text-ink font-heading transition-colors hover:text-primary-600')}
                   >
                     {article.title}
                   </h3>
@@ -222,11 +214,11 @@ export function BlogContent() {
                   <p className={cn(bodyText.small, 'mt-2.5 text-ink-muted')}>{article.summary}</p>
                 </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
+                <div className="mt-6 flex items-center justify-between border-t border-line/60 pt-4">
                   <button
                     type="button"
                     onClick={() => setActiveArticle(article)}
-                    className="flex cursor-pointer items-center gap-1 text-xs font-bold text-primary-600 hover:text-primary-800"
+                    className="flex cursor-pointer items-center gap-1 text-xs font-bold text-primary-600 hover:text-primary-700"
                   >
                     View Overview <ArrowRight className="size-3" />
                   </button>
@@ -241,11 +233,7 @@ export function BlogContent() {
           {/* ── Accessible article preview modal ── */}
           {activeArticle ? (
             <>
-              {/*
-                Backdrop scrim: clicking it closes the modal.
-                aria-hidden + tabIndex={-1}: a redundant pointer affordance;
-                Escape on the keyboard already covers the accessible path.
-              */}
+              {/* Backdrop scrim */}
               <button
                 type="button"
                 tabIndex={-1}
@@ -273,7 +261,7 @@ export function BlogContent() {
                       <Badge variant="pending" size="sm">
                         Pending Q13
                       </Badge>
-                      {/* Close button — first focusable; receives focus on open */}
+                      {/* Close button */}
                       <button
                         ref={closeBtnRef}
                         type="button"
@@ -286,7 +274,7 @@ export function BlogContent() {
                     </div>
                   </div>
 
-                  <h2 id={`${dialogId}-title`} className={cn(heading.h3, 'text-ink')}>
+                  <h2 id={`${dialogId}-title`} className={cn(heading.h3, 'text-ink font-heading')}>
                     {activeArticle.title}
                   </h2>
 
@@ -305,7 +293,7 @@ export function BlogContent() {
                   </div>
 
                   <div className="mt-6 flex justify-end">
-                    <Button variant="secondary" size="md" onClick={closeArticle}>
+                    <Button variant="outline" size="md" onClick={closeArticle}>
                       Close
                     </Button>
                   </div>
