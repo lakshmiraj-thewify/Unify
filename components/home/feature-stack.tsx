@@ -48,18 +48,17 @@ const features = [
 
 export function FeatureStack() {
   return (
-    <section id="architecture" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
+    <section id="architecture" className="relative py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="mb-16 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[#9061FF] tracking-wider uppercase mb-4">
+          <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wider text-[#9061FF] uppercase">
             Cloud Infrastructure
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+          <h2 className="mb-4 text-3xl leading-tight font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
             Eliminate server crashes and manual collection calls.
           </h2>
-          <p className="text-white/70 text-base sm:text-lg leading-relaxed">
+          <p className="text-base leading-relaxed text-white/70 sm:text-lg">
             Running on-premise RADIUS hardware requires dedicated servers, static IPs, UPS
             batteries, and constant Linux maintenance. Unify moves that entire layer to an
             enterprise cloud cluster.
@@ -80,7 +79,7 @@ export function FeatureStack() {
             return (
               <ScrollStackItem key={index}>
                 <div
-                  className="p-8 sm:p-10 rounded-3xl border border-white/10 hover:border-white/20 transition-colors shadow-xl"
+                  className="rounded-3xl border border-white/10 p-8 shadow-xl transition-colors hover:border-white/20 sm:p-10"
                   style={{ backgroundColor: '#131722cc' }}
                 >
                   {/* Card number */}
@@ -88,37 +87,35 @@ export function FeatureStack() {
                     {String(index + 1).padStart(2, '0')}
                   </span>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 items-start">
+                  <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[180px_1fr]">
                     {/* Left: icon + tag */}
                     <div>
                       <div
-                        className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-lg mb-5"
+                        className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl shadow-lg"
                         style={{ backgroundColor: `${item.accent}20`, color: item.accent }}
                       >
-                        <Icon className="w-5 h-5" />
+                        <Icon className="h-5 w-5" />
                       </div>
-                      <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 inline-block mb-3">
+                      <span className="mb-3 inline-block rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-xs text-white/60">
                         {item.tag}
                       </span>
-                      <div className="mt-4 pt-4 border-t border-white/5">
+                      <div className="mt-4 border-t border-white/5 pt-4">
                         <span
-                          className="text-3xl sm:text-4xl font-mono font-extrabold block"
+                          className="block font-mono text-3xl font-extrabold sm:text-4xl"
                           style={{ color: item.accent }}
                         >
                           {item.metric}
                         </span>
-                        <span className="text-xs text-white/40 mt-1 block">{item.metricLabel}</span>
+                        <span className="mt-1 block text-xs text-white/40">{item.metricLabel}</span>
                       </div>
                     </div>
 
                     {/* Right: title + description */}
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-3">
+                      <h3 className="mb-3 text-xl font-bold tracking-tight text-white sm:text-2xl">
                         {item.title}
                       </h3>
-                      <p className="text-white/60 text-sm leading-relaxed">
-                        {item.description}
-                      </p>
+                      <p className="text-sm leading-relaxed text-white/60">{item.description}</p>
                     </div>
                   </div>
                 </div>
@@ -126,7 +123,6 @@ export function FeatureStack() {
             )
           })}
         </ScrollStack>
-
       </div>
     </section>
   )

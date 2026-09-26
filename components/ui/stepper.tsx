@@ -14,8 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import './stepper.css'
 
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 export interface StepProps {
   children: ReactNode
@@ -130,15 +129,15 @@ export default function Stepper({
     typeof nextButtonText === 'function'
       ? nextButtonText(currentStep)
       : isLastStep
-      ? 'Complete'
-      : nextButtonText
+        ? 'Complete'
+        : nextButtonText
 
   return (
     <div className={cn('stepper-outer-container', className)} style={style} {...rest}>
       <div className={cn('stepper-circle-container', stepCircleContainerClassName)}>
         {/* Step Indicator Row */}
         <div className={cn('stepper-indicator-row', stepContainerClassName)}>
-          <div className="flex items-center gap-1.5 flex-1 max-w-xs">
+          <div className="flex max-w-xs flex-1 items-center gap-1.5">
             {stepsArray.map((_, index) => {
               const stepNumber = index + 1
               const isNotLastStep = index < totalSteps - 1
@@ -165,16 +164,14 @@ export default function Stepper({
                       }}
                     />
                   )}
-                  {isNotLastStep && (
-                    <StepConnector isComplete={currentStep > stepNumber} />
-                  )}
+                  {isNotLastStep && <StepConnector isComplete={currentStep > stepNumber} />}
                 </React.Fragment>
               )
             })}
           </div>
 
           {currentLabel && (
-            <span className="ml-3 text-xs font-medium text-slate-400 whitespace-nowrap">
+            <span className="ml-3 text-xs font-medium whitespace-nowrap text-slate-400">
               {currentLabel}
             </span>
           )}
@@ -194,19 +191,13 @@ export default function Stepper({
         {!isCompleted && !hideFooter && (
           <div className={cn('stepper-footer-container', footerClassName)}>
             <div
-              className={cn(
-                'stepper-footer-nav',
-                currentStep !== 1 ? 'spread' : 'end single-next'
-              )}
+              className={cn('stepper-footer-nav', currentStep !== 1 ? 'spread' : 'end single-next')}
             >
               {currentStep !== 1 && (
                 <button
                   type="button"
                   onClick={handleBack}
-                  className={cn(
-                    'stepper-back-button',
-                    currentStep === 1 && 'inactive'
-                  )}
+                  className={cn('stepper-back-button', currentStep === 1 && 'inactive')}
                   {...backButtonProps}
                 >
                   {backButtonText}
@@ -342,8 +333,7 @@ function StepIndicator({
   disableStepIndicators?: boolean
   showActiveNumber?: boolean
 }) {
-  const status =
-    currentStep === step ? 'active' : currentStep < step ? 'inactive' : 'complete'
+  const status = currentStep === step ? 'active' : currentStep < step ? 'inactive' : 'complete'
 
   const handleClick = () => {
     if (step !== currentStep && !disableStepIndicators) {
@@ -356,11 +346,7 @@ function StepIndicator({
       type="button"
       onClick={handleClick}
       className="stepper-indicator focus:outline-none"
-      style={
-        disableStepIndicators
-          ? { pointerEvents: 'none', cursor: 'default' }
-          : undefined
-      }
+      style={disableStepIndicators ? { pointerEvents: 'none', cursor: 'default' } : undefined}
       animate={status}
       initial={false}
     >
@@ -418,13 +404,7 @@ function StepConnector({ isComplete }: { isComplete: boolean }) {
 
 function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2.5}
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" {...props}>
       <motion.path
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}

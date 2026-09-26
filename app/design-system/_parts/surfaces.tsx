@@ -16,31 +16,31 @@ export function Surfaces() {
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Card>
-            <span className="mb-4 inline-flex size-11 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-primary">
+            <span className="bg-brand-gradient shadow-primary mb-4 inline-flex size-11 items-center justify-center rounded-xl text-white">
               <Radio className="size-5" aria-hidden="true" />
             </span>
             <h3 className={heading.h3}>tone=&quot;light&quot;</h3>
-            <p className={`${bodyText.small} mt-2 text-ink-muted`}>Default card on a white band.</p>
+            <p className={`${bodyText.small} text-ink-muted mt-2`}>Default card on a white band.</p>
           </Card>
 
           <Card tone="subtle" interactive>
-            <span className="mb-4 inline-flex size-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+            <span className="bg-primary-50 text-primary-600 mb-4 inline-flex size-11 items-center justify-center rounded-xl">
               <Wallet className="size-5" aria-hidden="true" />
             </span>
             <h3 className={heading.h3}>tone=&quot;subtle&quot; interactive</h3>
-            <p className={`${bodyText.small} mt-2 text-ink-muted`}>
+            <p className={`${bodyText.small} text-ink-muted mt-2`}>
               Hover raises it and warms the border.
             </p>
           </Card>
 
           <Card href="/design-system" padding="lg">
-            <span className="mb-4 inline-flex size-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+            <span className="bg-primary-50 text-primary-600 mb-4 inline-flex size-11 items-center justify-center rounded-xl">
               <ShieldCheck className="size-5" aria-hidden="true" />
             </span>
-            <h3 className={`${heading.h3} transition-colors group-hover:text-primary-700`}>
+            <h3 className={`${heading.h3} group-hover:text-primary-700 transition-colors`}>
               href — whole card is the link
             </h3>
-            <p className={`${bodyText.small} mt-2 text-ink-muted`}>padding=&quot;lg&quot;</p>
+            <p className={`${bodyText.small} text-ink-muted mt-2`}>padding=&quot;lg&quot;</p>
           </Card>
         </div>
 
@@ -52,7 +52,7 @@ export function Surfaces() {
             <p className={bodyText.small}>padding=&quot;md&quot;</p>
           </Card>
           <Card padding="none" className="p-0">
-            <span className="block border-b border-line bg-surface-subtle px-4 py-2 font-mono text-[0.6875rem] uppercase">
+            <span className="border-line bg-surface-subtle block border-b px-4 py-2 font-mono text-[0.6875rem] uppercase">
               padding=&quot;none&quot;
             </span>
             <span className="block px-4 py-3 text-sm">For cards with their own header band.</span>
@@ -64,13 +64,13 @@ export function Surfaces() {
         <div className="grid gap-4 sm:grid-cols-2">
           <Card tone="dark">
             <h3 className={`${heading.h3} text-dark-fg`}>Multi-tenant isolation</h3>
-            <p className={`${bodyText.small} mt-2 text-dark-fg-muted`}>
+            <p className={`${bodyText.small} text-dark-fg-muted mt-2`}>
               tone=&quot;dark&quot; — translucent navy over the band.
             </p>
           </Card>
           <Card tone="dark" interactive>
             <h3 className={`${heading.h3} text-dark-fg`}>White-label stack</h3>
-            <p className={`${bodyText.small} mt-2 text-dark-fg-muted`}>
+            <p className={`${bodyText.small} text-dark-fg-muted mt-2`}>
               tone=&quot;dark&quot; interactive.
             </p>
           </Card>
@@ -82,7 +82,7 @@ export function Surfaces() {
           title="stat"
           note="Values arrive pre-formatted. data-numeric applies mono + tabular figures."
         >
-          <div className="flex flex-col divide-y divide-line">
+          <div className="divide-line flex flex-col divide-y">
             <SpecRow label="size sm / md / lg">
               <Stat size="sm" value="200+" label="Active ISPs" />
               <Stat size="md" value={`${formatNumber(50000)}+`} label="Subscribers managed" />
@@ -111,7 +111,7 @@ export function Surfaces() {
         title="section heading"
         note="Owns the eyebrow / heading / lead stack. `id` pairs with aria-labelledby on the parent section."
       >
-        <div className="flex flex-col divide-y divide-line">
+        <div className="divide-line flex flex-col divide-y">
           <div className="py-5 first:pt-0">
             <SectionHeading
               eyebrow="How it works"

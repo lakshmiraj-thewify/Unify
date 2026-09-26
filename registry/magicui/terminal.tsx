@@ -12,12 +12,7 @@ import {
   type ReactNode,
   type RefAttributes,
 } from 'react'
-import {
-  motion,
-  useInView,
-  type HTMLMotionProps,
-  type MotionProps,
-} from 'framer-motion'
+import { motion, useInView, type HTMLMotionProps, type MotionProps } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 interface SequenceContextValue {
@@ -76,7 +71,7 @@ export const AnimatedSpan = ({
     }
   }, [sequence, hasStarted, itemIndex, delay, startOnView, isInView])
 
-  const shouldAnimate = sequence ? hasStarted : (startOnView ? isInView && hasStarted : hasStarted)
+  const shouldAnimate = sequence ? hasStarted : startOnView ? isInView && hasStarted : hasStarted
 
   return (
     <motion.div
@@ -224,12 +219,12 @@ export const TypingAnimation = ({
   return (
     <MotionComponent
       ref={elementRef}
-      className={cn('text-sm font-normal tracking-tight inline-flex items-center', className)}
+      className={cn('inline-flex items-center text-sm font-normal tracking-tight', className)}
       {...props}
     >
       <span>{displayedText}</span>
       {showCursor && started && !isFinished && (
-        <span className="inline-block w-1.5 h-4 ml-0.5 bg-[#5EE7E4] animate-pulse" />
+        <span className="ml-0.5 inline-block h-4 w-1.5 animate-pulse bg-[#5EE7E4]" />
       )}
     </MotionComponent>
   )
@@ -257,7 +252,7 @@ export const Terminal = ({
   })
 
   const [activeIndex, setActiveIndex] = useState(0)
-  const sequenceHasStarted = sequence ? (!startOnView || isInView) : false
+  const sequenceHasStarted = sequence ? !startOnView || isInView : false
 
   const contextValue = useMemo<SequenceContextValue | null>(() => {
     if (!sequence) return null
@@ -281,11 +276,11 @@ export const Terminal = ({
   }, [children, sequence])
 
   const defaultHeader = (
-    <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#0A0D14]/80">
+    <div className="flex items-center justify-between border-b border-white/10 bg-[#0A0D14]/80 px-4 py-3">
       <div className="flex items-center gap-2">
-        <div className="w-3 h-3 rounded-full bg-[#FF5F56]/80" />
-        <div className="w-3 h-3 rounded-full bg-[#FFBD2E]/80" />
-        <div className="w-3 h-3 rounded-full bg-[#27C93F]/80" />
+        <div className="h-3 w-3 rounded-full bg-[#FF5F56]/80" />
+        <div className="h-3 w-3 rounded-full bg-[#FFBD2E]/80" />
+        <div className="h-3 w-3 rounded-full bg-[#27C93F]/80" />
       </div>
     </div>
   )
@@ -294,12 +289,12 @@ export const Terminal = ({
     <div
       ref={containerRef}
       className={cn(
-        'border-white/15 bg-[#121620]/90 backdrop-blur-xl border rounded-2xl shadow-2xl overflow-hidden',
+        'overflow-hidden rounded-2xl border border-white/15 bg-[#121620]/90 shadow-2xl backdrop-blur-xl',
         className,
       )}
     >
       {header !== undefined ? header : defaultHeader}
-      <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm overflow-x-auto space-y-2">
+      <div className="space-y-2 overflow-x-auto p-4 font-mono text-xs sm:p-6 sm:text-sm">
         {wrappedChildren}
       </div>
     </div>
@@ -307,9 +302,5 @@ export const Terminal = ({
 
   if (!sequence) return content
 
-  return (
-    <SequenceContext.Provider value={contextValue}>
-      {content}
-    </SequenceContext.Provider>
-  )
+  return <SequenceContext.Provider value={contextValue}>{content}</SequenceContext.Provider>
 }

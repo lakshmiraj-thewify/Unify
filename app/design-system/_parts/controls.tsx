@@ -13,7 +13,7 @@ export function Controls() {
         title="button"
         note="One component; renders <button>, next/link or a plain <a> for off-site."
       >
-        <div className="flex flex-col divide-y divide-line">
+        <div className="divide-line flex flex-col divide-y">
           <SpecRow label="variant × size — primary">
             <Button size="sm">Book a Demo</Button>
             <Button size="md">Book a Demo</Button>
@@ -99,7 +99,7 @@ export function Controls() {
           title="badge"
           note="`pending` is dashed and muted — it marks a fact awaiting sign-off."
         >
-          <div className="flex flex-col divide-y divide-line">
+          <div className="divide-line flex flex-col divide-y">
             <SpecRow label="variants · md">
               {badgeVariants.map((variant) => (
                 <Badge key={variant} variant={variant}>

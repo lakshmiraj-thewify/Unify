@@ -104,16 +104,16 @@ export function ColourTokens() {
         title="colour"
         note="A closed, semantic contract. Anything not shown here is not part of the system."
       >
-        <div className="flex flex-col divide-y divide-line">
+        <div className="divide-line flex flex-col divide-y">
           {ramps.map((ramp) => (
             <SpecRow key={ramp.name} label={ramp.name}>
               {ramp.swatches.map((swatch) => (
                 <span key={swatch.cls} className="flex flex-col items-center gap-1.5">
                   <span
-                    className={`size-11 rounded-lg border border-line ${swatch.cls}`}
+                    className={`border-line size-11 rounded-lg border ${swatch.cls}`}
                     title={swatch.cls}
                   />
-                  <span className="font-mono text-[0.625rem] text-ink-faint">{swatch.step}</span>
+                  <span className="text-ink-faint font-mono text-[0.625rem]">{swatch.step}</span>
                 </span>
               ))}
             </SpecRow>
@@ -127,9 +127,9 @@ export function ColourTokens() {
             {radii.map((radius) => (
               <span key={radius.cls} className="flex flex-col items-center gap-1.5">
                 <span
-                  className={`size-14 border border-primary-300 bg-primary-100 ${radius.cls}`}
+                  className={`border-primary-300 bg-primary-100 size-14 border ${radius.cls}`}
                 />
-                <span className="font-mono text-[0.625rem] text-ink-faint">{radius.label}</span>
+                <span className="text-ink-faint font-mono text-[0.625rem]">{radius.label}</span>
               </span>
             ))}
           </div>
@@ -140,9 +140,9 @@ export function ColourTokens() {
             {shadows.map((shadow) => (
               <span key={shadow.cls} className="flex flex-col items-center gap-2">
                 <span
-                  className={`size-14 rounded-xl border border-line bg-surface ${shadow.cls}`}
+                  className={`border-line bg-surface size-14 rounded-xl border ${shadow.cls}`}
                 />
-                <span className="font-mono text-[0.625rem] text-ink-faint">{shadow.label}</span>
+                <span className="text-ink-faint font-mono text-[0.625rem]">{shadow.label}</span>
               </span>
             ))}
           </div>
@@ -154,11 +154,11 @@ export function ColourTokens() {
         note="One gradient in the system. Tiles, icon chips, selective emphasis — never a full band."
       >
         <div className="flex flex-wrap items-center gap-5">
-          <span className="size-16 rounded-2xl bg-brand-gradient shadow-primary" />
+          <span className="bg-brand-gradient shadow-primary size-16 rounded-2xl" />
           <span className="text-brand-gradient text-3xl font-extrabold tracking-tight">
             text-brand-gradient
           </span>
-          <span className="size-16 rounded-2xl border border-line bg-grid-faint" />
+          <span className="border-line bg-grid-faint size-16 rounded-2xl border" />
         </div>
       </Spec>
     </div>

@@ -6,7 +6,9 @@
    ───────────────────────────────────────────────────────────────────────────── */
 
 /* Base resets */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -15,8 +17,8 @@ html {
 }
 
 body {
-  background-color: #0D0F17;
-  color: #FFFFFF;
+  background-color: #0d0f17;
+  color: #ffffff;
   font-family: var(--font-inter, 'Inter', system-ui, -apple-system, sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,7 +27,12 @@ body {
 }
 
 /* Headings — Space Grotesk display font */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-space-grotesk, var(--font-inter, sans-serif));
   letter-spacing: -0.02em;
   font-weight: 700;
@@ -34,14 +41,43 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Unify brand tokens ─────────────────────────────────────────────────── */
 :root {
-  --unify-gradient-brand-1: radial-gradient(3828px 2856px at 50% -752px, rgb(7,16,19) 22%, rgb(20,17,48) 38%, rgb(36,25,87) 44%, rgb(53,33,126) 49%, rgb(69,41,165) 55%, rgb(86,50,204) 60%, rgb(102,19,197) 66%, rgb(79,18,153) 70%, rgb(55,18,108) 73%, rgb(31,17,64) 76%, rgb(19,16,41) 78%, rgb(7,16,19) 79%);
-  --unify-gradient-brand-2: linear-gradient(100deg, rgb(116,60,255), rgb(95,243,228), rgb(116,60,255), rgb(95,243,228));
-  --unify-gradient-brand-3: radial-gradient(at 0px 0px, rgb(133,86,255), rgb(107,62,255) 60%);
-  --unify-gradient-brand-4: linear-gradient(to right in oklab, rgb(94,231,228) 0%, rgba(0,0,0,0) 100%);
-  --unify-gradient-brand-5: linear-gradient(to right in oklab, rgb(104,58,254) 0%, rgb(94,231,228) 100%);
-  --unify-shadow-xl: rgba(18,25,217,0.3) 0px 3px 3px 0px, rgba(91,18,217,0.3) 0px -3px 4px 0px inset;
-  --unify-color-purple: #743CFF;
-  --unify-color-cyan: #5EE7E4;
+  --unify-gradient-brand-1: radial-gradient(
+    3828px 2856px at 50% -752px,
+    rgb(7, 16, 19) 22%,
+    rgb(20, 17, 48) 38%,
+    rgb(36, 25, 87) 44%,
+    rgb(53, 33, 126) 49%,
+    rgb(69, 41, 165) 55%,
+    rgb(86, 50, 204) 60%,
+    rgb(102, 19, 197) 66%,
+    rgb(79, 18, 153) 70%,
+    rgb(55, 18, 108) 73%,
+    rgb(31, 17, 64) 76%,
+    rgb(19, 16, 41) 78%,
+    rgb(7, 16, 19) 79%
+  );
+  --unify-gradient-brand-2: linear-gradient(
+    100deg,
+    rgb(116, 60, 255),
+    rgb(95, 243, 228),
+    rgb(116, 60, 255),
+    rgb(95, 243, 228)
+  );
+  --unify-gradient-brand-3: radial-gradient(at 0px 0px, rgb(133, 86, 255), rgb(107, 62, 255) 60%);
+  --unify-gradient-brand-4: linear-gradient(
+    to right in oklab,
+    rgb(94, 231, 228) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  --unify-gradient-brand-5: linear-gradient(
+    to right in oklab,
+    rgb(104, 58, 254) 0%,
+    rgb(94, 231, 228) 100%
+  );
+  --unify-shadow-xl:
+    rgba(18, 25, 217, 0.3) 0px 3px 3px 0px, rgba(91, 18, 217, 0.3) 0px -3px 4px 0px inset;
+  --unify-color-purple: #743cff;
+  --unify-color-cyan: #5ee7e4;
 }
 
 /* ─── Hero Aurora Background ─────────────────────────────────────────────── */
@@ -51,8 +87,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Text selection */
 ::selection {
-  background-color: #743CFF;
-  color: #FFFFFF;
+  background-color: #743cff;
+  color: #ffffff;
 }
 
 /* ─── Glass Header Navigation ────────────────────────────────────────────── */
@@ -75,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .unify-pill-badge:hover {
   border-color: rgba(116, 60, 255, 0.55);
-  background: rgba(116, 60, 255, 0.10);
+  background: rgba(116, 60, 255, 0.1);
 }
 
 /* ─── Dark Section Frosted Cards ─────────────────────────────────────────── */
@@ -85,7 +121,9 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .unify-card-dark:hover {
@@ -98,27 +136,30 @@ h1, h2, h3, h4, h5, h6 {
 .unify-transition-gradient {
   background: linear-gradient(
     180deg,
-    #0D0F17 0%,
-    #16122E 18%,
-    #2A165A 38%,
-    #4E22A0 56%,
-    #7B3FD4 72%,
-    #C4A8F0 88%,
-    #F5F0FF 96%,
-    #FFFFFF 100%
+    #0d0f17 0%,
+    #16122e 18%,
+    #2a165a 38%,
+    #4e22a0 56%,
+    #7b3fd4 72%,
+    #c4a8f0 88%,
+    #f5f0ff 96%,
+    #ffffff 100%
   );
 }
 
 /* ─── Translucent Frosted Violet Cards (on gradient transition) ───────────── */
 /* These sit over the purple→white gradient and must NOT be heavy black boxes */
 .unify-frosted-violet-card {
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 14px 40px -4px rgba(30, 8, 60, 0.22);
   border-radius: 1.25rem;
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .unify-frosted-violet-card:hover {
@@ -129,21 +170,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Crisp White Section ────────────────────────────────────────────────── */
 .unify-light-section {
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: #ffffff;
+  color: #0f172a;
 }
 
 /* Light-mode card */
 .unify-card-light {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   box-shadow: 0 2px 12px -2px rgba(15, 23, 42, 0.06);
   border-radius: 1.25rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .unify-card-light:hover {
-  border-color: #C4B5FD;
+  border-color: #c4b5fd;
   box-shadow: 0 10px 28px -4px rgba(116, 60, 255, 0.13);
 }
 
@@ -151,9 +194,9 @@ h1, h2, h3, h4, h5, h6 {
 .unify-cta-banner {
   background: radial-gradient(
     ellipse 80% 100% at 50% 0%,
-    #9061FF 0%,
-    #6332F6 35%,
-    #2A115E 72%,
+    #9061ff 0%,
+    #6332f6 35%,
+    #2a115e 72%,
     #150833 100%
   );
   box-shadow: 0 24px 80px -20px rgba(99, 50, 246, 0.55);
@@ -187,4 +230,3 @@ h1, h2, h3, h4, h5, h6 {
 .animate-aurora {
   animation: aurora 8s ease-in-out infinite alternate;
 }
-

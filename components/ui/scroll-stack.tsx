@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  useLayoutEffect,
-  useRef,
-  useCallback,
-  type ReactNode,
-  type CSSProperties,
-} from 'react'
+import { useLayoutEffect, useRef, useCallback, type ReactNode, type CSSProperties } from 'react'
 import { cn } from '@/lib/utils'
 
 // ─── ScrollStackItem ──────────────────────────────────────────────────────────
@@ -17,17 +11,13 @@ export interface ScrollStackItemProps {
   style?: CSSProperties
 }
 
-export function ScrollStackItem({
-  children,
-  className = '',
-  style,
-}: ScrollStackItemProps) {
+export function ScrollStackItem({ children, className = '', style }: ScrollStackItemProps) {
   return (
     // scroll-stack-card is the hook class ScrollStack queries for
     <div
       className={cn(
-        'scroll-stack-card relative w-full rounded-3xl box-border origin-top',
-        className
+        'scroll-stack-card relative box-border w-full origin-top rounded-3xl',
+        className,
       )}
       style={{ backfaceVisibility: 'hidden', ...style }}
     >
@@ -76,23 +66,16 @@ export default function ScrollStack({
 
   // ── Helpers ─────────────────────────────────────────────────────────────────
 
-  const parsePercentage = useCallback(
-    (value: string, containerHeight: number) => {
-      if (value.includes('%'))
-        return (parseFloat(value) / 100) * containerHeight
-      return parseFloat(value)
-    },
-    []
-  )
+  const parsePercentage = useCallback((value: string, containerHeight: number) => {
+    if (value.includes('%')) return (parseFloat(value) / 100) * containerHeight
+    return parseFloat(value)
+  }, [])
 
-  const calculateProgress = useCallback(
-    (scrollTop: number, start: number, end: number) => {
-      if (scrollTop < start) return 0
-      if (scrollTop > end) return 1
-      return (scrollTop - start) / (end - start)
-    },
-    []
-  )
+  const calculateProgress = useCallback((scrollTop: number, start: number, end: number) => {
+    if (scrollTop < start) return 0
+    if (scrollTop > end) return 1
+    return (scrollTop - start) / (end - start)
+  }, [])
 
   // ── Measure static tops (clear transforms first to avoid feedback loop) ─────
 
@@ -101,20 +84,22 @@ export default function ScrollStack({
     if (!cards.length) return
 
     const saved = cards.map((c) => (c ? c.style.transform : ''))
-    cards.forEach((c) => { if (c) c.style.transform = 'none' })
+    cards.forEach((c) => {
+      if (c) c.style.transform = 'none'
+    })
 
-    cardTopsRef.current = cards.map((c) =>
-      c ? c.getBoundingClientRect().top + window.scrollY : 0
-    )
+    cardTopsRef.current = cards.map((c) => (c ? c.getBoundingClientRect().top + window.scrollY : 0))
 
-    cards.forEach((c, i) => { if (c) c.style.transform = saved[i] ?? '' })
+    cards.forEach((c, i) => {
+      if (c) c.style.transform = saved[i] ?? ''
+    })
   }, [])
 
   // ── Per-scroll transform update ──────────────────────────────────────────────
 
   const updateCardTransforms = useCallback(() => {
     if (!cardsRef.current.length || isUpdatingRef.current) return
-    if (window.innerWidth < 1024) return   // mobile — plain layout, no stacking
+    if (window.innerWidth < 1024) return // mobile — plain layout, no stacking
 
     isUpdatingRef.current = true
 
@@ -185,9 +170,7 @@ export default function ScrollStack({
     const wrapper = wrapperRef.current
     if (!wrapper) return
 
-    const cards = Array.from(
-      wrapper.querySelectorAll('.scroll-stack-card')
-    ) as HTMLElement[]
+    const cards = Array.from(wrapper.querySelectorAll('.scroll-stack-card')) as HTMLElement[]
     cardsRef.current = cards
 
     const applyLayout = () => {
@@ -251,7 +234,7 @@ export default function ScrollStack({
     <div ref={wrapperRef} className={cn('relative w-full', className)} style={style}>
       {children}
       {/* Sentinel: all cards unpin when scrollTop reaches here */}
-      <div className="scroll-stack-end w-full h-px" />
+      <div className="scroll-stack-end h-px w-full" />
     </div>
   )
 }

@@ -59,11 +59,7 @@ export function Stat({
     >
       <span
         data-numeric=""
-        className={cn(
-          'leading-none font-bold tracking-tight',
-          valueSizes[size],
-          valueTones[tone],
-        )}
+        className={cn('leading-none font-bold tracking-tight', valueSizes[size], valueTones[tone])}
       >
         {value}
       </span>

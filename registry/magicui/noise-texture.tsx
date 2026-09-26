@@ -41,7 +41,7 @@ export const NoiseTexture = ({
   return (
     <svg
       className={cn(
-        'pointer-events-none absolute inset-0 z-0 size-full opacity-30 select-none dark:opacity-40 mix-blend-overlay',
+        'pointer-events-none absolute inset-0 z-0 size-full opacity-30 mix-blend-overlay select-none dark:opacity-40',
         className,
       )}
       xmlns="http://www.w3.org/2000/svg"
@@ -61,12 +61,7 @@ export const NoiseTexture = ({
           <feFuncB type="linear" slope={slope} />
         </feComponentTransfer>
       </filter>
-      <rect
-        width="100%"
-        height="100%"
-        filter={`url(#${filterId})`}
-        opacity={noiseOpacity}
-      />
+      <rect width="100%" height="100%" filter={`url(#${filterId})`} opacity={noiseOpacity} />
     </svg>
   )
 }

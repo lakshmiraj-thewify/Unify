@@ -9,26 +9,26 @@ import { bodyText, heading } from './typography'
  * light → near-black heading, muted dark lead (for white/subtle sections)
  */
 const headingTones = {
-  dark:  'text-white',
+  dark: 'text-white',
   light: 'text-[#0D1B21]',
 } as const
 
 const leadTones = {
-  dark:  'text-[#8899A6]',
+  dark: 'text-[#8899A6]',
   light: 'text-[#4A5568]',
 } as const
 
 type SectionHeadingProps = {
-  eyebrow?:   string
-  title:      ReactNode
-  lead?:      ReactNode
-  align?:     'left' | 'center'
-  tone?:      'light' | 'dark'
-  as?:        'h1' | 'h2' | 'h3'
-  size?:      'display' | 'h2' | 'h3'
-  id?:        string
+  eyebrow?: string
+  title: ReactNode
+  lead?: ReactNode
+  align?: 'left' | 'center'
+  tone?: 'light' | 'dark'
+  as?: 'h1' | 'h2' | 'h3'
+  size?: 'display' | 'h2' | 'h3'
+  id?: string
   className?: string
-  children?:  ReactNode
+  children?: ReactNode
 }
 
 export function SectionHeading({
@@ -50,7 +50,7 @@ export function SectionHeading({
     <div
       className={cn(
         'flex flex-col',
-        align === 'center' ? 'mx-auto max-w-readable items-center text-center' : 'items-start',
+        align === 'center' ? 'max-w-readable mx-auto items-center text-center' : 'items-start',
         className,
       )}
     >
@@ -65,7 +65,7 @@ export function SectionHeading({
       </Tag>
 
       {lead ? (
-        <p className={cn('mt-4 max-w-readable text-pretty', bodyText.lead, leadTones[tone])}>
+        <p className={cn('max-w-readable mt-4 text-pretty', bodyText.lead, leadTones[tone])}>
           {lead}
         </p>
       ) : null}

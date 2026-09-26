@@ -25,7 +25,7 @@ export function UnifyMark({ size = 'md', className }: { size?: MarkSize; classNa
     <span
       aria-hidden="true"
       className={cn(
-        'inline-flex shrink-0 items-center font-bold tracking-tight text-primary-600',
+        'text-primary-600 inline-flex shrink-0 items-center font-bold tracking-tight',
         sizes[size],
         className,
       )}

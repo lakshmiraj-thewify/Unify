@@ -2,7 +2,11 @@ export function CustomerProof() {
   const stats = [
     { value: '200+', label: 'Active ISPs & WISPs', subtext: 'Running in production across India' },
     { value: '50,000+', label: 'Subscribers Managed', subtext: 'PPPoE & Hotspot active sessions' },
-    { value: '99.99%', label: 'Cloud RADIUS Uptime SLA', subtext: 'High-availability geo-redundant cluster' },
+    {
+      value: '99.99%',
+      label: 'Cloud RADIUS Uptime SLA',
+      subtext: 'High-availability geo-redundant cluster',
+    },
     { value: '10 min', label: 'MikroTik Setup Time', subtext: 'Zero firmware changes or scripts' },
   ]
 
@@ -37,81 +41,72 @@ export function CustomerProof() {
   ]
 
   return (
-    <section className="unify-light-section py-24 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="unify-light-section border-b border-slate-200 py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Heading on Clean White */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-xs font-semibold text-[#743CFF] tracking-wider uppercase mb-4">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-purple-200 bg-purple-50 px-3 py-1 text-xs font-semibold tracking-wider text-[#743CFF] uppercase">
             Proven At Scale
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+          <h2 className="mb-4 text-3xl leading-tight font-extrabold tracking-tight text-slate-900 sm:text-5xl">
             What leading ISP operators achieve with Unify
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
-            Built specifically for independent broadband operators, WISPs, and multi-tenant LCO networks.
+          <p className="text-base text-slate-600 sm:text-lg">
+            Built specifically for independent broadband operators, WISPs, and multi-tenant LCO
+            networks.
           </p>
         </div>
 
         {/* 4 Big Metrics Grid on White */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="mb-16 grid grid-cols-2 gap-6 lg:grid-cols-4">
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-purple-300 transition-all text-center"
+              className="rounded-2xl border border-slate-200/80 bg-white p-6 text-center shadow-sm transition-all hover:border-purple-300 hover:shadow-md"
             >
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-mono text-[#743CFF] mb-2 tracking-tight">
+              <div className="mb-2 font-mono text-3xl font-extrabold tracking-tight text-[#743CFF] sm:text-4xl lg:text-5xl">
                 {stat.value}
               </div>
-              <div className="text-sm font-bold text-slate-800 mb-1">
-                {stat.label}
-              </div>
-              <div className="text-xs text-slate-500">
-                {stat.subtext}
-              </div>
+              <div className="mb-1 text-sm font-bold text-slate-800">{stat.label}</div>
+              <div className="text-xs text-slate-500">{stat.subtext}</div>
             </div>
           ))}
         </div>
 
         {/* 3 Customer Proof Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {stories.map((story, idx) => (
             <div
               key={idx}
-              className="p-8 rounded-3xl bg-slate-50 border border-slate-200 hover:border-purple-300 transition-all shadow-sm hover:shadow-lg flex flex-col justify-between"
+              className="flex flex-col justify-between rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-sm transition-all hover:border-purple-300 hover:shadow-lg"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-100 text-[#743CFF]">
+                  <span className="rounded-full bg-purple-100 px-2.5 py-1 text-xs font-semibold text-[#743CFF]">
                     {story.badge}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">
-                    {story.operatorType}
-                  </span>
+                  <span className="text-xs font-medium text-slate-400">{story.operatorType}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 leading-snug">
+                <h3 className="text-lg leading-snug font-bold text-slate-900">
                   &ldquo;{story.title}&rdquo;
                 </h3>
 
-                <p className="text-sm text-slate-600 leading-relaxed italic">
-                  {story.quote}
-                </p>
+                <p className="text-sm leading-relaxed text-slate-600 italic">{story.quote}</p>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-slate-200">
-                <div className="flex flex-wrap gap-1.5 mb-3">
+              <div className="mt-6 border-t border-slate-200 pt-6">
+                <div className="mb-3 flex flex-wrap gap-1.5">
                   {story.tags.map((tag, tagIdx) => (
                     <span
                       key={tagIdx}
-                      className="text-[11px] font-medium px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-600"
+                      className="rounded border border-slate-200 bg-white px-2 py-0.5 text-[11px] font-medium text-slate-600"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <div className="text-xs font-semibold text-slate-500">
-                  📍 {story.location}
-                </div>
+                <div className="text-xs font-semibold text-slate-500">📍 {story.location}</div>
               </div>
             </div>
           ))}

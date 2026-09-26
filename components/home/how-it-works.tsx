@@ -58,26 +58,26 @@ export function HowItWorks() {
   const stepRefs = [step1Ref, step2Ref, step3Ref, step4Ref, step5Ref]
 
   return (
-    <section id="how-it-works" className="py-24 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[#5EE7E4] tracking-wider uppercase mb-4">
+    <section id="how-it-works" className="relative z-10 py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wider text-[#5EE7E4] uppercase">
             How It Works
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+          <h2 className="mb-4 text-3xl leading-tight font-extrabold tracking-tight text-white sm:text-5xl">
             From router to cloud in{' '}
             <span className="bg-gradient-to-r from-[#5EE7E4] to-[#C084FC] bg-clip-text text-transparent">
               10 minutes.
             </span>
           </h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed">
+          <p className="text-base leading-relaxed text-white/60 sm:text-lg">
             No servers to buy. No Linux expertise required. No downtime risk.
           </p>
         </div>
 
         {/* Relative container wrapping the steps & animated beams */}
         <div ref={containerRef} className="relative">
-          <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5 relative z-10">
+          <ol className="relative z-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((step, i) => {
               const Icon = step.icon
               const currentRef = stepRefs[i]
@@ -116,7 +116,7 @@ export function HowItWorks() {
           </ol>
 
           {/* Sequential Animated Beams across the 5 step nodes */}
-          <div className="hidden lg:block pointer-events-none">
+          <div className="pointer-events-none hidden lg:block">
             <AnimatedBeam
               containerRef={containerRef}
               fromRef={step1Ref}

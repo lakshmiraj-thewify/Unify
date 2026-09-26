@@ -30,16 +30,16 @@ export function FaqSection() {
   ]
 
   return (
-    <section className="unify-light-section py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-xs font-semibold text-slate-700 tracking-wider uppercase mb-3">
+    <section className="unify-light-section bg-white py-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 text-center">
+          <div className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold tracking-wider text-slate-700 uppercase">
             Common Inquiries
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="text-slate-500 mt-2 text-sm sm:text-base">
+          <p className="mt-2 text-sm text-slate-500 sm:text-base">
             Everything you need to know about cloud RADIUS, MikroTik setup, and billing.
           </p>
         </div>
@@ -50,24 +50,25 @@ export function FaqSection() {
             return (
               <div
                 key={idx}
-                className="rounded-2xl border border-slate-200 overflow-hidden transition-all bg-white hover:border-purple-200"
+                className="overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:border-purple-200"
               >
                 <button
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
-                  className="w-full flex items-center justify-between p-5 sm:p-6 text-left"
+                  className="flex w-full items-center justify-between p-5 text-left sm:p-6"
                 >
-                  <span className="font-bold text-slate-900 text-base sm:text-lg pr-4">
+                  <span className="pr-4 text-base font-bold text-slate-900 sm:text-lg">
                     {faq.q}
                   </span>
                   <div
-                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform ${isOpen ? 'bg-[#743CFF] text-white rotate-180' : 'bg-slate-100 text-slate-500'
-                      }`}
+                    className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-transform ${
+                      isOpen ? 'rotate-180 bg-[#743CFF] text-white' : 'bg-slate-100 text-slate-500'
+                    }`}
                   >
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="h-4 w-4" />
                   </div>
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-4">
+                  <div className="border-t border-slate-100 px-5 pt-4 pb-6 text-sm leading-relaxed text-slate-600 sm:px-6 sm:pb-6 sm:text-base">
                     {faq.a}
                   </div>
                 )}

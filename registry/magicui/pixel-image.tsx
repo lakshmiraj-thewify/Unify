@@ -68,7 +68,7 @@ export const PixelImage = ({
       )
     }
 
-    return isValidGrid(customGrid) ? customGrid! : DEFAULT_GRIDS[grid] ?? { rows: 6, cols: 6 }
+    return isValidGrid(customGrid) ? customGrid! : (DEFAULT_GRIDS[grid] ?? { rows: 6, cols: 6 })
   }, [customGrid, grid])
 
   useEffect(() => {
@@ -125,14 +125,17 @@ export const PixelImage = ({
   return (
     <div
       ref={containerRef}
-      className={cn('relative select-none overflow-hidden', className ?? 'h-72 w-72 md:h-96 md:w-96')}
+      className={cn(
+        'relative overflow-hidden select-none',
+        className ?? 'h-72 w-72 md:h-96 md:w-96',
+      )}
     >
       {pieces.map((piece, index) => (
         <div
           key={index}
           className={cn(
             'absolute inset-0 transition-all ease-out',
-            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95',
+            isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0',
           )}
           style={{
             clipPath: piece.clipPath,

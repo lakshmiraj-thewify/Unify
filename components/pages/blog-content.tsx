@@ -14,8 +14,10 @@ function useInView(threshold = 0.1) {
     const el = ref.current
     if (!el) return
     const obs = new IntersectionObserver(
-      (entries) => { if (entries[0]?.isIntersecting) setInView(true) },
-      { threshold }
+      (entries) => {
+        if (entries[0]?.isIntersecting) setInView(true)
+      },
+      { threshold },
     )
     obs.observe(el)
     return () => obs.disconnect()
@@ -23,46 +25,58 @@ function useInView(threshold = 0.1) {
   return { ref, inView }
 }
 
-function ArticleCard({ article, index, inView }: { article: BlogArticle; index: number; inView: boolean }) {
+function ArticleCard({
+  article,
+  index,
+  inView,
+}: {
+  article: BlogArticle
+  index: number
+  inView: boolean
+}) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-      className="group relative rounded-2xl bg-white border border-slate-200 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-100/60 transition-all duration-300 overflow-hidden flex flex-col"
+      transition={{
+        delay: index * 0.08,
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:border-violet-300 hover:shadow-xl hover:shadow-violet-100/60"
     >
       {/* Category color bar */}
       <div className="h-1 w-full bg-gradient-to-r from-violet-500 to-cyan-400" />
 
-      <div className="p-6 flex flex-col flex-1 gap-4">
+      <div className="flex flex-1 flex-col gap-4 p-6">
         {/* Meta row */}
-        <div className="flex items-center gap-3 flex-wrap">
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-violet-50 text-violet-600 border border-violet-200">
-            <Tag className="w-3 h-3" />
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-1 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-[11px] font-semibold tracking-wider text-violet-600 uppercase">
+            <Tag className="h-3 w-3" />
             {article.tag}
           </span>
           <span className="inline-flex items-center gap-1 text-[11px] text-slate-400">
-            <Clock className="w-3 h-3" />
+            <Clock className="h-3 w-3" />
             {article.readTime}
           </span>
-          <span className="text-[11px] text-slate-400 ml-auto">{article.publishedDate}</span>
+          <span className="ml-auto text-[11px] text-slate-400">{article.publishedDate}</span>
         </div>
 
         {/* Title */}
-        <h2 className="text-base font-bold text-slate-900 group-hover:text-violet-700 transition-colors leading-snug line-clamp-3">
+        <h2 className="line-clamp-3 text-base leading-snug font-bold text-slate-900 transition-colors group-hover:text-violet-700">
           {article.title}
         </h2>
 
         {/* Summary */}
-        <p className="text-sm text-slate-500 leading-relaxed line-clamp-3 flex-1">
+        <p className="line-clamp-3 flex-1 text-sm leading-relaxed text-slate-500">
           {article.summary}
         </p>
 
         {/* Read CTA */}
-        <div className="flex items-center gap-1.5 text-sm font-semibold text-violet-600 group-hover:gap-2.5 transition-all mt-auto pt-2 border-t border-slate-100">
-          <BookOpen className="w-4 h-4" />
+        <div className="mt-auto flex items-center gap-1.5 border-t border-slate-100 pt-2 text-sm font-semibold text-violet-600 transition-all group-hover:gap-2.5">
+          <BookOpen className="h-4 w-4" />
           Read article
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="h-3.5 w-3.5" />
         </div>
       </div>
     </motion.article>
@@ -89,53 +103,60 @@ export function BlogContent() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="relative overflow-hidden pt-32 pb-20" style={{background: 'radial-gradient(ellipse 80% 100% at 50% 0%, #9061FF 0%, #6332F6 35%, #2A115E 72%, #150833 100%)'}}>
+      <section
+        className="relative overflow-hidden pt-32 pb-20"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 100% at 50% 0%, #9061FF 0%, #6332F6 35%, #2A115E 72%, #150833 100%)',
+        }}
+      >
         {/* Dot grid overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] opacity-10 pointer-events-none" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] opacity-10" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(116,60,255,0.25)_0%,transparent_70%)]" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+            transition={{
+              duration: 0.6,
+              ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+            }}
           >
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-violet-400 tracking-wider uppercase mb-5">
+            <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wider text-violet-400 uppercase">
               {blogMeta.eyebrow}
             </div>
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-5">
+            <h1 className="mb-5 text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
               {blogMeta.heading}
             </h1>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              {blogMeta.lead}
-            </p>
+            <p className="mx-auto max-w-2xl text-lg text-white/60">{blogMeta.lead}</p>
           </motion.div>
         </div>
       </section>
 
       {/* Sticky filter bar */}
-      <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3 flex-wrap">
+      <div className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 shadow-sm backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
           {/* Search */}
-          <div className="relative flex-1 min-w-[200px] max-w-xs">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <div className="relative max-w-xs min-w-[200px] flex-1">
+            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Search articles…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pr-3 pl-9 text-sm focus:border-transparent focus:ring-2 focus:ring-violet-400 focus:outline-none"
             />
           </div>
           {/* Tags */}
-          <div className="flex items-center gap-1.5 flex-wrap">
+          <div className="flex flex-wrap items-center gap-1.5">
             {blogTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => setActiveTag(tag)}
-                className={`px-3 py-1 text-xs font-semibold rounded-full border transition-colors ${
+                className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${
                   activeTag === tag
-                    ? 'bg-violet-600 text-white border-violet-600'
-                    : 'bg-white text-slate-600 border-slate-200 hover:border-violet-300 hover:text-violet-600'
+                    ? 'border-violet-600 bg-violet-600 text-white'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-violet-300 hover:text-violet-600'
                 }`}
               >
                 {tag}
@@ -146,12 +167,18 @@ export function BlogContent() {
       </div>
 
       {/* Articles grid */}
-      <div ref={ref} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div ref={ref} className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         {filtered.length === 0 ? (
-          <div className="text-center py-24 text-slate-400">
-            <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-40" />
+          <div className="py-24 text-center text-slate-400">
+            <BookOpen className="mx-auto mb-3 h-10 w-10 opacity-40" />
             <p className="text-lg font-medium">No articles match your filter.</p>
-            <button onClick={() => { setActiveTag('All'); setSearch('') }} className="mt-4 text-violet-600 text-sm underline">
+            <button
+              onClick={() => {
+                setActiveTag('All')
+                setSearch('')
+              }}
+              className="mt-4 text-sm text-violet-600 underline"
+            >
               Clear filters
             </button>
           </div>
@@ -163,27 +190,31 @@ export function BlogContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55 }}
-                className="mb-10 group relative rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-700 text-white overflow-hidden flex flex-col sm:flex-row gap-8 p-8 sm:p-10 shadow-2xl shadow-violet-900/30 hover:shadow-violet-900/50 transition-shadow"
+                className="group relative mb-10 flex flex-col gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-700 p-8 text-white shadow-2xl shadow-violet-900/30 transition-shadow hover:shadow-violet-900/50 sm:flex-row sm:p-10"
               >
-                <div className="flex-1 flex flex-col gap-4">
+                <div className="flex flex-1 flex-col gap-4">
                   <div className="flex items-center gap-3">
-                    <span className="px-2.5 py-1 rounded-full bg-white/20 text-[11px] font-bold uppercase tracking-wider">Featured</span>
-                    <span className="text-white/60 text-xs">{featured.readTime}</span>
+                    <span className="rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-bold tracking-wider uppercase">
+                      Featured
+                    </span>
+                    <span className="text-xs text-white/60">{featured.readTime}</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold leading-snug">{featured.title}</h2>
-                  <p className="text-white/75 text-sm leading-relaxed">{featured.summary}</p>
+                  <h2 className="text-2xl leading-snug font-extrabold sm:text-3xl">
+                    {featured.title}
+                  </h2>
+                  <p className="text-sm leading-relaxed text-white/75">{featured.summary}</p>
                   <Link
                     href={`/blog/${featured.slug}`}
-                    className="mt-auto inline-flex items-center gap-2 text-sm font-bold bg-white text-violet-700 rounded-full px-5 py-2.5 w-fit hover:bg-violet-50 transition-colors"
+                    className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-violet-700 transition-colors hover:bg-violet-50"
                   >
-                    Read article <ArrowRight className="w-4 h-4" />
+                    Read article <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </motion.div>
             )}
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {(activeTag === 'All' && search === '' ? rest : filtered).map((article, i) => (
                 <Link key={article.slug} href={`/blog/${article.slug}`} className="contents">
                   <ArticleCard article={article} index={i} inView={inView} />
@@ -196,9 +227,11 @@ export function BlogContent() {
 
       {/* Bottom CTA */}
       <section className="bg-[#0D0F17] py-20 text-center">
-        <div className="max-w-xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-white mb-3">New guides every month</h2>
-          <p className="text-white/60 text-sm mb-8">Practical MikroTik and ISP operations content — no fluff, no generic advice.</p>
+        <div className="mx-auto max-w-xl px-4">
+          <h2 className="mb-3 text-2xl font-bold text-white">New guides every month</h2>
+          <p className="mb-8 text-sm text-white/60">
+            Practical MikroTik and ISP operations content — no fluff, no generic advice.
+          </p>
           <InteractiveHoverButton
             href="/contact"
             variant="primary"

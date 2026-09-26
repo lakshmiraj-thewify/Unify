@@ -45,7 +45,7 @@ export default function DesignSystemPage() {
             title="Design system"
             lead="Every design token and every primitive variant, on light and on dark. If something is not on this page, it is not part of the system."
           />
-          <p className={`${bodyText.small} max-w-2xl text-dark-fg-muted`}>
+          <p className={`${bodyText.small} text-dark-fg-muted max-w-2xl`}>
             Hues, radii and shadow treatment are inherited from thewify.com and
             guestwifi.thewify.com so Unify reads as the same house. The sibling distinctions are
             deliberate: navy is structural rather than decorative, the palette is a closed semantic
@@ -79,7 +79,7 @@ export default function DesignSystemPage() {
                 <Container
                   key={width}
                   width={width}
-                  className="rounded-lg border border-primary-200 bg-primary-50 py-2"
+                  className="border-primary-200 bg-primary-50 rounded-lg border py-2"
                 >
                   <span className={`${label.mono} text-primary-700`}>{width}</span>
                 </Container>

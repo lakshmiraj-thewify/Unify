@@ -9,17 +9,17 @@ import { label } from './typography'
  */
 const tones = {
   light: 'text-[#743CFF]',
-  dark:  'text-[#A78BFA]',
+  dark: 'text-[#A78BFA]',
 } as const
 
 export type EyebrowTone = keyof typeof tones
 
 type EyebrowProps = {
-  children:   ReactNode
-  tone?:      EyebrowTone
+  children: ReactNode
+  tone?: EyebrowTone
   className?: string
   /** Renders a small pulsing dot before the label — reserved for live/real-time context. */
-  live?:      boolean
+  live?: boolean
 }
 
 /**
@@ -32,7 +32,7 @@ export function Eyebrow({ children, tone = 'dark', className, live = false }: Ey
       {live ? (
         <span
           aria-hidden="true"
-          className="size-1.5 shrink-0 animate-pulse-dot rounded-full bg-[#5EE7E4]"
+          className="animate-pulse-dot size-1.5 shrink-0 rounded-full bg-[#5EE7E4]"
         />
       ) : null}
       {children}

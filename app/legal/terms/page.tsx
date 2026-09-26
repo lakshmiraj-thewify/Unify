@@ -17,18 +17,18 @@ export default function TermsOfServicePage() {
     <>
       {/* Dark header band — consistent with other inner pages */}
       <Section tone="dark" spacing="flush" contained={false}>
-        <div className="mx-auto w-full max-w-page px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="max-w-page mx-auto w-full px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="flex flex-col items-center text-center">
             <Badge variant="signal" tone="dark" size="md" dot className="mb-4">
               Legal
             </Badge>
-            <h1 className="w-full max-w-readable text-3xl font-extrabold tracking-tight text-balance text-dark-fg lg:text-4xl">
+            <h1 className="max-w-readable text-dark-fg w-full text-3xl font-extrabold tracking-tight text-balance lg:text-4xl">
               Terms of Service
             </h1>
-            <p className="mt-3 w-full max-w-readable text-lg leading-relaxed text-pretty text-dark-fg-muted">
+            <p className="max-w-readable text-dark-fg-muted mt-3 w-full text-lg leading-relaxed text-pretty">
               The contractual terms governing access to and use of the Unify Wi-Fi platform.
             </p>
-            <p className="mt-2 text-sm text-dark-fg-muted">
+            <p className="text-dark-fg-muted mt-2 text-sm">
               Effective: 18 January 2026 · Last updated: 8 March 2026
             </p>
           </div>
@@ -36,22 +36,22 @@ export default function TermsOfServicePage() {
       </Section>
 
       <Section tone="subtle" spacing="default">
-        <div className="mx-auto max-w-content">
-          <div className="overflow-hidden border-y border-line bg-surface">
+        <div className="max-w-content mx-auto">
+          <div className="border-line bg-surface overflow-hidden border-y">
             {/* Header bar */}
-            <div className="flex items-center gap-3 border-b border-line bg-surface-subtle px-6 py-4">
-              <div className="flex-shrink-0 rounded-lg border border-primary-200 bg-primary-50 p-2">
-                <ScrollText className="size-5 text-primary-600" aria-hidden="true" />
+            <div className="border-line bg-surface-subtle flex items-center gap-3 border-b px-6 py-4">
+              <div className="border-primary-200 bg-primary-50 flex-shrink-0 rounded-lg border p-2">
+                <ScrollText className="text-primary-600 size-5" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-sm font-bold text-ink">Terms of Service</p>
-                <p className="text-xs text-ink-muted">TheWiFy Technologies Private Limited</p>
+                <p className="text-ink text-sm font-bold">Terms of Service</p>
+                <p className="text-ink-muted text-xs">TheWiFy Technologies Private Limited</p>
               </div>
             </div>
 
             {/* Legal content */}
-            <div className="prose prose-sm max-w-none px-6 py-8 leading-relaxed text-ink-soft sm:px-10 lg:px-12 [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-ink [&_h3]:mt-5 [&_h3]:mb-2 [&_h3]:text-sm [&_h3]:font-bold [&_h3]:text-ink [&_li]:leading-relaxed [&_p]:mb-3 [&_p]:text-sm [&_strong]:font-semibold [&_strong]:text-ink [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ul]:text-sm">
-              <p className="mb-6 text-sm text-ink-muted">
+            <div className="prose prose-sm text-ink-soft [&_h2]:text-ink [&_h3]:text-ink [&_strong]:text-ink max-w-none px-6 py-8 leading-relaxed sm:px-10 lg:px-12 [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-base [&_h2]:font-bold [&_h3]:mt-5 [&_h3]:mb-2 [&_h3]:text-sm [&_h3]:font-bold [&_li]:leading-relaxed [&_p]:mb-3 [&_p]:text-sm [&_strong]:font-semibold [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5 [&_ul]:text-sm">
+              <p className="text-ink-muted mb-6 text-sm">
                 Unify Wi-Fi is a product of TheWiFy Technologies Private Limited. These Terms of
                 Service apply to the Unify Wi-Fi platform.
               </p>

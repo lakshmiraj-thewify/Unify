@@ -9,7 +9,7 @@ export function TypeSpecimen() {
         title="type scale"
         note="Plus Jakarta Sans (variable). Sizes live in components/ui/typography.ts."
       >
-        <div className="flex flex-col divide-y divide-line">
+        <div className="divide-line flex flex-col divide-y">
           <SpecRow label="heading.display — h1 only · 36 / 48 / 56">
             <p className={`${heading.display} text-ink`}>Your ISP. Unified. In the Cloud.</p>
           </SpecRow>
@@ -23,22 +23,22 @@ export function TypeSpecimen() {
             <p className={`${heading.h4} text-ink`}>PPPoE &amp; Hotspot Authentication</p>
           </SpecRow>
           <SpecRow label="bodyText.lead — 18 / 20">
-            <p className={`${bodyText.lead} max-w-2xl text-ink-muted`}>
+            <p className={`${bodyText.lead} text-ink-muted max-w-2xl`}>
               Connect MikroTik in 10 minutes. Automate PPPoE &amp; Hotspot billing.
             </p>
           </SpecRow>
           <SpecRow label="bodyText.base — 16">
-            <p className={`${bodyText.base} max-w-2xl text-ink-soft`}>
+            <p className={`${bodyText.base} text-ink-soft max-w-2xl`}>
               Authenticate every PPPoE and Hotspot session through geo-redundant cloud RADIUS.
             </p>
           </SpecRow>
           <SpecRow label="bodyText.small — 14">
-            <p className={`${bodyText.small} max-w-2xl text-ink-muted`}>
+            <p className={`${bodyText.small} text-ink-muted max-w-2xl`}>
               Set per-subscriber speed limits, data caps and Fair Usage Policy throttling.
             </p>
           </SpecRow>
           <SpecRow label="bodyText.micro — 12">
-            <p className={`${bodyText.micro} max-w-2xl text-ink-faint`}>
+            <p className={`${bodyText.micro} text-ink-faint max-w-2xl`}>
               Footnote, disclaimer and assumption text.
             </p>
           </SpecRow>
@@ -55,26 +55,26 @@ export function TypeSpecimen() {
         title="numeric layer"
         note="JetBrains Mono + tabular figures via data-numeric. Digits never change width, so live values do not jitter."
       >
-        <div className="flex flex-col divide-y divide-line">
+        <div className="divide-line flex flex-col divide-y">
           <SpecRow label="en-IN grouping — formatNumber()">
-            <span data-numeric="" className="text-2xl font-extrabold text-ink">
+            <span data-numeric="" className="text-ink text-2xl font-extrabold">
               {formatNumber(50000)}
             </span>
-            <span data-numeric="" className="text-2xl font-extrabold text-ink">
+            <span data-numeric="" className="text-ink text-2xl font-extrabold">
               {formatNumber(1234567)}
             </span>
           </SpecRow>
           <SpecRow label="currency — formatINR()">
-            <span data-numeric="" className="text-2xl font-extrabold text-ink">
+            <span data-numeric="" className="text-ink text-2xl font-extrabold">
               {formatINR(48000)}
             </span>
           </SpecRow>
           <SpecRow label="width stability — same character count, aligned">
             <span className="flex flex-col">
-              <span data-numeric="" className="text-lg font-bold text-ink">
+              <span data-numeric="" className="text-ink text-lg font-bold">
                 111,111
               </span>
-              <span data-numeric="" className="text-lg font-bold text-ink">
+              <span data-numeric="" className="text-ink text-lg font-bold">
                 999,999
               </span>
             </span>

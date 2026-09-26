@@ -50,11 +50,7 @@ export async function generateMetadata({
   })
 }
 
-export default async function FeatureDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
+export default async function FeatureDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const feature = getFeatureDetail(slug)
   if (!feature) notFound()
@@ -65,36 +61,43 @@ export default async function FeatureDetailPage({
   return (
     <main className="min-h-screen bg-white">
       {/* ── Dark Hero Header ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-32 pb-20" style={{background: 'radial-gradient(ellipse 80% 100% at 50% 0%, #9061FF 0%, #6332F6 35%, #2A115E 72%, #150833 100%)'}}>
+      <section
+        className="relative overflow-hidden pt-32 pb-20"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 100% at 50% 0%, #9061FF 0%, #6332F6 35%, #2A115E 72%, #150833 100%)',
+        }}
+      >
         {/* Dot grid overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] opacity-10 pointer-events-none" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] opacity-10" />
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           {/* Back link */}
           <Link
             href="/#tabs-showcase"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-white/50 hover:text-white transition-colors mb-8"
+            className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-white/50 transition-colors hover:text-white"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" />
             All features
           </Link>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
             {/* Icon */}
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
+            <div
+              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl"
               style={{ background: 'linear-gradient(135deg, #743CFF 0%, #5EE7E4 100%)' }}
             >
-              {Icon ? <Icon className="w-8 h-8 text-white" strokeWidth={1.5} /> : null}
+              {Icon ? <Icon className="h-8 w-8 text-white" strokeWidth={1.5} /> : null}
             </div>
 
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-2">
+              <p className="mb-2 text-xs font-bold tracking-widest text-violet-400 uppercase">
                 {feature.eyebrow}
               </p>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mb-3">
+              <h1 className="mb-3 text-3xl leading-tight font-extrabold tracking-tight text-white sm:text-4xl">
                 {feature.title}
               </h1>
-              <p className="text-lg text-white/60 max-w-2xl leading-relaxed">
+              <p className="max-w-2xl text-lg leading-relaxed text-white/60">
                 {feature.description}
               </p>
             </div>
@@ -103,28 +106,30 @@ export default async function FeatureDetailPage({
       </section>
 
       {/* ── Body ─────────────────────────────────────────────────────── */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
-
+      <section className="bg-slate-50 py-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
             {/* Main content */}
             <div className="flex flex-col gap-8">
               {/* Overview card */}
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8">
-                <h2 className="text-lg font-bold text-slate-900 mb-4">Overview</h2>
-                <p className="text-slate-600 leading-relaxed text-base">{feature.body}</p>
+              <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+                <h2 className="mb-4 text-lg font-bold text-slate-900">Overview</h2>
+                <p className="text-base leading-relaxed text-slate-600">{feature.body}</p>
               </div>
 
               {/* Capabilities */}
               <div>
-                <h2 className="text-lg font-bold text-slate-900 mb-5">What it includes</h2>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <h2 className="mb-5 text-lg font-bold text-slate-900">What it includes</h2>
+                <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {feature.capabilities.map((cap) => (
                     <li
                       key={cap}
-                      className="flex items-start gap-3 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm hover:border-violet-200 hover:shadow-md transition-all"
+                      className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-violet-200 hover:shadow-md"
                     >
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0 text-violet-500" aria-hidden="true" />
+                      <CheckCircle2
+                        className="mt-0.5 h-4 w-4 shrink-0 text-violet-500"
+                        aria-hidden="true"
+                      />
                       <span className="text-sm font-medium text-slate-700">{cap}</span>
                     </li>
                   ))}
@@ -135,20 +140,25 @@ export default async function FeatureDetailPage({
             {/* Sidebar */}
             <aside className="flex flex-col gap-5">
               {/* Who it helps */}
-              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
-                <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3">
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <h2 className="mb-3 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
                   Who this helps
                 </h2>
-                <p className="text-sm text-slate-600 leading-relaxed">{feature.whoItHelps}</p>
+                <p className="text-sm leading-relaxed text-slate-600">{feature.whoItHelps}</p>
               </div>
 
               {/* CTA */}
-              <div className="rounded-3xl p-6 text-white"
-                style={{ background: 'var(--unify-gradient-brand-3, linear-gradient(135deg,#8556FF,#6B3EFF 60%))' }}
+              <div
+                className="rounded-3xl p-6 text-white"
+                style={{
+                  background:
+                    'var(--unify-gradient-brand-3, linear-gradient(135deg,#8556FF,#6B3EFF 60%))',
+                }}
               >
-                <p className="font-bold text-sm mb-1">Ready to see it live?</p>
-                <p className="text-white/70 text-xs mb-5 leading-relaxed">
-                  Book a 20-minute demo and we&apos;ll walk you through this module on your actual router setup.
+                <p className="mb-1 text-sm font-bold">Ready to see it live?</p>
+                <p className="mb-5 text-xs leading-relaxed text-white/70">
+                  Book a 20-minute demo and we&apos;ll walk you through this module on your actual
+                  router setup.
                 </p>
                 <InteractiveHoverButton
                   href="/contact"
@@ -162,7 +172,7 @@ export default async function FeatureDetailPage({
               {/* Related modules */}
               {related.length > 0 && (
                 <div>
-                  <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3">
+                  <h2 className="mb-3 text-[11px] font-bold tracking-widest text-slate-400 uppercase">
                     Related modules
                   </h2>
                   <ul className="flex flex-col gap-2">
@@ -172,15 +182,15 @@ export default async function FeatureDetailPage({
                         <li key={rel.slug}>
                           <Link
                             href={`/features/${rel.slug}`}
-                            className="group flex items-center gap-3 bg-white rounded-2xl border border-slate-200 p-3.5 hover:border-violet-300 hover:shadow-sm transition-all"
+                            className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3.5 transition-all hover:border-violet-300 hover:shadow-sm"
                           >
-                            <span className="flex w-8 h-8 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600 group-hover:bg-violet-100 transition-colors">
-                              {RelIcon ? <RelIcon className="w-4 h-4" aria-hidden="true" /> : null}
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600 transition-colors group-hover:bg-violet-100">
+                              {RelIcon ? <RelIcon className="h-4 w-4" aria-hidden="true" /> : null}
                             </span>
-                            <span className="text-sm font-semibold text-slate-700 group-hover:text-violet-700 transition-colors">
+                            <span className="text-sm font-semibold text-slate-700 transition-colors group-hover:text-violet-700">
                               {rel.title}
                             </span>
-                            <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-violet-400 ml-auto transition-colors" />
+                            <ArrowRight className="ml-auto h-3.5 w-3.5 text-slate-300 transition-colors group-hover:text-violet-400" />
                           </Link>
                         </li>
                       )
@@ -192,12 +202,12 @@ export default async function FeatureDetailPage({
           </div>
 
           {/* Bottom back link */}
-          <div className="mt-12 pt-8 border-t border-slate-200">
+          <div className="mt-12 border-t border-slate-200 pt-8">
             <Link
               href="/#tabs-showcase"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-violet-600 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition-colors hover:text-violet-600"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="h-4 w-4" />
               Back to all features
             </Link>
           </div>
@@ -206,11 +216,11 @@ export default async function FeatureDetailPage({
 
       {/* Bottom CTA */}
       <section className="bg-[#0D0F17] py-16 text-center">
-        <div className="max-w-xl mx-auto px-4">
-          <h2 className="text-2xl font-extrabold text-white mb-3">
+        <div className="mx-auto max-w-xl px-4">
+          <h2 className="mb-3 text-2xl font-extrabold text-white">
             Connect your MikroTik in 10 minutes
           </h2>
-          <p className="text-white/60 text-sm mb-8">
+          <p className="mb-8 text-sm text-white/60">
             No hardware changes. No Linux expertise. Start your free 30-day trial.
           </p>
           <InteractiveHoverButton

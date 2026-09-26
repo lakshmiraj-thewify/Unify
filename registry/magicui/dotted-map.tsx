@@ -15,8 +15,7 @@ export type MapMarker<M extends Marker> = Omit<M, 'lat' | 'lng'> & {
   y: number
 }
 
-export interface DottedMapProps<M extends Marker = Marker>
-  extends React.SVGProps<SVGSVGElement> {
+export interface DottedMapProps<M extends Marker = Marker> extends React.SVGProps<SVGSVGElement> {
   width?: number
   height?: number
   mapSamples?: number
@@ -116,9 +115,7 @@ export function DottedMap<M extends Marker = Marker>({
         const x = marker.x + offsetX
         const y = marker.y
         const r = marker.size ?? dotRadius
-        const shouldPulse = pulse
-          ? marker.pulse !== false
-          : marker.pulse === true
+        const shouldPulse = pulse ? marker.pulse !== false : marker.pulse === true
         const pulseTo = r * 2.8
 
         return (

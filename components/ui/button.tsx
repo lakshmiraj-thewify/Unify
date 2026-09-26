@@ -21,20 +21,15 @@ const variants = {
   outline:
     'bg-transparent text-[#0D1B21] border border-[#E2E8F0] hover:border-[#743CFF] hover:text-[#743CFF]',
   /** White solid — for use on dark hero */
-  white:
-    'bg-white text-[#0D1B21] hover:bg-white/90 shadow-sm',
+  white: 'bg-white text-[#0D1B21] hover:bg-white/90 shadow-sm',
   /** Ghost nav link */
-  ghost:
-    'text-white/70 hover:text-white hover:bg-white/8 rounded-lg',
+  ghost: 'text-white/70 hover:text-white hover:bg-white/8 rounded-lg',
   /** Ghost on light backgrounds */
-  'ghost-light':
-    'text-[#4A5568] hover:text-[#0D1B21] hover:bg-[#F7F8FA] rounded-lg',
+  'ghost-light': 'text-[#4A5568] hover:text-[#0D1B21] hover:bg-[#F7F8FA] rounded-lg',
   /** Dark band outlined ghost */
-  dark:
-    'bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40',
+  dark: 'bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40',
   /** Inline text action */
-  link:
-    'text-[#A78BFA] decoration-[#743CFF]/40 rounded-sm font-semibold underline decoration-2 underline-offset-4 hover:text-[#743CFF] hover:decoration-[#743CFF]',
+  link: 'text-[#A78BFA] decoration-[#743CFF]/40 rounded-sm font-semibold underline decoration-2 underline-offset-4 hover:text-[#743CFF] hover:decoration-[#743CFF]',
 } as const
 
 const sizes = {

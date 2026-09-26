@@ -31,8 +31,8 @@ export default function Error({
 
   return (
     <Section tone="light" spacing="default">
-      <div className="mx-auto flex max-w-readable flex-col items-center gap-6 text-center">
-        <span className="font-mono text-sm font-semibold tracking-[0.08em] text-danger-600">
+      <div className="max-w-readable mx-auto flex flex-col items-center gap-6 text-center">
+        <span className="text-danger-600 font-mono text-sm font-semibold tracking-[0.08em]">
           Error
         </span>
         <SectionHeading
@@ -53,7 +53,7 @@ export default function Error({
           If it keeps happening, email{' '}
           <a
             href={`mailto:${site.contact.email}`}
-            className="font-semibold text-primary-600 underline decoration-primary-300 decoration-2 underline-offset-4"
+            className="text-primary-600 decoration-primary-300 font-semibold underline decoration-2 underline-offset-4"
           >
             {site.contact.email}
           </a>

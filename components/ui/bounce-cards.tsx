@@ -61,13 +61,10 @@ export function BounceCards({
 
   // Normalize data between items array or images array
   const cardData: BounceCardItem[] =
-    items.length > 0
-      ? items
-      : images.map((src, i) => ({ id: i, src }))
+    items.length > 0 ? items : images.map((src, i) => ({ id: i, src }))
 
   const transforms =
-    transformStyles ??
-    (cardData.length === 4 ? DEFAULT_TRANSFORMS_4 : DEFAULT_TRANSFORMS_5)
+    transformStyles ?? (cardData.length === 4 ? DEFAULT_TRANSFORMS_4 : DEFAULT_TRANSFORMS_5)
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -125,7 +122,9 @@ export function BounceCards({
       const newX = currentX + offsetX
       return baseTransform.replace(translateRegex, `translate(${newX}px)`)
     } else {
-      return baseTransform === 'none' ? `translate(${offsetX}px)` : `${baseTransform} translate(${offsetX}px)`
+      return baseTransform === 'none'
+        ? `translate(${offsetX}px)`
+        : `${baseTransform} translate(${offsetX}px)`
     }
   }
 
@@ -192,7 +191,7 @@ export function BounceCards({
   return (
     <div
       ref={containerRef}
-      className={cn('relative flex items-center justify-center mx-auto select-none', className)}
+      className={cn('relative mx-auto flex items-center justify-center select-none', className)}
       style={{
         width: typeof containerWidth === 'number' ? `${containerWidth}px` : containerWidth,
         height: typeof containerHeight === 'number' ? `${containerHeight}px` : containerHeight,
@@ -216,15 +215,15 @@ export function BounceCards({
             {customContent ? (
               customContent
             ) : item.src ? (
-              <div className="w-48 sm:w-56 aspect-square rounded-2xl overflow-hidden border border-white/15 bg-[#1B1722] shadow-2xl">
+              <div className="aspect-square w-48 overflow-hidden rounded-2xl border border-white/15 bg-[#1B1722] shadow-2xl sm:w-56">
                 <img
                   src={item.src}
                   alt={item.title ?? `card-${idx}`}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
             ) : (
-              <div className="w-64 sm:w-72 min-h-[260px] p-6 rounded-2xl border border-white/15 bg-[#0F1320]/95 backdrop-blur-xl shadow-2xl flex flex-col justify-between hover:border-white/30 transition-colors">
+              <div className="flex min-h-[260px] w-64 flex-col justify-between rounded-2xl border border-white/15 bg-[#0F1320]/95 p-6 shadow-2xl backdrop-blur-xl transition-colors hover:border-white/30 sm:w-72">
                 <div className="flex flex-col gap-4">
                   <span
                     className="inline-flex size-11 items-center justify-center rounded-xl shadow-inner"
@@ -237,12 +236,16 @@ export function BounceCards({
                     {item.icon}
                   </span>
                   <div>
-                    <h3 className="text-base font-bold text-white mb-1.5">{item.title}</h3>
-                    <p className="text-xs sm:text-sm text-white/60 leading-relaxed">{item.description}</p>
+                    <h3 className="mb-1.5 text-base font-bold text-white">{item.title}</h3>
+                    <p className="text-xs leading-relaxed text-white/60 sm:text-sm">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
-                <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between text-[11px]">
-                  <span className="font-mono text-[#5EE7E4]">0{idx + 1} {'//'} CORE</span>
+                <div className="flex items-center justify-between border-t border-white/[0.08] pt-3 text-[11px]">
+                  <span className="font-mono text-[#5EE7E4]">
+                    0{idx + 1} {'//'} CORE
+                  </span>
                   <span className="text-white/40">MikroTik Ready</span>
                 </div>
               </div>
