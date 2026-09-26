@@ -1,6 +1,7 @@
 'use client'
 
 import { Router, CreditCard, MessageCircle, Network } from 'lucide-react'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 export function EcosystemTransition() {
   const integrations = [
@@ -87,33 +88,36 @@ export function EcosystemTransition() {
             return (
               <div
                 key={idx}
-                className="unify-frosted-violet-card space-y-6 p-6 transition-all duration-300 sm:p-8"
+                className="unify-frosted-violet-card relative overflow-hidden p-6 transition-all duration-300 sm:p-8"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15 text-white shadow-lg">
-                      <Icon className="h-5 w-5" />
+                <NoiseTexture className="opacity-30" />
+                <div className="relative z-10 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15 text-white shadow-lg">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <h3 className="text-xl font-bold tracking-tight text-white">{card.title}</h3>
                     </div>
-                    <h3 className="text-xl font-bold tracking-tight text-white">{card.title}</h3>
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#5EE7E4] shadow-sm shadow-[#5EE7E4]" />
                   </div>
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#5EE7E4] shadow-sm shadow-[#5EE7E4]" />
-                </div>
 
-                <p className="text-sm leading-relaxed text-white/85">{card.description}</p>
+                  <p className="text-sm leading-relaxed text-white/85">{card.description}</p>
 
-                {/* Sub-item pills */}
-                <div className="grid grid-cols-2 gap-2.5 pt-2">
-                  {card.items.map((item, itemIdx) => (
-                    <div
-                      key={itemIdx}
-                      className="flex items-center justify-between rounded-xl border border-white/15 bg-white/10 p-2.5 text-xs text-white transition-all hover:bg-white/15"
-                    >
-                      <span className="mr-1 truncate font-medium">{item.name}</span>
-                      <span className="shrink-0 rounded bg-white/20 px-1.5 py-0.5 font-mono text-[10px] text-white/90">
-                        {item.tag}
-                      </span>
-                    </div>
-                  ))}
+                  {/* Sub-item pills */}
+                  <div className="grid grid-cols-2 gap-2.5 pt-2">
+                    {card.items.map((item, itemIdx) => (
+                      <div
+                        key={itemIdx}
+                        className="flex items-center justify-between rounded-xl border border-white/15 bg-white/10 p-2.5 text-xs text-white transition-all hover:bg-white/15"
+                      >
+                        <span className="mr-1 truncate font-medium">{item.name}</span>
+                        <span className="shrink-0 rounded bg-white/20 px-1.5 py-0.5 font-mono text-[10px] text-white/90">
+                          {item.tag}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )

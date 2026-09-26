@@ -11,6 +11,7 @@ import {
   Users,
 } from 'lucide-react'
 import { featureDetails } from '@/content/feature-details'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 const iconMap: Record<string, React.ElementType> = {
   Server,
@@ -48,17 +49,20 @@ export function FeatureModules() {
               <li key={feature.slug}>
                 <Link
                   href={`/features/${feature.slug}`}
-                  className="group unify-card-dark flex h-full flex-col gap-3 p-5"
+                  className="group unify-card-dark relative flex h-full flex-col gap-3 overflow-hidden p-5"
                 >
-                  <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#743CFF]/15 text-[#743CFF] transition-colors duration-200 group-hover:bg-[#743CFF]/25">
-                    {Icon ? <Icon className="size-[1.1rem]" aria-hidden="true" /> : null}
-                  </span>
-                  <div className="flex flex-1 flex-col gap-1">
-                    <h3 className="text-sm font-bold text-white">{feature.title}</h3>
-                    <p className="text-sm leading-relaxed text-white/55">{feature.description}</p>
-                  </div>
-                  <div className="mt-1 flex items-center gap-1 text-xs font-semibold text-[#5EE7E4] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                    Learn more <ArrowRight className="size-3.5" aria-hidden="true" />
+                  <NoiseTexture className="opacity-30" />
+                  <div className="relative z-10 flex h-full flex-col gap-3">
+                    <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#743CFF]/15 text-[#743CFF] transition-colors duration-200 group-hover:bg-[#743CFF]/25">
+                      {Icon ? <Icon className="size-[1.1rem]" aria-hidden="true" /> : null}
+                    </span>
+                    <div className="flex flex-1 flex-col gap-1">
+                      <h3 className="text-sm font-bold text-white">{feature.title}</h3>
+                      <p className="text-sm leading-relaxed text-white/55">{feature.description}</p>
+                    </div>
+                    <div className="mt-1 flex items-center gap-1 text-xs font-semibold text-[#5EE7E4] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                      Learn more <ArrowRight className="size-3.5" aria-hidden="true" />
+                    </div>
                   </div>
                 </Link>
               </li>

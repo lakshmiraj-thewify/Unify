@@ -1,4 +1,5 @@
 import { Globe, Network, RadioTower, Wifi, Zap } from 'lucide-react'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 const solutions = [
   {
@@ -70,25 +71,28 @@ export function IspSolutions() {
                 key={sol.segment}
                 className={i === solutions.length - 1 ? 'sm:col-span-2 lg:col-span-1' : ''}
               >
-                <div className="unify-card-dark flex h-full flex-col gap-4 p-6">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg"
-                      style={{ background: `${sol.color}15`, color: sol.color }}
-                    >
-                      <Icon className="size-5" aria-hidden="true" />
-                    </span>
-                    <div>
+                <div className="unify-card-dark relative flex h-full flex-col gap-4 overflow-hidden p-6">
+                  <NoiseTexture className="opacity-30" />
+                  <div className="relative z-10 flex h-full flex-col gap-4">
+                    <div className="flex items-center gap-3">
                       <span
-                        className="block text-xs font-bold tracking-widest uppercase"
-                        style={{ color: sol.color }}
+                        className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg"
+                        style={{ background: `${sol.color}15`, color: sol.color }}
                       >
-                        {sol.segment}
+                        <Icon className="size-5" aria-hidden="true" />
                       </span>
-                      <h3 className="text-sm font-bold text-white">{sol.tagline}</h3>
+                      <div>
+                        <span
+                          className="block text-xs font-bold tracking-widest uppercase"
+                          style={{ color: sol.color }}
+                        >
+                          {sol.segment}
+                        </span>
+                        <h3 className="text-sm font-bold text-white">{sol.tagline}</h3>
+                      </div>
                     </div>
+                    <p className="text-sm leading-relaxed text-white/55">{sol.description}</p>
                   </div>
-                  <p className="text-sm leading-relaxed text-white/55">{sol.description}</p>
                 </div>
               </li>
             )

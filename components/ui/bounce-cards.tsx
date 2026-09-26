@@ -4,6 +4,7 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { cn } from '@/lib/utils'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 export interface BounceCardItem {
   id?: string | number
@@ -223,8 +224,9 @@ export function BounceCards({
                 />
               </div>
             ) : (
-              <div className="flex min-h-[260px] w-64 flex-col justify-between rounded-2xl border border-white/15 bg-[#0F1320]/95 p-6 shadow-2xl backdrop-blur-xl transition-colors hover:border-white/30 sm:w-72">
-                <div className="flex flex-col gap-4">
+              <div className="relative flex min-h-[260px] w-64 flex-col justify-between overflow-hidden rounded-2xl border border-white/15 bg-[#0F1320]/95 p-6 shadow-2xl backdrop-blur-xl transition-colors hover:border-white/30 sm:w-72">
+                <NoiseTexture className="opacity-30" />
+                <div className="relative z-10 flex flex-col gap-4">
                   <span
                     className="inline-flex size-11 items-center justify-center rounded-xl shadow-inner"
                     style={{

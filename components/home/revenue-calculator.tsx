@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, animate } from 'framer-motion'
 import { Clock, TrendingDown, IndianRupee, AlertTriangle } from 'lucide-react'
 import { calculatorSection } from '@/content/home'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 /* ─── Animated number counter using Framer Motion spring ─────────────────── */
 function AnimatedNumber({
@@ -180,79 +181,86 @@ export function RevenueCalculator() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="rounded-3xl border border-white/10 bg-[#131722]/90 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
-            {/* Subscriber count display */}
-            <div className="mb-8 flex items-end justify-between">
-              <div>
-                <div className="mb-1 text-xs font-semibold tracking-wider text-white/40 uppercase">
-                  {sliderLabel}
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#131722]/90 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
+            <NoiseTexture className="opacity-30" />
+            <div className="relative z-10">
+              {/* Subscriber count display */}
+              <div className="mb-8 flex items-end justify-between">
+                <div>
+                  <div className="mb-1 text-xs font-semibold tracking-wider text-white/40 uppercase">
+                    {sliderLabel}
+                  </div>
+                  <div className="font-mono text-4xl font-extrabold text-white sm:text-5xl">
+                    <AnimatedNumber value={subscribers} suffix="" />
+                    <span className="ml-2 text-xl font-semibold text-white/50">subscribers</span>
+                  </div>
                 </div>
-                <div className="font-mono text-4xl font-extrabold text-white sm:text-5xl">
-                  <AnimatedNumber value={subscribers} suffix="" />
-                  <span className="ml-2 text-xl font-semibold text-white/50">subscribers</span>
+                <div className="text-right">
+                  <div className="mb-1 text-xs text-white/40">Plan tier</div>
+                  <div
+                    className="rounded-full border px-3 py-1 text-sm font-bold"
+                    style={{
+                      color:
+                        subscribers <= 500
+                          ? '#5EE7E4'
+                          : subscribers <= 5000
+                            ? '#9061FF'
+                            : '#F59E0B',
+                      borderColor:
+                        subscribers <= 500
+                          ? 'rgba(94,231,228,0.3)'
+                          : subscribers <= 5000
+                            ? 'rgba(144,97,255,0.3)'
+                            : 'rgba(245,158,11,0.3)',
+                      background:
+                        subscribers <= 500
+                          ? 'rgba(94,231,228,0.08)'
+                          : subscribers <= 5000
+                            ? 'rgba(144,97,255,0.08)'
+                            : 'rgba(245,158,11,0.08)',
+                    }}
+                  >
+                    {subscribers <= 500 ? 'Starter' : subscribers <= 5000 ? 'Growth' : 'Scale'}
+                  </div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="mb-1 text-xs text-white/40">Plan tier</div>
-                <div
-                  className="rounded-full border px-3 py-1 text-sm font-bold"
-                  style={{
-                    color:
-                      subscribers <= 500 ? '#5EE7E4' : subscribers <= 5000 ? '#9061FF' : '#F59E0B',
-                    borderColor:
-                      subscribers <= 500
-                        ? 'rgba(94,231,228,0.3)'
-                        : subscribers <= 5000
-                          ? 'rgba(144,97,255,0.3)'
-                          : 'rgba(245,158,11,0.3)',
-                    background:
-                      subscribers <= 500
-                        ? 'rgba(94,231,228,0.08)'
-                        : subscribers <= 5000
-                          ? 'rgba(144,97,255,0.08)'
-                          : 'rgba(245,158,11,0.08)',
-                  }}
-                >
-                  {subscribers <= 500 ? 'Starter' : subscribers <= 5000 ? 'Growth' : 'Scale'}
-                </div>
-              </div>
-            </div>
 
-            {/* Custom Slider */}
-            <div className="relative mb-4">
-              {/* Track background */}
-              <div className="relative h-2 w-full rounded-full bg-white/10">
-                {/* Filled portion */}
+              {/* Custom Slider */}
+              <div className="relative mb-4">
+                {/* Track background */}
+                <div className="relative h-2 w-full rounded-full bg-white/10">
+                  {/* Filled portion */}
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full transition-none"
+                    style={{
+                      width: `${trackPct}%`,
+                      background: 'linear-gradient(90deg, #5EE7E4 0%, #743CFF 100%)',
+                    }}
+                  />
+                </div>
+                {/* Native range input overlaid */}
+                <input
+                  type="range"
+                  min={sliderMin}
+                  max={sliderMax}
+                  step={100}
+                  value={subscribers}
+                  onChange={(e) => setSubscribers(Number(e.target.value))}
+                  className="absolute inset-0 h-2 w-full cursor-pointer opacity-0"
+                  aria-label={sliderLabel}
+                />
+                {/* Custom thumb */}
                 <div
-                  className="absolute inset-y-0 left-0 rounded-full transition-none"
-                  style={{
-                    width: `${trackPct}%`,
-                    background: 'linear-gradient(90deg, #5EE7E4 0%, #743CFF 100%)',
-                  }}
+                  className="pointer-events-none absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#743CFF] bg-white shadow-lg shadow-[#743CFF]/50 transition-none"
+                  style={{ left: `${trackPct}%` }}
                 />
               </div>
-              {/* Native range input overlaid */}
-              <input
-                type="range"
-                min={sliderMin}
-                max={sliderMax}
-                step={100}
-                value={subscribers}
-                onChange={(e) => setSubscribers(Number(e.target.value))}
-                className="absolute inset-0 h-2 w-full cursor-pointer opacity-0"
-                aria-label={sliderLabel}
-              />
-              {/* Custom thumb */}
-              <div
-                className="pointer-events-none absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#743CFF] bg-white shadow-lg shadow-[#743CFF]/50 transition-none"
-                style={{ left: `${trackPct}%` }}
-              />
-            </div>
 
-            {/* Min / Max labels */}
-            <div className="mt-3 flex justify-between font-mono text-xs text-white/40">
-              <span>{sliderMin.toLocaleString('en-IN')}</span>
-              <span>{sliderMax.toLocaleString('en-IN')}</span>
+              {/* Min / Max labels */}
+              <div className="mt-3 flex justify-between font-mono text-xs text-white/40">
+                <span>{sliderMin.toLocaleString('en-IN')}</span>
+                <span>{sliderMax.toLocaleString('en-IN')}</span>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -267,37 +275,40 @@ export function RevenueCalculator() {
                 variants={cardVariant(i)}
                 initial="hidden"
                 animate={inView ? 'visible' : 'hidden'}
-                className="flex flex-col gap-4 rounded-3xl border border-white/10 bg-[#131722]/90 p-7 shadow-xl backdrop-blur-xl transition-colors hover:border-white/20"
+                className="relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-white/10 bg-[#131722]/90 p-7 shadow-xl backdrop-blur-xl transition-colors hover:border-white/20"
               >
-                {/* Icon + Label */}
-                <div className="flex items-center gap-3">
-                  <div
-                    className="flex h-10 w-10 items-center justify-center rounded-xl"
-                    style={{ backgroundColor: `${card.accent}15`, color: card.accent }}
-                  >
-                    <Icon className="h-5 w-5" />
+                <NoiseTexture className="opacity-30" />
+                <div className="relative z-10 flex flex-col gap-4">
+                  {/* Icon + Label */}
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="flex h-10 w-10 items-center justify-center rounded-xl"
+                      style={{ backgroundColor: `${card.accent}15`, color: card.accent }}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="text-sm font-semibold text-white/80">{card.label}</div>
                   </div>
-                  <div className="text-sm font-semibold text-white/80">{card.label}</div>
-                </div>
 
-                {/* Big Animated Number */}
-                <div
-                  className="font-mono text-4xl font-extrabold sm:text-5xl"
-                  style={{ color: card.accent }}
-                >
-                  <AnimatedNumber value={card.value} prefix={card.prefix} suffix={card.suffix} />
-                </div>
+                  {/* Big Animated Number */}
+                  <div
+                    className="font-mono text-4xl font-extrabold sm:text-5xl"
+                    style={{ color: card.accent }}
+                  >
+                    <AnimatedNumber value={card.value} prefix={card.prefix} suffix={card.suffix} />
+                  </div>
 
-                {/* Sub-label */}
-                <div className="border-t border-white/8 pt-4 text-xs leading-relaxed text-white/50">
-                  <span className="mb-0.5 block font-medium text-white/70">{card.sublabel}</span>
-                  {card.description}
-                </div>
+                  {/* Sub-label */}
+                  <div className="border-t border-white/8 pt-4 text-xs leading-relaxed text-white/50">
+                    <span className="mb-0.5 block font-medium text-white/70">{card.sublabel}</span>
+                    {card.description}
+                  </div>
 
-                {/* Estimate badge */}
-                <div className="flex items-center gap-1.5 text-[10px] font-medium text-amber-400/80">
-                  <AlertTriangle className="h-3 w-3" />
-                  <span>Directional estimate</span>
+                  {/* Estimate badge */}
+                  <div className="flex items-center gap-1.5 text-[10px] font-medium text-amber-400/80">
+                    <AlertTriangle className="h-3 w-3" />
+                    <span>Directional estimate</span>
+                  </div>
                 </div>
               </motion.div>
             )

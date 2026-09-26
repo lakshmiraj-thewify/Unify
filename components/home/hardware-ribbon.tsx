@@ -1,5 +1,6 @@
 import { CheckCircle2, Clock, Router, Zap } from 'lucide-react'
 import { PixelImage } from '@/registry/magicui/pixel-image'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 const features = [
   'Full PPPoE & Hotspot integration',
@@ -17,8 +18,9 @@ export function HardwareRibbon() {
         <p className="mb-8 text-center text-xs font-bold tracking-[0.2em] text-[#5EE7E4] uppercase">
           Official Hardware Partner
         </p>
-        <div className="unify-card-dark mx-auto max-w-5xl p-8 sm:p-10 lg:p-12">
-          <div className="grid gap-10 lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-14">
+        <div className="unify-card-dark relative mx-auto max-w-5xl overflow-hidden p-8 sm:p-10 lg:p-12">
+          <NoiseTexture className="opacity-30" />
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-14">
             {/* Left: headline + badge */}
             <div className="flex flex-col gap-5">
               <h2 className="text-2xl leading-tight font-extrabold tracking-tight text-white sm:text-3xl">

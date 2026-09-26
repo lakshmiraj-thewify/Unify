@@ -1,5 +1,6 @@
 import { ShieldCheck, ReceiptText, Gauge, Building2 } from 'lucide-react'
 import { BounceCards } from '@/components/ui/bounce-cards'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 const pillars = [
   {
@@ -91,9 +92,10 @@ export function FourPillars() {
             return (
               <div
                 key={pillar.title}
-                className="unify-card-dark flex flex-col justify-between rounded-2xl border border-white/10 p-6"
+                className="unify-card-dark relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 p-6"
               >
-                <div className="flex flex-col gap-4">
+                <NoiseTexture className="opacity-30" />
+                <div className="relative z-10 flex flex-col gap-4">
                   <span
                     className="inline-flex size-11 items-center justify-center rounded-xl"
                     style={{ background: `${pillar.color}15`, color: pillar.color }}
