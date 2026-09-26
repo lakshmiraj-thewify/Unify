@@ -102,7 +102,7 @@ export function FourPillars() {
                   </div>
                 </div>
                 <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs">
-                  <span className="font-mono text-[#5EE7E4]">0{idx + 1} // CORE</span>
+                  <span className="font-mono text-[#5EE7E4]">0{idx + 1} {'//'} CORE</span>
                   <span className="text-white/40">MikroTik Ready</span>
                 </div>
               </div>

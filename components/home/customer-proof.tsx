@@ -90,7 +90,7 @@ export function CustomerProof() {
                 </div>
 
                 <h3 className="text-lg font-bold text-slate-900 leading-snug">
-                  "{story.title}"
+                  &ldquo;{story.title}&rdquo;
                 </h3>
 
                 <p className="text-sm text-slate-600 leading-relaxed italic">

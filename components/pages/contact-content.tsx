@@ -92,7 +92,7 @@ function DemoBookingForm() {
         <CheckCircle className="w-16 h-16 text-green-500 animate-in zoom-in-50 duration-300" />
         <h3 className="text-2xl font-bold text-slate-900">Demo booked!</h3>
         <p className="text-slate-500 text-sm max-w-xs">
-          We'll send a confirmation to <strong>{data.email}</strong> with a MikroTik-specific agenda for your network setup.
+          We&apos;ll send a confirmation to <strong>{data.email}</strong> with a MikroTik-specific agenda for your network setup.
         </p>
         <Link href="/" className="text-violet-600 text-sm font-semibold hover:underline">Back to home</Link>
       </div>
@@ -258,7 +258,7 @@ function QuickContactForm() {
     return (
       <div className="flex flex-col items-center gap-4 py-12 text-center">
         <CheckCircle className="w-12 h-12 text-green-500" />
-        <p className="font-semibold text-slate-900">Message sent! We'll reply within 24 hours.</p>
+        <p className="font-semibold text-slate-900">Message sent! We&apos;ll reply within 24 hours.</p>
       </div>
     )
   }

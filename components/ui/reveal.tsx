@@ -63,6 +63,7 @@ export function Reveal({ children, delay = 0, as: Tag = 'div', className }: Reve
 
   return (
     <Tag
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref={ref as any}
       data-revealed="false"
       style={delay > 0 ? ({ '--reveal-delay': `${delay}ms` } as CSSProperties) : undefined}

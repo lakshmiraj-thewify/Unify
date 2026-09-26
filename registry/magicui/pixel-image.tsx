@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -48,7 +49,7 @@ export const PixelImage = ({
   triggerOnView = true,
 }: PixelImageProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(!triggerOnView)
   const [showColor, setShowColor] = useState(false)
 
   const MIN_GRID = 1
@@ -72,7 +73,6 @@ export const PixelImage = ({
 
   useEffect(() => {
     if (!triggerOnView) {
-      setIsVisible(true)
       const colorTimeout = setTimeout(() => setShowColor(true), colorRevealDelay)
       return () => clearTimeout(colorTimeout)
     }
