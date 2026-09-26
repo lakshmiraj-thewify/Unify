@@ -2,6 +2,7 @@
 
 import { Zap, MessageSquare, Sliders, ShieldCheck } from 'lucide-react'
 import ScrollStack, { ScrollStackItem } from '@/components/ui/scroll-stack'
+import { NoiseTexture } from '@/registry/magicui/noise-texture'
 
 const features = [
   {
@@ -79,9 +80,10 @@ export function FeatureStack() {
             return (
               <ScrollStackItem key={index}>
                 <div
-                  className="rounded-3xl border border-white/10 p-8 shadow-xl transition-colors hover:border-white/20 sm:p-10"
+                  className="relative overflow-hidden rounded-3xl border border-white/10 p-8 shadow-xl transition-colors hover:border-white/20 sm:p-10"
                   style={{ backgroundColor: '#131722cc' }}
                 >
+                  <NoiseTexture className="opacity-30" />
                   {/* Card number */}
                   <span className="absolute top-6 right-8 text-xs font-bold tracking-widest text-white/10">
                     {String(index + 1).padStart(2, '0')}
