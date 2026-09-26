@@ -194,6 +194,7 @@ function DemoBookingForm() {
                 placeholder={placeholder}
                 value={data[key as keyof BookingData]}
                 onChange={(e) => field(key as keyof BookingData, e.target.value)}
+                style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
                 className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:border-transparent focus:ring-2 focus:ring-violet-400 focus:outline-none"
               />
             </label>
@@ -346,6 +347,7 @@ function QuickContactForm() {
             placeholder={placeholder}
             value={form[key as keyof typeof form]}
             onChange={(e) => f(key as keyof typeof form, e.target.value)}
+            style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
             className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:border-transparent focus:ring-2 focus:ring-violet-400 focus:outline-none"
           />
         </label>
@@ -358,6 +360,7 @@ function QuickContactForm() {
           placeholder="Tell us about your network setup…"
           value={form.message}
           onChange={(e) => f('message', e.target.value)}
+          style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
           className="resize-none rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:border-transparent focus:ring-2 focus:ring-violet-400 focus:outline-none"
         />
       </label>

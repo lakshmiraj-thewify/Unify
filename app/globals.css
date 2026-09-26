@@ -26,6 +26,20 @@ body {
   letter-spacing: -0.01em;
 }
 
+/* Form controls — ensure dark readable text and visible placeholders */
+input:not([type='range']):not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
 /* Headings — Space Grotesk display font */
 h1,
 h2,
