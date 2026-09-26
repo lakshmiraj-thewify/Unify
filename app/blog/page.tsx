@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { BlogContent } from '@/components/sections/blog-content'
+import { BlogContent } from '@/components/pages/blog-content'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({

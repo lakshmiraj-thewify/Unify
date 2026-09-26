@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import {
   ArrowLeft,
+  ArrowRight,
   Building2,
   CheckCircle2,
   Gauge,
@@ -13,14 +14,9 @@ import {
   Server,
   Users,
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Section } from '@/components/ui/section'
-import { Reveal } from '@/components/ui/reveal'
 import { pageMetadata } from '@/lib/seo'
 import { featureDetails, getFeatureDetail } from '@/content/feature-details'
-
-// ── Icon map ─────────────────────────────────────────────────────────────────
+import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button'
 
 const iconMap = {
   Server,
@@ -35,13 +31,9 @@ const iconMap = {
 
 type IconKey = keyof typeof iconMap
 
-// ── Static params ─────────────────────────────────────────────────────────────
-
 export function generateStaticParams() {
   return featureDetails.map((f) => ({ slug: f.slug }))
 }
-
-// ── Metadata ──────────────────────────────────────────────────────────────────
 
 export async function generateMetadata({
   params,
@@ -51,7 +43,6 @@ export async function generateMetadata({
   const { slug } = await params
   const feature = getFeatureDetail(slug)
   if (!feature) return {}
-
   return pageMetadata({
     title: `${feature.title} — Unify Wi-Fi`,
     description: feature.description,
@@ -59,108 +50,119 @@ export async function generateMetadata({
   })
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
-
-export default async function FeatureDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function FeatureDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
   const { slug } = await params
   const feature = getFeatureDetail(slug)
-
   if (!feature) notFound()
 
   const Icon = iconMap[feature.icon as IconKey]
   const related = featureDetails.filter((f) => feature.related.includes(f.slug))
 
   return (
-    <>
-      {/* Dark header band */}
-      <Section tone="dark" spacing="flush" contained={false}>
-        <div className="mx-auto w-full max-w-page px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <main className="min-h-screen bg-white">
+      {/* ── Dark Hero Header ─────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pt-32 pb-20" style={{background: 'radial-gradient(ellipse 80% 100% at 50% 0%, #9061FF 0%, #6332F6 35%, #2A115E 72%, #150833 100%)'}}>
+        {/* Dot grid overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] opacity-10 pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Back link */}
           <Link
-            href="/#features"
-            className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-dark-fg-muted transition-colors hover:text-dark-fg"
+            href="/#tabs-showcase"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-white/50 hover:text-white transition-colors mb-8"
           >
-            <ArrowLeft className="size-4" aria-hidden="true" />
+            <ArrowLeft className="w-4 h-4" />
             All features
           </Link>
 
-          <div className="flex flex-col items-start gap-5 lg:flex-row lg:items-center lg:gap-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
             {/* Icon */}
-            <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl border border-primary-400/40 bg-primary-500 lg:size-20">
-              {Icon ? <Icon className="size-8 text-white lg:size-10" strokeWidth={1.5} /> : null}
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
+              style={{ background: 'linear-gradient(135deg, #743CFF 0%, #5EE7E4 100%)' }}
+            >
+              {Icon ? <Icon className="w-8 h-8 text-white" strokeWidth={1.5} /> : null}
             </div>
 
             <div>
-              <p className="mb-2 text-xs font-bold tracking-widest text-primary-400 uppercase">
+              <p className="text-xs font-bold uppercase tracking-widest text-violet-400 mb-2">
                 {feature.eyebrow}
               </p>
-              <h1 className="text-3xl font-bold font-heading tracking-tight text-dark-fg lg:text-4xl">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mb-3">
                 {feature.title}
               </h1>
-              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-dark-fg-muted">
+              <p className="text-lg text-white/60 max-w-2xl leading-relaxed">
                 {feature.description}
               </p>
             </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Body */}
-      <Section tone="subtle" spacing="default">
-        <div className="mx-auto max-w-content">
-          <div className="grid gap-10 lg:grid-cols-[1fr_340px]">
+      {/* ── Body ─────────────────────────────────────────────────────── */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
+
             {/* Main content */}
             <div className="flex flex-col gap-8">
-              {/* Overview */}
-              <Card tone="light" padding="lg" className="rounded-2xl border border-line bg-white shadow-card p-6 sm:p-8">
-                <h2 className="mb-3 text-lg font-bold font-heading text-ink">Overview</h2>
-                <p className="text-base leading-relaxed text-ink-muted">{feature.body}</p>
-              </Card>
+              {/* Overview card */}
+              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8">
+                <h2 className="text-lg font-bold text-slate-900 mb-4">Overview</h2>
+                <p className="text-slate-600 leading-relaxed text-base">{feature.body}</p>
+              </div>
 
               {/* Capabilities */}
               <div>
-                <h2 className="mb-4 text-lg font-bold font-heading text-ink">What it includes</h2>
-                <ul className="grid gap-3 sm:grid-cols-2">
-                  {feature.capabilities.map((cap, i) => (
-                    <Reveal key={cap} as="li" delay={i * 40}>
-                      <div className="flex items-start gap-3 rounded-xl border border-line bg-white p-4 shadow-card">
-                        <CheckCircle2
-                          aria-hidden="true"
-                          className="mt-0.5 size-4 shrink-0 text-primary-500"
-                        />
-                        <span className="text-sm font-medium text-ink-soft">{cap}</span>
-                      </div>
-                    </Reveal>
+                <h2 className="text-lg font-bold text-slate-900 mb-5">What it includes</h2>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {feature.capabilities.map((cap) => (
+                    <li
+                      key={cap}
+                      className="flex items-start gap-3 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm hover:border-violet-200 hover:shadow-md transition-all"
+                    >
+                      <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0 text-violet-500" aria-hidden="true" />
+                      <span className="text-sm font-medium text-slate-700">{cap}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
             </div>
 
             {/* Sidebar */}
-            <aside className="flex flex-col gap-6">
+            <aside className="flex flex-col gap-5">
               {/* Who it helps */}
-              <Card tone="light" padding="md" className="rounded-2xl border border-line bg-white shadow-card p-6">
-                <h2 className="mb-3 text-xs font-bold tracking-wider text-ink-muted uppercase">
+              <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+                <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3">
                   Who this helps
                 </h2>
-                <p className="text-sm leading-relaxed text-ink-soft">{feature.whoItHelps}</p>
-              </Card>
+                <p className="text-sm text-slate-600 leading-relaxed">{feature.whoItHelps}</p>
+              </div>
 
               {/* CTA */}
-              <Card tone="dark" padding="md" className="rounded-2xl border border-white/10 bg-navy-800/90 shadow-card p-6">
-                <p className="mb-1 text-sm font-bold text-dark-fg">Ready to see it live?</p>
-                <p className="mb-4 text-xs text-dark-fg-muted">
-                  Book a 20-minute demo and we&apos;ll walk you through this module in action.
+              <div className="rounded-3xl p-6 text-white"
+                style={{ background: 'var(--unify-gradient-brand-3, linear-gradient(135deg,#8556FF,#6B3EFF 60%))' }}
+              >
+                <p className="font-bold text-sm mb-1">Ready to see it live?</p>
+                <p className="text-white/70 text-xs mb-5 leading-relaxed">
+                  Book a 20-minute demo and we&apos;ll walk you through this module on your actual router setup.
                 </p>
-                <Button href="/contact" size="sm" variant="primary" className="w-full justify-center">
+                <InteractiveHoverButton
+                  href="/contact"
+                  variant="white"
+                  className="w-full py-2.5 text-sm font-semibold"
+                >
                   Book a demo
-                </Button>
-              </Card>
+                </InteractiveHoverButton>
+              </div>
 
-              {/* Related */}
+              {/* Related modules */}
               {related.length > 0 && (
                 <div>
-                  <h2 className="mb-3 text-xs font-bold tracking-wider text-ink-muted uppercase">
+                  <h2 className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3">
                     Related modules
                   </h2>
                   <ul className="flex flex-col gap-2">
@@ -170,14 +172,15 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
                         <li key={rel.slug}>
                           <Link
                             href={`/features/${rel.slug}`}
-                            className="group flex items-center gap-3 rounded-xl border border-line bg-white p-3.5 shadow-card transition-colors duration-200 hover:border-primary-400 hover:text-primary-600"
+                            className="group flex items-center gap-3 bg-white rounded-2xl border border-slate-200 p-3.5 hover:border-violet-300 hover:shadow-sm transition-all"
                           >
-                            <span className="flex size-8 shrink-0 items-center justify-center text-primary-600">
-                              {RelIcon ? <RelIcon className="size-4" aria-hidden="true" /> : null}
+                            <span className="flex w-8 h-8 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600 group-hover:bg-violet-100 transition-colors">
+                              {RelIcon ? <RelIcon className="w-4 h-4" aria-hidden="true" /> : null}
                             </span>
-                            <span className="text-sm font-semibold text-ink group-hover:text-primary-600">
+                            <span className="text-sm font-semibold text-slate-700 group-hover:text-violet-700 transition-colors">
                               {rel.title}
                             </span>
+                            <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-violet-400 ml-auto transition-colors" />
                           </Link>
                         </li>
                       )
@@ -189,13 +192,36 @@ export default async function FeatureDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* Bottom back link */}
-          <div className="mt-12">
-            <Button href="/#features" variant="outline" size="md" leadingIcon={<ArrowLeft />}>
+          <div className="mt-12 pt-8 border-t border-slate-200">
+            <Link
+              href="/#tabs-showcase"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-violet-600 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
               Back to all features
-            </Button>
+            </Link>
           </div>
         </div>
-      </Section>
-    </>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="bg-[#0D0F17] py-16 text-center">
+        <div className="max-w-xl mx-auto px-4">
+          <h2 className="text-2xl font-extrabold text-white mb-3">
+            Connect your MikroTik in 10 minutes
+          </h2>
+          <p className="text-white/60 text-sm mb-8">
+            No hardware changes. No Linux expertise. Start your free 30-day trial.
+          </p>
+          <InteractiveHoverButton
+            href="/contact"
+            variant="primary"
+            className="px-7 py-3.5 text-base shadow-lg shadow-violet-900/30"
+          >
+            Book a demo
+          </InteractiveHoverButton>
+        </div>
+      </section>
+    </main>
   )
 }

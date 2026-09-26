@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from 'react'
+import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 type RevealProps = {
@@ -21,9 +21,8 @@ type RevealProps = {
  * Reduced-motion users are opted out twice: here (the observer is skipped) and
  * globally in globals.css.
  */
-export function Reveal({ children, delay = 0, as = 'div', className }: RevealProps) {
+export function Reveal({ children, delay = 0, as: Tag = 'div', className }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null)
-  const Tag = as as ElementType
 
   useEffect(() => {
     const element = ref.current
@@ -64,7 +63,7 @@ export function Reveal({ children, delay = 0, as = 'div', className }: RevealPro
 
   return (
     <Tag
-      ref={ref}
+      ref={ref as any}
       data-revealed="false"
       style={delay > 0 ? ({ '--reveal-delay': `${delay}ms` } as CSSProperties) : undefined}
       className={cn('reveal', className)}

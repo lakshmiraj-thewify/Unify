@@ -1,392 +1,190 @@
-/*
- * `source(none)` disables Tailwind's automatic source detection, and the
- * @source globs below re-declare it explicitly.
- *
- * This is deliberate, not tidying. Automatic detection scans every file in the
- * repository that is not git-ignored — including JSON tooling config, CI YAML
- * and lockfiles — and any string in any of them that merely *looks* like a
- * utility becomes real CSS. A grep pattern sitting in a local editor-settings
- * file (`max-w-[a-zA-Z0-9_.[:punct:]]`) was enough to compile to
- * `max-width: a-zA-Z0-9 .[:punct:]` and break the production build outright.
- *
- * Scoping to the four directories that can actually render markup makes the
- * generated stylesheet a function of the source, and nothing else.
- */
-@import 'tailwindcss' source(none);
+@import 'tailwindcss';
 
-@source './**/*.{ts,tsx}';
-@source '../components/**/*.{ts,tsx}';
-@source '../content/**/*.ts';
-@source '../lib/**/*.ts';
+/* ─────────────────────────────────────────────────────────────────────────────
+   Unify Wi-Fi Modern Aurora Design System
+   Palette: Deep indigo/purple hero → luminous white proof sections
+   ───────────────────────────────────────────────────────────────────────────── */
 
-/* ===========================================================================
-   Unify Wi-Fi — design tokens
-   ---------------------------------------------------------------------------
-   Warm white + orange accent palette.
-   Body is warm off-white (#FAFAF8), cards are pure white, orange (#E8590C) is
-   reserved for CTAs, eyebrows, and interactive highlights. Dark bands use
-   charcoal (#1C1C1C) — not navy blue. Teal (#0D9488) is used sparingly for
-   success states and checkmarks only.
-   =========================================================================== */
-
-@theme {
-  /* ── Typography ───────────────────────────────────────────────────────── */
-  --font-heading:
-    var(--font-sora), 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-sans:
-    var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-  /* ── Ink: near-black charcoal text ───────────────────────────────────── */
-  --color-ink: #1C1C1C;
-  --color-ink-soft: #2D2D2D;
-  --color-ink-muted: #6B7280;
-  --color-ink-faint: #9CA3AF;
-
-  /* ── Surfaces: warm off-white base ───────────────────────────────────── */
-  --color-surface: #FAFAF8;
-  --color-surface-subtle: #F3F0EB;
-  --color-surface-tint: #F3F0EB;
-  --color-line: #E8E4DE;
-  --color-line-strong: #D1CBC2;
-
-  /* ── Dark bands: charcoal — hero, footer, CTA sections ───────────────── */
-  --color-navy-950: #1C1C1C;
-  --color-navy-900: #1C1C1C;
-  --color-navy-800: #2D2D2D;
-  --color-navy-700: #3A3A3A;
-  --color-navy-600: #525252;
-
-  /* ── Foreground + hairlines on dark ───────────────────────────────────── */
-  --color-dark-fg: #FFFFFF;
-  --color-dark-fg-muted: #A3A3A3;
-  --color-dark-line: #404040;
-  --color-dark-line-strong: #525252;
-
-  /* ── Primary: warm orange palette (#E8590C) ──────────────────────────── */
-  --color-primary-50: #FFF7ED;
-  --color-primary-100: #FFEDD5;
-  --color-primary-200: #FED7AA;
-  --color-primary-300: #FDBA74;
-  --color-primary-400: #FB923C;
-  --color-primary-500: #E8590C;
-  --color-primary-600: #C94A08;
-  --color-primary-700: #9A3412;
-  --color-primary-800: #7C2D12;
-  --color-primary-900: #431407;
-  --color-primary-950: #27130A;
-
-  /* ── Secondary: alias to primary (golden amber removed) ──────────────── */
-  --color-secondary-50: #FFF7ED;
-  --color-secondary-100: #FFEDD5;
-  --color-secondary-200: #FED7AA;
-  --color-secondary-300: #FDBA74;
-  --color-secondary-400: #FB923C;
-  --color-secondary-500: #E8590C;
-  --color-secondary-600: #C94A08;
-  --color-secondary-700: #9A3412;
-  --color-secondary-800: #7C2D12;
-  --color-secondary-900: #431407;
-  --color-secondary-950: #27130A;
-
-  /* ── Accent: alias to primary ────────────────────────────────────────── */
-  --color-accent-50: #FFF7ED;
-  --color-accent-100: #FFEDD5;
-  --color-accent-200: #FED7AA;
-  --color-accent-300: #FDBA74;
-  --color-accent-400: #FB923C;
-  --color-accent-500: #E8590C;
-  --color-accent-600: #C94A08;
-
-  /* ── Signal: teal for status and live indicators ─────────────────────── */
-  --color-signal-50: #F0FDFA;
-  --color-signal-100: #CCFBF1;
-  --color-signal-200: #99F6E4;
-  --color-signal-300: #5EEAD4;
-  --color-signal-400: #2DD4BF;
-  --color-signal-500: #14B8A6;
-  --color-signal-600: #0D9488;
-  --color-signal-700: #0F766E;
-
-  /* ── Status: ok (teal) / warn / danger. Never decorative ─────────────── */
-  --color-ok-50: #F0FDFA;
-  --color-ok-200: #99F6E4;
-  --color-ok-500: #0D9488;
-  --color-ok-600: #0F766E;
-  --color-ok-700: #115E59;
-  --color-warn-50: #FFFBEB;
-  --color-warn-200: #FDE68A;
-  --color-warn-500: #F59E0B;
-  --color-warn-600: #D97706;
-  --color-warn-700: #B45309;
-  --color-danger-50: #FEF2F2;
-  --color-danger-200: #FECACA;
-  --color-danger-500: #EF4444;
-  --color-danger-600: #DC2626;
-  --color-danger-700: #B91C1C;
-
-  /* ── Radii ───────────────────────────────────────────────────────────── */
-  --radius-xs: 0.0625rem;
-  --radius-sm: 4px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 16px;
-  --radius-card: 16px;
-  --radius-pill: 9999px;
-
-  /* ── Shadows: soft, warm ─────────────────────────────────────────────── */
-  --shadow-card: 0 4px 20px rgba(28, 28, 28, 0.05);
-  --shadow-lift: 0 8px 30px rgba(28, 28, 28, 0.08);
-  --shadow-visp: 0 4px 20px rgba(28, 28, 28, 0.05);
-  --shadow-heavy: 0 8px 30px rgba(28, 28, 28, 0.08);
-  --shadow-primary: 0 4px 14px rgba(232, 89, 12, 0.20);
-  --shadow-accent: 0 4px 14px rgba(232, 89, 12, 0.20);
-
-  /* ── Motion ───────────────────────────────────────────────────────────── */
-  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
-
-  --animate-pulse-dot: pulse-dot 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-
-  @keyframes pulse-dot {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.45;
-      transform: scale(0.8);
-    }
-  }
-
-  --animate-bar-live: bar-live 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-
-  @keyframes bar-live {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
-
-  /* ── Layout: named container widths ───────────────────────────────────── */
-  --container-page: 80rem;
-  --container-content: 56rem;
-  --container-readable: 48rem;
+/* Base resets */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* ===========================================================================
-   Base layer
-   =========================================================================== */
-
-@layer base {
-  :root {
-    /* Height of the fixed header. Drives anchor scroll offsets. */
-    --header-h: 4rem;
-
-    /* Focus ring colour — orange accent. Dark bands override this so the
-       ring stays visible against charcoal. */
-    --focus-ring: var(--color-primary-500);
-  }
-
-  @media (width >= 64rem) {
-    :root {
-      --header-h: 4.5rem;
-    }
-  }
-
-  html {
-    -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
-    text-underline-offset: 0.2em;
-  }
-
-  body {
-    background-color: var(--color-surface);
-    color: var(--color-ink);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* One focus treatment for the whole site: visible, offset, never removed. */
-  :focus-visible {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 2px;
-    border-radius: 3px;
-  }
-
-  ::selection {
-    background-color: var(--color-primary-100);
-    color: var(--color-primary-900);
-  }
-
-  /* Anchored sections must not land underneath the fixed header. */
-  [id] {
-    scroll-margin-top: calc(var(--header-h) + 1.5rem);
-  }
-
-  /* Numeric data is mono + tabular everywhere, so figures never jitter as
-     they change. */
-  [data-numeric] {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-  }
+html {
+  scroll-behavior: smooth;
 }
 
-/* ===========================================================================
-   Custom utilities
-   =========================================================================== */
+body {
+  background-color: #0D0F17;
+  color: #FFFFFF;
+  font-family: var(--font-inter, 'Inter', system-ui, -apple-system, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
 
-/* Warm gradient — charcoal to orange, used sparingly. */
-@utility bg-brand-gradient {
-  background-image: linear-gradient(
-    135deg,
-    var(--color-navy-900) 0%,
-    var(--color-primary-600) 55%,
-    var(--color-primary-400) 100%
+/* Headings — Space Grotesk display font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk, var(--font-inter, sans-serif));
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+/* ─── Unify brand tokens ─────────────────────────────────────────────────── */
+:root {
+  --unify-gradient-brand-1: radial-gradient(3828px 2856px at 50% -752px, rgb(7,16,19) 22%, rgb(20,17,48) 38%, rgb(36,25,87) 44%, rgb(53,33,126) 49%, rgb(69,41,165) 55%, rgb(86,50,204) 60%, rgb(102,19,197) 66%, rgb(79,18,153) 70%, rgb(55,18,108) 73%, rgb(31,17,64) 76%, rgb(19,16,41) 78%, rgb(7,16,19) 79%);
+  --unify-gradient-brand-2: linear-gradient(100deg, rgb(116,60,255), rgb(95,243,228), rgb(116,60,255), rgb(95,243,228));
+  --unify-gradient-brand-3: radial-gradient(at 0px 0px, rgb(133,86,255), rgb(107,62,255) 60%);
+  --unify-gradient-brand-4: linear-gradient(to right in oklab, rgb(94,231,228) 0%, rgba(0,0,0,0) 100%);
+  --unify-gradient-brand-5: linear-gradient(to right in oklab, rgb(104,58,254) 0%, rgb(94,231,228) 100%);
+  --unify-shadow-xl: rgba(18,25,217,0.3) 0px 3px 3px 0px, rgba(91,18,217,0.3) 0px -3px 4px 0px inset;
+  --unify-color-purple: #743CFF;
+  --unify-color-cyan: #5EE7E4;
+}
+
+/* ─── Hero Aurora Background ─────────────────────────────────────────────── */
+.unify-hero-bg {
+  background: var(--unify-gradient-brand-1);
+}
+
+/* Text selection */
+::selection {
+  background-color: #743CFF;
+  color: #FFFFFF;
+}
+
+/* ─── Glass Header Navigation ────────────────────────────────────────────── */
+.unify-glass-nav {
+  background: rgba(13, 15, 23, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ─── Glowing Announcement Pill ──────────────────────────────────────────── */
+.unify-pill-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 24px -6px rgba(116, 60, 255, 0.35);
+  transition: all 0.2s ease;
+}
+
+.unify-pill-badge:hover {
+  border-color: rgba(116, 60, 255, 0.55);
+  background: rgba(116, 60, 255, 0.10);
+}
+
+/* ─── Dark Section Frosted Cards ─────────────────────────────────────────── */
+.unify-card-dark {
+  background: rgba(18, 22, 34, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.unify-card-dark:hover {
+  border-color: rgba(116, 60, 255, 0.38);
+  box-shadow: 0 12px 32px -10px rgba(116, 60, 255, 0.22);
+}
+
+/* ─── Purple → White Aurora Transition Gradient ──────────────────────────── */
+/* Applied to the ecosystem/integrations section background */
+.unify-transition-gradient {
+  background: linear-gradient(
+    180deg,
+    #0D0F17 0%,
+    #16122E 18%,
+    #2A165A 38%,
+    #4E22A0 56%,
+    #7B3FD4 72%,
+    #C4A8F0 88%,
+    #F5F0FF 96%,
+    #FFFFFF 100%
   );
 }
 
-@utility text-brand-gradient {
-  background-image: linear-gradient(
-    135deg,
-    var(--color-ink) 0%,
-    var(--color-primary-500) 45%,
-    var(--color-primary-400) 100%
+/* ─── Translucent Frosted Violet Cards (on gradient transition) ───────────── */
+/* These sit over the purple→white gradient and must NOT be heavy black boxes */
+.unify-frosted-violet-card {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 14px 40px -4px rgba(30, 8, 60, 0.22);
+  border-radius: 1.25rem;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.unify-frosted-violet-card:hover {
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 20px 48px -6px rgba(30, 8, 60, 0.32);
+}
+
+/* ─── Crisp White Section ────────────────────────────────────────────────── */
+.unify-light-section {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+/* Light-mode card */
+.unify-card-light {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 12px -2px rgba(15, 23, 42, 0.06);
+  border-radius: 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.unify-card-light:hover {
+  border-color: #C4B5FD;
+  box-shadow: 0 10px 28px -4px rgba(116, 60, 255, 0.13);
+}
+
+/* ─── Glowing Aurora CTA Banner ──────────────────────────────────────────── */
+.unify-cta-banner {
+  background: radial-gradient(
+    ellipse 80% 100% at 50% 0%,
+    #9061FF 0%,
+    #6332F6 35%,
+    #2A115E 72%,
+    #150833 100%
   );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  box-shadow: 0 24px 80px -20px rgba(99, 50, 246, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-@utility text-brand-gradient-dark {
-  background-image: linear-gradient(
-    135deg,
-    var(--color-primary-300) 0%,
-    var(--color-primary-200) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-@utility bg-hero-glow {
-  background-image: linear-gradient(to right, rgb(232 89 12 / 0.06) 1px, transparent 1px);
-  background-size: 5rem 100%;
-}
-
-@utility bg-grid-faint {
-  background-image:
-    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
-  background-size: 56px 56px;
-}
-
-@utility tabular {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum';
-}
-
-/* ===========================================================================
-   Component layer
-   =========================================================================== */
-
-@layer components {
-  /*
-   * Scroll reveal. The hidden start state is applied ONLY when scripting is
-   * enabled, so a no-JS visitor (or a crawler that does not run JS) always
-   * gets fully visible content instead of an invisible page. Browsers that do
-   * not support the `scripting` media feature simply skip the animation.
-   */
-  .reveal {
-    opacity: 1;
+/* ─── Aurora Text Animation ──────────────────────────────────────────────── */
+@keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);
   }
-
-  @media (scripting: enabled) {
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      transition:
-        opacity 520ms var(--ease-out-soft),
-        transform 520ms var(--ease-out-soft);
-      transition-delay: var(--reveal-delay, 0ms);
-      will-change: opacity, transform;
-    }
-
-    .reveal[data-revealed='true'] {
-      opacity: 1;
-      transform: none;
-      will-change: auto;
-    }
+  25% {
+    background-position: 50% 100%;
+    transform: rotate(5deg) scale(1.1);
   }
-
-  /* Visually hidden, still announced. Used by the skip link and by labels
-     that are implied visually but required for assistive technology. */
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border-width: 0;
+  50% {
+    background-position: 100% 50%;
+    transform: rotate(-3deg) scale(0.95);
   }
-
-  .asset-slot {
-    background-image:
-      linear-gradient(to right, currentColor 1px, transparent 1px),
-      linear-gradient(to bottom, currentColor 1px, transparent 1px);
-    background-size: 32px 32px;
-    background-position: -1px -1px;
-    opacity: 0.92;
+  75% {
+    background-position: 50% 0%;
+    transform: rotate(3deg) scale(1.05);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);
   }
 }
 
-/* ===========================================================================
-   Reduced motion — global, non-negotiable
-   =========================================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+.animate-aurora {
+  animation: aurora 8s ease-in-out infinite alternate;
 }
 
-/* ===========================================================================
-   Print
-   ---------------------------------------------------------------------------
-   A printed page produces no scroll, so nothing below the fold would ever
-   intersect and every un-revealed block would print blank. Reset the reveal
-   state unconditionally here.
-   =========================================================================== */
-
-@media print {
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}

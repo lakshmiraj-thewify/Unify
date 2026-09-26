@@ -2,32 +2,33 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 /**
- * Semantic pill. The colour carries meaning — `pending` is the one used for
- * facts that are not yet signed off, and it is deliberately dashed and muted so
- * an unresolved value can never be mistaken for a confirmed one.
+ * Badge — semantic pill. Always on dark-ish background by default.
+ *
+ * tone="dark" → for dark hero/section backgrounds (glass style)
+ * tone="light" → for white/light section backgrounds
  */
-const lightVariants = {
-  neutral: 'bg-surface-subtle text-ink-muted border-line',
-  primary: 'bg-primary-50 text-primary-700 border-primary-200',
-  secondary: 'bg-primary-50 text-primary-700 border-primary-200',
-  accent: 'bg-primary-50 text-primary-700 border-primary-200',
-  signal: 'bg-signal-50 text-signal-700 border-signal-200',
-  ok: 'bg-ok-50 text-ok-700 border-ok-200',
-  warn: 'bg-warn-50 text-warn-700 border-warn-200',
-  danger: 'bg-danger-50 text-danger-700 border-danger-200',
-  pending: 'bg-surface-subtle text-ink-faint border-line-strong border-dashed',
+const darkVariants = {
+  neutral:   'bg-white/[0.08] text-white/70 border-white/10',
+  primary:   'bg-[rgba(116,60,255,0.2)] text-[#A78BFA] border-[rgba(116,60,255,0.35)]',
+  secondary: 'bg-[rgba(116,60,255,0.2)] text-[#A78BFA] border-[rgba(116,60,255,0.35)]',
+  accent:    'bg-[rgba(116,60,255,0.2)] text-[#A78BFA] border-[rgba(116,60,255,0.35)]',
+  signal:    'bg-[rgba(94,231,228,0.12)] text-[#5EE7E4] border-[rgba(94,231,228,0.3)]',
+  ok:        'bg-[rgba(94,231,228,0.12)] text-[#5EE7E4] border-[rgba(94,231,228,0.3)]',
+  warn:      'bg-amber-500/15 text-amber-300 border-amber-400/30',
+  danger:    'bg-red-500/15 text-red-300 border-red-400/30',
+  pending:   'bg-white/[0.04] text-white/40 border-white/10 border-dashed',
 } as const
 
-const darkVariants = {
-  neutral: 'bg-white/[0.08] text-dark-fg-muted border-dark-line-strong',
-  primary: 'bg-primary-500/20 text-primary-200 border-primary-400/40',
-  secondary: 'bg-primary-500/20 text-primary-200 border-primary-400/40',
-  accent: 'bg-primary-500/20 text-primary-200 border-primary-400/40',
-  signal: 'bg-signal-400/15 text-signal-200 border-signal-400/35',
-  ok: 'bg-ok-500/15 text-ok-200 border-ok-500/30',
-  warn: 'bg-warn-500/15 text-warn-200 border-warn-500/30',
-  danger: 'bg-danger-500/15 text-danger-200 border-danger-500/30',
-  pending: 'bg-white/[0.04] text-dark-fg-muted border-dark-line-strong border-dashed',
+const lightVariants = {
+  neutral:   'bg-[#F7F8FA] text-[#4A5568] border-[#E2E8F0]',
+  primary:   'bg-[#EDE9FE] text-[#6D28D9] border-[#C4B5FD]',
+  secondary: 'bg-[#EDE9FE] text-[#6D28D9] border-[#C4B5FD]',
+  accent:    'bg-[#EDE9FE] text-[#6D28D9] border-[#C4B5FD]',
+  signal:    'bg-[rgba(94,231,228,0.1)] text-teal-700 border-teal-200',
+  ok:        'bg-[rgba(94,231,228,0.1)] text-teal-700 border-teal-200',
+  warn:      'bg-amber-50 text-amber-700 border-amber-200',
+  danger:    'bg-red-50 text-red-700 border-red-200',
+  pending:   'bg-[#F7F8FA] text-[#A0AEC0] border-[#CBD5E0] border-dashed',
 } as const
 
 const sizes = {
@@ -36,31 +37,43 @@ const sizes = {
 } as const
 
 const dotColours = {
-  neutral: 'bg-ink-faint',
-  primary: 'bg-primary-500',
-  secondary: 'bg-primary-500',
-  accent: 'bg-primary-500',
-  signal: 'bg-signal-400',
-  ok: 'bg-ok-500',
-  warn: 'bg-warn-500',
-  danger: 'bg-danger-500',
-  pending: 'bg-ink-faint',
+  neutral:   'bg-white/40',
+  primary:   'bg-[#743CFF]',
+  secondary: 'bg-[#743CFF]',
+  accent:    'bg-[#743CFF]',
+  signal:    'bg-[#5EE7E4]',
+  ok:        'bg-[#5EE7E4]',
+  warn:      'bg-amber-400',
+  danger:    'bg-red-400',
+  pending:   'bg-white/30',
 } as const
 
-export type BadgeVariant = keyof typeof lightVariants
-export type BadgeSize = keyof typeof sizes
+const dotColoursDark = dotColours
+
+const dotColoursLight = {
+  neutral:   'bg-[#A0AEC0]',
+  primary:   'bg-[#743CFF]',
+  secondary: 'bg-[#743CFF]',
+  accent:    'bg-[#743CFF]',
+  signal:    'bg-teal-500',
+  ok:        'bg-teal-500',
+  warn:      'bg-amber-500',
+  danger:    'bg-red-500',
+  pending:   'bg-[#A0AEC0]',
+} as const
+
+export type BadgeVariant = keyof typeof darkVariants
+export type BadgeSize    = keyof typeof sizes
 
 type BadgeProps = {
-  children: ReactNode
-  variant?: BadgeVariant
-  size?: BadgeSize
-  tone?: 'light' | 'dark'
-  /** Small leading dot. `live` makes it pulse — reserve that for real-time state. */
-  dot?: boolean
-  live?: boolean
-  /** Renders the label in mono. Use for counts, versions and identifiers. */
-  mono?: boolean
-  icon?: ReactNode
+  children:  ReactNode
+  variant?:  BadgeVariant
+  size?:     BadgeSize
+  tone?:     'light' | 'dark'
+  dot?:      boolean
+  live?:     boolean
+  mono?:     boolean
+  icon?:     ReactNode
   className?: string
 }
 
@@ -68,14 +81,15 @@ export function Badge({
   children,
   variant = 'neutral',
   size = 'md',
-  tone = 'light',
+  tone = 'dark',
   dot = false,
   live = false,
   mono = false,
   icon,
   className,
 }: BadgeProps) {
-  const palette = tone === 'dark' ? darkVariants : lightVariants
+  const palette   = tone === 'dark' ? darkVariants : lightVariants
+  const dotPalette = tone === 'dark' ? dotColoursDark : dotColoursLight
 
   return (
     <span
@@ -92,7 +106,7 @@ export function Badge({
           aria-hidden="true"
           className={cn(
             'size-1.5 shrink-0 rounded-full',
-            dotColours[variant],
+            dotPalette[variant],
             live && 'animate-pulse-dot',
           )}
         />

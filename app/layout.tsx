@@ -1,31 +1,27 @@
-import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono, Sora } from 'next/font/google'
 import type { ReactNode } from 'react'
-import { FloatingContact } from '@/components/layout/floating-contact'
-import { Footer } from '@/components/layout/footer'
-import { Header } from '@/components/layout/header'
-import { SkipLink } from '@/components/layout/skip-link'
+import type { Metadata, Viewport } from 'next'
+import { JetBrains_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
+import { SiteHeader } from '@/components/layout/header'
+import { SiteFooter } from '@/components/layout/footer'
 import { site } from '@/content/site'
 import { OG_IMAGE_URL } from '@/lib/seo'
 import './globals.css'
 
-/*
- * Sora for headings, Inter for body. Both are variable fonts, self-hosted by
- * next/font at build time: no request to Google at runtime, `display: swap`,
- * and a metric-adjusted fallback so swapping in the real face does not shift
- * layout.
- */
-const heading = Sora({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+/* Body font — Inter */
+const inter = localFont({
+  src: './fonts/inter.woff2',
+  variable: '--font-inter',
   display: 'swap',
-  variable: '--font-sora',
+  weight: '100 900',
 })
 
-const body = Inter({
-  subsets: ['latin'],
+/* Display/heading font — Space Grotesk */
+const spaceGrotesk = localFont({
+  src: './fonts/space-grotesk.woff2',
+  variable: '--font-space-grotesk',
   display: 'swap',
-  variable: '--font-inter',
+  weight: '300 700',
 })
 
 const mono = JetBrains_Mono({
@@ -45,7 +41,6 @@ export const metadata: Metadata = {
   authors: [{ name: site.legalEntity, url: site.family.parentUrl }],
   creator: site.legalEntity,
   publisher: site.legalEntity,
-  formatDetection: { telephone: false, address: false, email: false },
   openGraph: {
     siteName: site.name,
     locale: 'en_IN',
@@ -67,26 +62,19 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#FAFAF8' },
-    { media: '(prefers-color-scheme: dark)', color: '#1C1C1C' },
-  ],
-  colorScheme: 'light',
+  themeColor: '#0D0F17',
+  colorScheme: 'dark',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-IN" className={`${heading.variable} ${body.variable} ${mono.variable}`}>
-      <body className="flex min-h-dvh flex-col bg-surface text-ink antialiased">
-        <SkipLink />
-        <Header />
-
+    <html lang="en-IN" className={`${inter.variable} ${spaceGrotesk.variable} ${mono.variable}`}>
+      <body className="flex min-h-dvh flex-col bg-[#0D0F17] text-white antialiased selection:bg-[#743CFF] selection:text-white">
+        <SiteHeader />
         <main id="main" tabIndex={-1} className="flex-1 focus-visible:outline-none">
           {children}
         </main>
-
-        <Footer />
-        <FloatingContact />
+        <SiteFooter />
       </body>
     </html>
   )

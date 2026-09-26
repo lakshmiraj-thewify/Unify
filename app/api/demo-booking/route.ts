@@ -1,9 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { ZodError } from 'zod'
-import { demoBookingSchema } from '@/lib/schemas/demo-booking'
-import { sendEmail, buildDemoAlertEmail } from '@/lib/notify/email'
-import { bookDemoSlot } from '@/lib/calendar/provider'
-import { checkDemoRatelimit } from '@/lib/ratelimit'
+import { demoBookingSchema } from '@/lib/schemas'
+import { sendEmail, buildDemoAlertEmail } from '@/lib/server/email'
+import { bookDemoSlot } from '@/lib/server/calendar'
+import { checkDemoRatelimit } from '@/lib/server/ratelimit'
 
 /**
  * ---------------------------------------------------------------------------

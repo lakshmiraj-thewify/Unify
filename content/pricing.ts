@@ -1,4 +1,4 @@
-import type { Provided } from './types'
+type Provided<T> = T | null
 
 /**
  * ---------------------------------------------------------------------------

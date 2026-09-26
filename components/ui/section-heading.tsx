@@ -3,32 +3,32 @@ import { cn } from '@/lib/cn'
 import { Eyebrow } from './eyebrow'
 import { bodyText, heading } from './typography'
 
+/**
+ * SectionHeading tone controls text colour.
+ * dark  → white heading, muted white lead (for dark/mid sections)
+ * light → near-black heading, muted dark lead (for white/subtle sections)
+ */
 const headingTones = {
-  light: 'text-ink',
-  dark: 'text-dark-fg',
+  dark:  'text-white',
+  light: 'text-[#0D1B21]',
 } as const
 
 const leadTones = {
-  light: 'text-ink-muted',
-  dark: 'text-dark-fg-muted',
+  dark:  'text-[#8899A6]',
+  light: 'text-[#4A5568]',
 } as const
 
 type SectionHeadingProps = {
-  /** Uppercase label above the heading. */
-  eyebrow?: string
-  /** ReactNode so callers can emphasise a fragment, e.g. with `text-brand-gradient`. */
-  title: ReactNode
-  lead?: ReactNode
-  align?: 'left' | 'center'
-  tone?: 'light' | 'dark'
-  /** Heading level. Defaults to h2 — only the hero should use h1. */
-  as?: 'h1' | 'h2' | 'h3'
-  /** Size of the heading text. Defaults to match `as`. */
-  size?: 'display' | 'h2' | 'h3'
-  /** Set this and point the parent `<section aria-labelledby>` at it. */
-  id?: string
+  eyebrow?:   string
+  title:      ReactNode
+  lead?:      ReactNode
+  align?:     'left' | 'center'
+  tone?:      'light' | 'dark'
+  as?:        'h1' | 'h2' | 'h3'
+  size?:      'display' | 'h2' | 'h3'
+  id?:        string
   className?: string
-  children?: ReactNode
+  children?:  ReactNode
 }
 
 export function SectionHeading({
@@ -36,7 +36,7 @@ export function SectionHeading({
   title,
   lead,
   align = 'center',
-  tone = 'light',
+  tone = 'dark',
   as = 'h2',
   size,
   id,

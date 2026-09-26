@@ -1,41 +1,22 @@
 import type { Metadata } from 'next'
-import { BusinessModel } from '@/components/sections/business-model'
-import { FaqSection } from '@/components/sections/faq-section'
-import { FeatureModules } from '@/components/sections/feature-modules'
-import { FourPillars } from '@/components/sections/four-pillars'
-import { HardwareRibbon } from '@/components/sections/hardware-ribbon'
-import { Hero } from '@/components/sections/hero'
-import { HomeBlogTeaser } from '@/components/sections/home-blog-teaser'
-import { HomeContactCta } from '@/components/sections/home-contact-cta'
-import { HomePricingBand } from '@/components/sections/home-pricing-band'
-import { HowItWorks } from '@/components/sections/how-it-works'
-import { IspSolutions } from '@/components/sections/isp-solutions'
-import { PlatformArchitecture } from '@/components/sections/platform-architecture'
-import { RevenueCalculator } from '@/components/sections/revenue-calculator'
-import { TrustStats } from '@/components/sections/trust-stats'
-
-/*
- * ---------------------------------------------------------------------------
- * Homepage — Sections 1–14 (complete per approved blueprint).
- *
- *  1.  Hero                  — dark navy band, live console widget
- *  2.  HardwareRibbon        — vendor compatibility grid
- *  3.  FourPillars           — Cloud RADIUS · Billing · FUP · White-Label
- *  4.  TrustStats            — 200+ ISPs · 50k Subscribers · 99.99% · 10 min
- *  5.  HowItWorks            — 5-step pipeline  (#how-it-works)
- *  6.  FeatureModules        — 8 feature cards  (#features)
- *  7.  IspSolutions          — 5 segment cards  (#solutions)
- *  8.  RevenueCalculator     — subscriber slider + estimates  (#savings-calculator)
- *  9.  BusinessModel         — You Own · We Run  (#ownership)
- *  10. PlatformArchitecture  — Cloud RADIUS · Isolation · White-Label  (#architecture)
- *  11. HomeBlogTeaser        — first 3 articles  (#blog)
- *  12. FaqSection            — 6-item accordion  (#faq)
- *  13. HomeContactCta        — demo booking band  (#contact)
- *  14. HomePricingBand       — 3 tier preview  (#pricing)
- *
- * All copy comes from the content/ layer. Nothing is invented at this layer.
- * ---------------------------------------------------------------------------
- */
+import { HeroSection } from '@/components/home/hero'
+import { HardwareRibbon } from '@/components/home/hardware-ribbon'
+import { FourPillars } from '@/components/home/four-pillars'
+import { TrustStats } from '@/components/home/trust-stats'
+import { HowItWorks } from '@/components/home/how-it-works'
+import { TabbedShowcase } from '@/components/home/tabbed-showcase'
+import { FeatureModules } from '@/components/home/feature-modules'
+import { IspSolutions } from '@/components/home/isp-solutions'
+import { RevenueCalculator } from '@/components/home/revenue-calculator'
+import { BusinessModel } from '@/components/home/business-model'
+import { FeatureStack } from '@/components/home/feature-stack'
+import { PlatformArchitecture } from '@/components/home/platform-architecture'
+import { EcosystemTransition } from '@/components/home/ecosystem-transition'
+import { CustomerProof } from '@/components/home/customer-proof'
+import { HomeBlogTeaser } from '@/components/home/home-blog-teaser'
+import { PricingSection } from '@/components/home/pricing-section'
+import { FaqSection } from '@/components/home/faq'
+import { CtaBanner } from '@/components/home/cta-banner'
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -44,35 +25,73 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <>
-      {/* Section 1 */}
-      <Hero />
-      {/* Section 2 */}
+    /**
+     * Single aurora canvas — all dark sections sit on top of this
+     * unified gradient background, just like Nexos.
+     * Blobs are positioned at key scroll zones so colour flows naturally
+     * through the page without rectangular section boundaries.
+     */
+    <div className="relative bg-[#07050E] overflow-hidden">
+
+      {/* ── Aurora Zone 1: Hero + Hardware + Pillars ─────────────────────────
+          Deep indigo-purple radial centred at the top — matches hero aurora */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 w-[140vw] h-[90vh] rounded-full opacity-70"
+        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(116,60,255,0.45) 0%, rgba(69,25,165,0.20) 45%, transparent 72%)' }}
+      />
+
+      {/* ── Aurora Zone 2: Trust Stats → HowItWorks → Tabbed Showcase ────────
+          Wide violet blob centred at ~35% scroll depth */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-[110vw] h-[70vh] rounded-full"
+        style={{ top: '28%', background: 'radial-gradient(ellipse at 50% 50%, rgba(104,40,240,0.30) 0%, rgba(60,20,160,0.10) 55%, transparent 75%)' }}
+      />
+
+      {/* ── Aurora Zone 3: Feature Modules → ISP Solutions → Calculator ──────
+          Slightly cyan-shifted blob creates visual variety mid-page */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[55%] w-[90vw] h-[60vh] rounded-full"
+        style={{ top: '50%', background: 'radial-gradient(ellipse at 40% 50%, rgba(116,60,255,0.22) 0%, rgba(94,231,228,0.06) 60%, transparent 80%)' }}
+      />
+
+      {/* ── Aurora Zone 4: Business Model → Feature Stack → Architecture ─────
+          Rich purple bloom — densest zone of the page */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[30%] w-[100vw] h-[65vh] rounded-full"
+        style={{ top: '66%', background: 'radial-gradient(ellipse at 50% 50%, rgba(120,50,255,0.28) 0%, rgba(80,30,200,0.12) 50%, transparent 75%)' }}
+      />
+
+      {/* ── Aurora Zone 5: Blog → Pricing → FAQ → CTA ───────────────────────
+          Fades back out — smaller, cooler tone */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-[80vw] h-[50vh] rounded-full"
+        style={{ top: '84%', background: 'radial-gradient(ellipse at 50% 50%, rgba(100,60,220,0.20) 0%, transparent 70%)' }}
+      />
+
+      {/* ── Sections ─────────────────────────────────────────────────────── */}
+      <HeroSection />
       <HardwareRibbon />
-      {/* Section 3 */}
       <FourPillars />
-      {/* Section 4 */}
       <TrustStats />
-      {/* Section 5 */}
       <HowItWorks />
-      {/* Section 6 */}
+      <TabbedShowcase />
       <FeatureModules />
-      {/* Section 7 */}
       <IspSolutions />
-      {/* Section 8 */}
       <RevenueCalculator />
-      {/* Section 9 */}
       <BusinessModel />
-      {/* Section 10 */}
+      <FeatureStack />
       <PlatformArchitecture />
-      {/* Section 11 */}
+      <EcosystemTransition />
+      <CustomerProof />
       <HomeBlogTeaser />
-      {/* Section 12 */}
+      <PricingSection />
       <FaqSection />
-      {/* Section 13 */}
-      <HomeContactCta />
-      {/* Section 14 */}
-      <HomePricingBand />
-    </>
+      <CtaBanner />
+    </div>
   )
 }

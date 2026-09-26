@@ -1,4 +1,12 @@
-import type { NavGroup, NavItem } from './types'
+export type NavItem = {
+  label: string
+  href: string
+}
+
+export type NavGroup = {
+  heading: string
+  items: NavItem[]
+}
 
 /**
  * Navigation, exactly as approved:
@@ -10,8 +18,8 @@ import type { NavGroup, NavItem } from './types'
  */
 export const primaryNav: NavItem[] = [
   { label: 'Solutions', href: '/#solutions' },
-  { label: 'Features', href: '/#features' },
-  { label: 'Hardware', href: '/#hardware' },
+  { label: 'Features', href: '/#tabs-showcase' },
+  { label: 'Hardware', href: '/#integrations' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },

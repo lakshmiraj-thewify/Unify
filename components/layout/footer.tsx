@@ -1,109 +1,78 @@
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
-import { UnifyLogo } from '@/components/brand/unify-logo'
-import { Badge } from '@/components/ui/badge'
-import { Container } from '@/components/ui/container'
-import { WaveDivider } from '@/components/ui/wave-divider'
-import { bodyText, label } from '@/components/ui/typography'
-import { footerNav } from '@/content/nav'
-import { site } from '@/content/site'
-import { isProvided } from '@/content/types'
+import { Radio, ArrowUpRight } from 'lucide-react'
 
-/**
- * Site footer — charcoal dark footer with smooth wave divider at top.
- */
-export function Footer() {
-  const year = new Date().getFullYear()
-
+export function SiteFooter() {
   return (
-    <div className="relative bg-navy-950 text-dark-fg">
-      <WaveDivider from="light" />
-
-      <footer className="relative bg-navy-950 pb-12 pt-6">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2fr)]">
-            {/* Brand */}
-            <div className="flex flex-col items-start gap-5">
-              <UnifyLogo tone="dark" size="lg" />
-              <p className={`${bodyText.small} max-w-xs text-dark-fg-muted`}>{site.category}</p>
-              <a
-                href={site.family.guestWifiUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-sm text-sm font-semibold text-primary-300 underline decoration-primary-400/40 decoration-2 underline-offset-4 hover:text-primary-200"
-              >
-                Looking for Guest WiFi? Visit {site.family.guestWifiLabel}
-                <ArrowUpRight aria-hidden="true" className="size-4" />
-                <span className="visually-hidden"> (opens in a new tab)</span>
-              </a>
-            </div>
-
-            {/* Link groups + contact */}
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {footerNav.map((group) => (
-                <nav key={group.heading} aria-label={group.heading}>
-                  <h2 className={`${label.mono} text-primary-400 font-semibold tracking-wider uppercase text-xs`}>{group.heading}</h2>
-                  <ul className="mt-4 flex flex-col gap-2.5">
-                    {group.items.map((item) => (
-                      <li key={item.label}>
-                        <Link
-                          href={item.href}
-                          className="rounded-sm text-sm font-medium text-dark-fg/90 transition-colors duration-200 ease-std hover:text-primary-300"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              ))}
-
-              <div>
-                <h2 className={`${label.mono} text-primary-400 font-semibold tracking-wider uppercase text-xs`}>Contact</h2>
-                <ul className="mt-4 flex flex-col items-start gap-2.5">
-                  <li>
-                    <a
-                      href={`mailto:${site.contact.email}`}
-                      className="rounded-sm text-sm font-medium text-dark-fg/90 transition-colors duration-200 ease-std hover:text-primary-300"
-                    >
-                      {site.contact.email}
-                    </a>
-                  </li>
-                  <li>
-                    {isProvided(site.contact.whatsapp) ? (
-                      <a
-                        href={`https://wa.me/${site.contact.whatsapp.replace(/[^\d]/g, '')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-sm text-sm font-medium text-dark-fg/90 transition-colors duration-200 ease-std hover:text-primary-300"
-                      >
-                        WhatsApp
-                      </a>
-                    ) : (
-                      <Badge variant="pending" tone="dark" size="sm">
-                        WhatsApp number pending
-                      </Badge>
-                    )}
-                  </li>
-                  <li className={`${bodyText.small} text-dark-fg-muted`}>
-                    {site.contact.address.locality}, {site.contact.address.country}
-                  </li>
-                </ul>
+    <footer className="bg-[#0A0D14] text-white/70 text-sm border-t border-white/10 pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+          {/* Brand Info (Cols 1-2) */}
+          <div className="lg:col-span-2 space-y-4">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#743CFF] to-[#5EE7E4] flex items-center justify-center">
+                <Radio className="w-4 h-4 text-white" />
               </div>
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-lg text-white">Unify</span>
+                <span className="text-[10px] uppercase font-semibold text-[#5EE7E4] bg-[#5EE7E4]/10 px-1.5 py-0.5 rounded">Wi-Fi</span>
+              </div>
+            </Link>
+            <p className="text-white/50 text-xs sm:text-sm max-w-sm leading-relaxed">
+              Cloud RADIUS and ISP billing automation for MikroTik network operators, WISPs, and Local Cable Operators across India.
+            </p>
+            <div className="text-xs text-white/40 space-y-1">
+              <div>A product of <strong className="text-white/60">TheWiFy Technologies Private Limited</strong></div>
+              <div>Hyderabad, India · support@thewify.com</div>
             </div>
           </div>
 
-          {/* Bottom bar */}
-          <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className={`${bodyText.small} text-dark-fg-muted`}>
-              {site.name} is a product of {site.legalEntity}.
-            </p>
-            <p className={`${bodyText.small} text-dark-fg-muted`}>
-              <span data-numeric="">&copy; {year}</span> {site.legalEntity}. All rights reserved.
-            </p>
+          {/* Col 3: Platform */}
+          <div className="space-y-3">
+            <div className="text-xs font-bold uppercase tracking-wider text-white">Platform</div>
+            <ul className="space-y-2 text-xs sm:text-sm">
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">Cloud RADIUS & AAA</Link></li>
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">Automated Invoicing</Link></li>
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">Bandwidth & FUP</Link></li>
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">White-Label Reseller</Link></li>
+              <li><Link href="#integrations" className="hover:text-white transition-colors">MikroTik RouterOS</Link></li>
+            </ul>
           </div>
-        </Container>
-      </footer>
-    </div>
+
+          {/* Col 4: Operators */}
+          <div className="space-y-3">
+            <div className="text-xs font-bold uppercase tracking-wider text-white">Solutions</div>
+            <ul className="space-y-2 text-xs sm:text-sm">
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">Wireless ISPs (WISPs)</Link></li>
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">Fiber Broadband ISPs</Link></li>
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">LCO Franchise Networks</Link></li>
+              <li><Link href="#tabs-showcase" className="hover:text-white transition-colors">Public Hotspots</Link></li>
+              <li><Link href="#pricing" className="hover:text-white transition-colors">Pricing & Plans</Link></li>
+            </ul>
+          </div>
+
+          {/* Col 5: Company & Legal */}
+          <div className="space-y-3">
+            <div className="text-xs font-bold uppercase tracking-wider text-white">Company</div>
+            <ul className="space-y-2 text-xs sm:text-sm">
+              <li><Link href="/contact" className="hover:text-white transition-colors">Book a Demo</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link></li>
+              <li><a href="https://guestwifi.thewify.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">Guest Wi-Fi <ArrowUpRight className="w-3 h-3" /></a></li>
+              <li><a href="https://thewify.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">TheWiFy Parent Brand <ArrowUpRight className="w-3 h-3" /></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+          <div>
+            © {new Date().getFullYear()} TheWiFy Technologies Pvt Ltd. All rights reserved.
+          </div>
+          <div className="flex items-center gap-6">
+            <span>RFC 2865 Compliant</span>
+            <span>99.99% Cloud SLA</span>
+            <span>Hyderabad, India</span>
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }

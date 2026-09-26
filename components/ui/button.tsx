@@ -11,20 +11,30 @@ const base =
   'disabled:pointer-events-none disabled:opacity-55 aria-disabled:pointer-events-none aria-disabled:opacity-55'
 
 const variants = {
-  /** The primary action: warm orange. */
-  primary: 'bg-primary-500 text-white hover:bg-primary-600 shadow-sm',
-  /** Outline secondary — charcoal border. */
-  secondary: 'bg-transparent text-ink border border-line-strong hover:border-primary-500 hover:text-primary-500',
-  /** White button for dark backgrounds. */
-  white: 'bg-white text-ink hover:bg-surface-subtle shadow-sm',
-  /** Paired outline button. */
-  outline: 'bg-transparent text-ink border border-line-strong hover:border-primary-500 hover:text-primary-500',
-  /** Low emphasis, e.g. nav items. */
-  ghost: 'text-ink-soft hover:bg-surface-subtle hover:text-primary-500',
-  /** Secondary action inside a dark band. */
-  dark: 'bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white/60',
-  /** Inline text action. */
-  link: 'text-primary-500 decoration-primary-300 rounded-sm font-semibold underline decoration-2 underline-offset-4 hover:text-primary-600 hover:decoration-primary-500',
+  /** Primary CTA: brand purple with glow */
+  primary:
+    'bg-[#743CFF] text-white hover:bg-[#5E2EE0] shadow-[0_0_20px_rgba(116,60,255,0.35)] hover:shadow-[0_0_28px_rgba(116,60,255,0.5)]',
+  /** Outline on dark backgrounds */
+  secondary:
+    'bg-transparent text-white border border-white/20 hover:border-[#743CFF]/60 hover:text-[#A78BFA]',
+  /** Outline on light backgrounds */
+  outline:
+    'bg-transparent text-[#0D1B21] border border-[#E2E8F0] hover:border-[#743CFF] hover:text-[#743CFF]',
+  /** White solid — for use on dark hero */
+  white:
+    'bg-white text-[#0D1B21] hover:bg-white/90 shadow-sm',
+  /** Ghost nav link */
+  ghost:
+    'text-white/70 hover:text-white hover:bg-white/8 rounded-lg',
+  /** Ghost on light backgrounds */
+  'ghost-light':
+    'text-[#4A5568] hover:text-[#0D1B21] hover:bg-[#F7F8FA] rounded-lg',
+  /** Dark band outlined ghost */
+  dark:
+    'bg-transparent text-white border border-white/20 hover:bg-white/10 hover:border-white/40',
+  /** Inline text action */
+  link:
+    'text-[#A78BFA] decoration-[#743CFF]/40 rounded-sm font-semibold underline decoration-2 underline-offset-4 hover:text-[#743CFF] hover:decoration-[#743CFF]',
 } as const
 
 const sizes = {
@@ -33,7 +43,6 @@ const sizes = {
   lg: 'h-12 px-6 text-base [&_svg]:size-[1.125rem]',
 } as const
 
-/** The link variant is inline text: it takes the size but not the box. */
 const linkSizes = {
   sm: 'text-sm [&_svg]:size-4',
   md: 'text-sm [&_svg]:size-4',
@@ -56,9 +65,7 @@ type SharedProps = {
 type NativeButtonProps = SharedProps &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> & {
     href?: undefined
-    /** Disables the button, sets aria-busy, and swaps in a spinner. */
     loading?: boolean
-    /** Replacement label while loading, e.g. "Sending…". Announced, not just shown. */
     loadingLabel?: string
   }
 
@@ -66,8 +73,6 @@ type AnchorRest = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'c
 
 type InternalLinkProps = SharedProps &
   AnchorRest & {
-    /** Internal route, routed through next/link. See lib/links.ts for how
-     *  strictly this is type-checked at the current phase. */
     href: LinkHref
     external?: false
   }
@@ -75,9 +80,7 @@ type InternalLinkProps = SharedProps &
 type ExternalLinkProps = SharedProps &
   AnchorRest & {
     href: string
-    /** Required for any off-site, `tel:` or `mailto:` destination. */
     external: true
-    /** Defaults to true. Set false for `tel:` / `mailto:` / WhatsApp handoffs. */
     newTab?: boolean
   }
 
@@ -95,9 +98,7 @@ function classesFor({ variant = 'primary', size = 'md', fullWidth, className }: 
 
 /**
  * One button, three renderings: a native `<button>`, a `next/link` for internal
- * routes, and a plain `<a>` for anything off-site. The split is enforced by the
- * type union so an external URL can never be handed to the client router, and
- * `rel="noopener noreferrer"` cannot be forgotten.
+ * routes, and a plain `<a>` for anything off-site.
  */
 export function Button(props: ButtonProps) {
   if (props.href !== undefined && props.external === true) {

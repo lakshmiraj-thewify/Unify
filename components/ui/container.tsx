@@ -1,4 +1,4 @@
-import type { ElementType, HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 const widths = {
@@ -28,10 +28,9 @@ export function Container({
   children,
   className,
   width = 'page',
-  as = 'div',
+  as: Tag = 'div',
   ...rest
 }: ContainerProps) {
-  const Tag = as as ElementType
   return (
     <Tag {...rest} className={cn('mx-auto w-full px-4 sm:px-6 lg:px-8', widths[width], className)}>
       {children}

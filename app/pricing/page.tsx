@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PricingContent } from '@/components/sections/pricing-content'
+import { PricingContent } from '@/components/pages/pricing-content'
 import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = pageMetadata({

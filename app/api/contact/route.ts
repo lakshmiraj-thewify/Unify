@@ -1,8 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { ZodError } from 'zod'
-import { contactSchema } from '@/lib/schemas/contact'
-import { sendEmail, buildContactAlertEmail } from '@/lib/notify/email'
-import { checkContactRatelimit } from '@/lib/ratelimit'
+import { contactSchema } from '@/lib/schemas'
+import { sendEmail, buildContactAlertEmail } from '@/lib/server/email'
+import { checkContactRatelimit } from '@/lib/server/ratelimit'
 
 /**
  * ---------------------------------------------------------------------------
