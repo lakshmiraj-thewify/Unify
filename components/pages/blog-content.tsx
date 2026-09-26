@@ -144,7 +144,7 @@ export function BlogContent() {
               placeholder="Search articles…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pr-3 pl-9 text-sm focus:border-transparent focus:ring-2 focus:ring-violet-400 focus:outline-none"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pr-3 pl-9 text-sm text-slate-900 placeholder:text-slate-400 focus:border-transparent focus:ring-2 focus:ring-violet-400 focus:outline-none"
             />
           </div>
           {/* Tags */}
