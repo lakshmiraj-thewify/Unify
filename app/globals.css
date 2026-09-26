@@ -131,30 +131,27 @@ h6 {
   box-shadow: 0 12px 32px -10px rgba(116, 60, 255, 0.22);
 }
 
-/* ─── Purple → White Aurora Transition Gradient ──────────────────────────── */
-/* Applied to the ecosystem/integrations section background */
+/* ─── Zero Hardware Lock-In → Knowledge Hub Aurora Transition ────────────── */
 .unify-transition-gradient {
   background: linear-gradient(
     180deg,
-    #0d0f17 0%,
-    #16122e 18%,
-    #2a165a 38%,
-    #4e22a0 56%,
-    #7b3fd4 72%,
-    #c4a8f0 88%,
-    #f5f0ff 96%,
-    #ffffff 100%
+    #07050e 0%,
+    #130a2a 12%,
+    #251052 32%,
+    #3f1882 52%,
+    #2c1060 72%,
+    #120826 90%,
+    #07050e 100%
   );
 }
 
 /* ─── Translucent Frosted Violet Cards (on gradient transition) ───────────── */
-/* These sit over the purple→white gradient and must NOT be heavy black boxes */
 .unify-frosted-violet-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 14px 40px -4px rgba(30, 8, 60, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.4);
   border-radius: 1.25rem;
   transition:
     background 0.2s ease,
@@ -163,9 +160,9 @@ h6 {
 }
 
 .unify-frosted-violet-card:hover {
-  background: rgba(255, 255, 255, 0.17);
-  border-color: rgba(255, 255, 255, 0.45);
-  box-shadow: 0 20px 48px -6px rgba(30, 8, 60, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 48px -4px rgba(116, 60, 255, 0.25);
 }
 
 /* ─── Crisp White Section ────────────────────────────────────────────────── */

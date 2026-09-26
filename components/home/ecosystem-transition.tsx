@@ -124,6 +124,12 @@ export function EcosystemTransition() {
           })}
         </div>
       </div>
+
+      {/* Seamless transition blend into Knowledge Hub */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[#07050E]"
+      />
     </section>
   )
 }

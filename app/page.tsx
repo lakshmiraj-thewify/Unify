@@ -12,7 +12,6 @@ import { BusinessModel } from '@/components/home/business-model'
 import { FeatureStack } from '@/components/home/feature-stack'
 import { PlatformArchitecture } from '@/components/home/platform-architecture'
 import { EcosystemTransition } from '@/components/home/ecosystem-transition'
-import { CustomerProof } from '@/components/home/customer-proof'
 import { HomeBlogTeaser } from '@/components/home/home-blog-teaser'
 import { PricingSection } from '@/components/home/pricing-section'
 import { FaqSection } from '@/components/home/faq'
@@ -105,7 +104,6 @@ export default function HomePage() {
       <FeatureStack />
       <PlatformArchitecture />
       <EcosystemTransition />
-      <CustomerProof />
       <HomeBlogTeaser />
       <PricingSection />
       <FaqSection />
