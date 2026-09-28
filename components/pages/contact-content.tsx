@@ -13,12 +13,7 @@ import {
   ArrowLeft,
 } from 'lucide-react'
 import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button'
-import {
-  contactFaqs,
-  contactMeta,
-  subscriberRanges,
-  hardwareOptions,
-} from '@/content/contact'
+import { contactFaqs, contactMeta, subscriberRanges, hardwareOptions } from '@/content/contact'
 import { CalendlyWidget } from '@/components/ui/calendly-widget'
 
 /* ─── Accordion FAQ ──────────────────────────────────────────────────────── */
@@ -130,7 +125,7 @@ function DemoBookingSection() {
       {step === 'questions' ? (
         <form onSubmit={handleProceedToCalendar} noValidate className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-violet-600">
+            <span className="text-xs font-semibold tracking-wider text-violet-600 uppercase">
               Step 1 of 2: Network Details
             </span>
             <span className="text-xs text-slate-400">Takes 30 seconds</span>
@@ -150,15 +145,13 @@ function DemoBookingSection() {
                 onChange={(e) => f('name', e.target.value)}
                 onBlur={() => touch('name')}
                 style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
-                className={`rounded-xl border px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+                className={`rounded-xl border px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:ring-2 focus:outline-none ${
                   nameRequired
                     ? 'border-red-400 focus:ring-red-300'
                     : 'border-slate-200 focus:ring-violet-400'
                 }`}
               />
-              {nameRequired && (
-                <span className="text-xs text-red-500">Name is required</span>
-              )}
+              {nameRequired && <span className="text-xs text-red-500">Name is required</span>}
             </label>
 
             {/* Work Email */}
@@ -174,7 +167,7 @@ function DemoBookingSection() {
                 onChange={(e) => f('email', e.target.value)}
                 onBlur={() => touch('email')}
                 style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
-                className={`rounded-xl border px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+                className={`rounded-xl border px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:ring-2 focus:outline-none ${
                   emailError || emailRequired
                     ? 'border-red-400 focus:ring-red-300'
                     : 'border-slate-200 focus:ring-violet-400'
@@ -201,7 +194,7 @@ function DemoBookingSection() {
               onChange={(e) => f('company', e.target.value)}
               onBlur={() => touch('company')}
               style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
-              className={`rounded-xl border px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:outline-none focus:ring-2 ${
+              className={`rounded-xl border px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:ring-2 focus:outline-none ${
                 companyRequired
                   ? 'border-red-400 focus:ring-red-300'
                   : 'border-slate-200 focus:ring-violet-400'
@@ -227,7 +220,7 @@ function DemoBookingSection() {
                   color: form.subscribers ? '#0f172a' : '#94a3b8',
                   backgroundColor: '#ffffff',
                 }}
-                className={`rounded-xl border px-3.5 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 ${
+                className={`rounded-xl border px-3.5 py-2.5 text-sm transition-all focus:ring-2 focus:outline-none ${
                   subscribersRequired
                     ? 'border-red-400 focus:ring-red-300'
                     : 'border-slate-200 focus:ring-violet-400'
@@ -243,9 +236,7 @@ function DemoBookingSection() {
                 ))}
               </select>
               {subscribersRequired && (
-                <span className="text-xs text-red-500">
-                  Please select subscriber range
-                </span>
+                <span className="text-xs text-red-500">Please select subscriber range</span>
               )}
             </label>
 
@@ -263,7 +254,7 @@ function DemoBookingSection() {
                   color: form.hardware ? '#0f172a' : '#94a3b8',
                   backgroundColor: '#ffffff',
                 }}
-                className={`rounded-xl border px-3.5 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 ${
+                className={`rounded-xl border px-3.5 py-2.5 text-sm transition-all focus:ring-2 focus:outline-none ${
                   hardwareRequired
                     ? 'border-red-400 focus:ring-red-300'
                     : 'border-slate-200 focus:ring-violet-400'
@@ -296,7 +287,7 @@ function DemoBookingSection() {
               value={form.note}
               onChange={(e) => f('note', e.target.value)}
               style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
-              className="rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
+              className="rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:border-transparent focus:ring-2 focus:ring-violet-400 focus:outline-none"
             />
           </label>
 
@@ -328,8 +319,7 @@ function DemoBookingSection() {
               <span>Edit details</span>
             </button>
             <span className="text-slate-400">
-              Booking for{' '}
-              <strong className="font-semibold text-slate-700">{form.name}</strong>
+              Booking for <strong className="font-semibold text-slate-700">{form.name}</strong>
               {form.company ? ` · ${form.company}` : ''}
             </span>
           </div>
@@ -432,7 +422,7 @@ function QuickContactForm() {
           onChange={(e) => f('email', e.target.value)}
           onBlur={() => touch('email')}
           style={{ color: '#0f172a', backgroundColor: '#ffffff' }}
-          className={`rounded-xl border bg-white px-4 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:border-transparent focus:outline-none focus:ring-2 ${
+          className={`rounded-xl border bg-white px-4 py-2.5 text-sm text-slate-900 transition-all placeholder:text-slate-400 focus:border-transparent focus:ring-2 focus:outline-none ${
             emailError
               ? 'border-red-400 focus:ring-red-300'
               : 'border-slate-200 focus:ring-violet-400'
@@ -485,7 +475,6 @@ function QuickContactForm() {
     </form>
   )
 }
-
 
 /* ─── Main export ─────────────────────────────────────────────────────────── */
 export function ContactContent() {

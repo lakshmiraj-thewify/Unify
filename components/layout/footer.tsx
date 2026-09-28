@@ -37,17 +37,26 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/features/billing-invoicing" className="transition-colors hover:text-white">
+                <Link
+                  href="/features/billing-invoicing"
+                  className="transition-colors hover:text-white"
+                >
                   Automated Invoicing
                 </Link>
               </li>
               <li>
-                <Link href="/features/bandwidth-throttling" className="transition-colors hover:text-white">
+                <Link
+                  href="/features/bandwidth-throttling"
+                  className="transition-colors hover:text-white"
+                >
                   Bandwidth & FUP
                 </Link>
               </li>
               <li>
-                <Link href="/features/reseller-portal" className="transition-colors hover:text-white">
+                <Link
+                  href="/features/reseller-portal"
+                  className="transition-colors hover:text-white"
+                >
                   White-Label Reseller
                 </Link>
               </li>

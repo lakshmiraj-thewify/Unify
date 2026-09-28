@@ -103,7 +103,7 @@ export function CalendlyWidget({
   return (
     <div
       ref={containerRef}
-      className="w-full rounded-2xl overflow-hidden"
+      className="w-full overflow-hidden rounded-2xl"
       style={{ minWidth: 320, height }}
       aria-label="Book a demo calendar"
     />

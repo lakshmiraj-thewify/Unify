@@ -38,7 +38,6 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-
         {/* Display Headline */}
         <h1 className="mx-auto mb-6 max-w-4xl text-4xl leading-[1.1] font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
           Your ISP.{' '}

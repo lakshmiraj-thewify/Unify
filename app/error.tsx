@@ -23,7 +23,7 @@ export default function Error({
     <div className="relative min-h-[85vh] overflow-hidden bg-[#0D0F17] pt-28 pb-20 sm:pt-36 sm:pb-28">
       {/* Background ambient radial glows */}
       <div className="pointer-events-none absolute top-1/4 left-1/2 h-[450px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-rose-600/15 to-[#743CFF]/20 blur-[130px]" />
-      <div className="pointer-events-none absolute bottom-1/4 right-1/4 h-[350px] w-[350px] rounded-full bg-[#743CFF]/15 blur-[120px]" />
+      <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-[350px] w-[350px] rounded-full bg-[#743CFF]/15 blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         {/* Status Pill Badge */}

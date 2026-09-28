@@ -35,13 +35,18 @@ export default async function ArticlePage({ params }: PageProps) {
   }
 
   const related = blogArticles
-    .filter((a) => a.slug !== article.slug && (a.tag === article.tag || a.category === article.category))
+    .filter(
+      (a) => a.slug !== article.slug && (a.tag === article.tag || a.category === article.category),
+    )
     .slice(0, 3)
 
   const fallbackRelated =
     related.length >= 3
       ? related
-      : [...related, ...blogArticles.filter((a) => a.slug !== article.slug && !related.includes(a))].slice(0, 3)
+      : [
+          ...related,
+          ...blogArticles.filter((a) => a.slug !== article.slug && !related.includes(a)),
+        ].slice(0, 3)
 
   return <ArticleReader article={article} relatedArticles={fallbackRelated} />
 }

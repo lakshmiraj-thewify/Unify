@@ -326,7 +326,12 @@ export function buildDemoLeadAlertEmail({
   if (note && note.trim().length > 0) {
     lines.push(`Requirements/Notes: ${note.trim()}`)
   }
-  lines.push('', 'Status: Visitor proceeded to Calendly to pick a meeting slot.', '---', 'Source: Book a Free Demo form at unify.thewify.com/contact')
+  lines.push(
+    '',
+    'Status: Visitor proceeded to Calendly to pick a meeting slot.',
+    '---',
+    'Source: Book a Free Demo form at unify.thewify.com/contact',
+  )
 
   const text = lines.join('\n')
 

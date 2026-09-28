@@ -18,13 +18,7 @@ import {
 } from 'lucide-react'
 import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button'
 import { NoiseTexture } from '@/registry/magicui/noise-texture'
-import {
-  blogArticles,
-  blogTags,
-  blogMeta,
-  tagColors,
-  type BlogArticle,
-} from '@/content/blog'
+import { blogArticles, blogTags, blogMeta, tagColors, type BlogArticle } from '@/content/blog'
 
 function SpotlightCard({
   children,
@@ -49,7 +43,7 @@ function SpotlightCard({
     >
       {/* Dynamic Cursor Spotlight Beam */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10"
+        className="pointer-events-none absolute -inset-px z-10 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -61,19 +55,13 @@ function SpotlightCard({
           `,
         }}
       />
-      <NoiseTexture className="opacity-20 pointer-events-none" />
+      <NoiseTexture className="pointer-events-none opacity-20" />
       {children}
     </div>
   )
 }
 
-function ArticleCard({
-  article,
-  index,
-}: {
-  article: BlogArticle
-  index: number
-}) {
+function ArticleCard({ article, index }: { article: BlogArticle; index: number }) {
   const accentColor = tagColors[article.tag] ?? '#5EE7E4'
 
   return (
@@ -94,7 +82,7 @@ function ArticleCard({
         {article.coverImage && (
           <Link
             href={`/blog/${article.slug}`}
-            className="relative aspect-[16/9] w-full overflow-hidden bg-[#07050E] border-b border-white/[0.08]"
+            className="relative aspect-[16/9] w-full overflow-hidden border-b border-white/[0.08] bg-[#07050E]"
           >
             <Image
               src={article.coverImage}
@@ -121,8 +109,8 @@ function ArticleCard({
             </div>
 
             {/* Read Time Chip over image */}
-            <div className="absolute bottom-2.5 right-3 z-20">
-              <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-0.5 text-[10px] text-white/60 backdrop-blur-md border border-white/10 font-mono">
+            <div className="absolute right-3 bottom-2.5 z-20">
+              <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/70 px-2 py-0.5 font-mono text-[10px] text-white/60 backdrop-blur-md">
                 <Clock className="size-2.5 text-[#5EE7E4]" />
                 {article.readTime}
               </span>
@@ -144,7 +132,7 @@ function ArticleCard({
               >
                 {article.tag}
               </span>
-              <span className="flex items-center gap-1 text-[11px] text-white/40 font-mono">
+              <span className="flex items-center gap-1 font-mono text-[11px] text-white/40">
                 <Clock className="size-2.5 text-white/40" />
                 {article.readTime}
               </span>
@@ -153,19 +141,17 @@ function ArticleCard({
 
           {/* Title */}
           <h3 className="line-clamp-2 text-base leading-snug font-bold text-white transition-colors duration-200 group-hover:text-[#5EE7E4]">
-            <Link href={`/blog/${article.slug}`}>
-              {article.title}
-            </Link>
+            <Link href={`/blog/${article.slug}`}>{article.title}</Link>
           </h3>
 
           {/* Excerpt */}
-          <p className="line-clamp-2 flex-1 text-xs sm:text-sm leading-relaxed text-white/60">
+          <p className="line-clamp-2 flex-1 text-xs leading-relaxed text-white/60 sm:text-sm">
             {article.summary}
           </p>
 
           {/* Card Footer */}
-          <div className="mt-auto pt-4 border-t border-white/[0.08] flex items-center justify-between">
-            <span className="text-[11px] text-white/40 truncate max-w-[170px]">
+          <div className="mt-auto flex items-center justify-between border-t border-white/[0.08] pt-4">
+            <span className="max-w-[170px] truncate text-[11px] text-white/40">
               {article.author.name}
             </span>
             <Link
@@ -208,45 +194,43 @@ export function BlogContent() {
     : filtered.filter((a) => a.slug !== featured?.slug || search || activeTag !== 'All')
 
   return (
-    <main className="min-h-screen bg-[#07050E] text-white pt-28 pb-32">
+    <main className="min-h-screen bg-[#07050E] pt-28 pb-32 text-white">
       {/* Background Ambient Glows */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1100px] h-[650px] rounded-full bg-gradient-to-b from-[#743CFF]/20 via-[#5EE7E4]/10 to-transparent blur-[140px]" />
-        <div className="absolute top-[35%] -left-48 w-[650px] h-[650px] rounded-full bg-[#743CFF]/10 blur-[140px]" />
-        <div className="absolute top-[60%] -right-48 w-[650px] h-[650px] rounded-full bg-[#5EE7E4]/10 blur-[140px]" />
+        <div className="absolute -top-40 left-1/2 h-[650px] w-[1100px] -translate-x-1/2 rounded-full bg-gradient-to-b from-[#743CFF]/20 via-[#5EE7E4]/10 to-transparent blur-[140px]" />
+        <div className="absolute top-[35%] -left-48 h-[650px] w-[650px] rounded-full bg-[#743CFF]/10 blur-[140px]" />
+        <div className="absolute top-[60%] -right-48 h-[650px] w-[650px] rounded-full bg-[#5EE7E4]/10 blur-[140px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="mb-8 flex items-center gap-2 text-xs text-white/40">
-          <Link href="/" className="hover:text-white transition-colors">
+          <Link href="/" className="transition-colors hover:text-white">
             Home
           </Link>
           <ChevronRight className="size-3" />
-          <span className="text-[#5EE7E4] font-medium">Knowledge Hub</span>
+          <span className="font-medium text-[#5EE7E4]">Knowledge Hub</span>
         </nav>
 
         {/* Hero Header */}
-        <div className="mx-auto max-w-3xl text-center mb-14">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-xs font-semibold tracking-wider text-[#5EE7E4] uppercase backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(94,231,228,0.15)]">
+        <div className="mx-auto mb-14 max-w-3xl text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-xs font-semibold tracking-wider text-[#5EE7E4] uppercase shadow-[0_0_20px_rgba(94,231,228,0.15)] backdrop-blur-md">
             <Sparkles className="size-3.5 text-[#5EE7E4]" />
             {blogMeta.eyebrow}
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl mb-6">
+          <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-6xl">
             The Wi-Fi & ISP Operator{' '}
             <span className="bg-gradient-to-r from-[#5EE7E4] via-[#743CFF] to-[#C084FC] bg-clip-text text-transparent">
               Knowledge Hub
             </span>
           </h1>
-          <p className="text-base sm:text-lg leading-relaxed text-white/60">
-            {blogMeta.lead}
-          </p>
+          <p className="text-base leading-relaxed text-white/60 sm:text-lg">{blogMeta.lead}</p>
 
           {/* Search Box with Ambient Focus Aura */}
-          <div className="mt-8 relative max-w-xl mx-auto group">
+          <div className="group relative mx-auto mt-8 max-w-xl">
             <div className="pointer-events-none absolute -inset-0.5 rounded-full bg-gradient-to-r from-[#5EE7E4]/25 via-[#743CFF]/25 to-[#C084FC]/25 opacity-0 blur-md transition-opacity duration-300 group-focus-within:opacity-100" />
-            <div className="relative flex items-center rounded-full border border-white/10 bg-[#0D0F17]/90 px-4 py-1 backdrop-blur-xl transition-all duration-300 group-hover:border-white/20 group-focus-within:border-[#5EE7E4]/60 group-focus-within:bg-[#121624]">
-              <Search className="size-4 shrink-0 text-white/40 group-focus-within:text-[#5EE7E4] transition-colors" />
+            <div className="relative flex items-center rounded-full border border-white/10 bg-[#0D0F17]/90 px-4 py-1 backdrop-blur-xl transition-all duration-300 group-focus-within:border-[#5EE7E4]/60 group-focus-within:bg-[#121624] group-hover:border-white/20">
+              <Search className="size-4 shrink-0 text-white/40 transition-colors group-focus-within:text-[#5EE7E4]" />
               <input
                 type="text"
                 value={search}
@@ -258,7 +242,7 @@ export function BlogContent() {
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-white/60 hover:bg-white/20 hover:text-white transition-colors"
+                  className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-white/60 transition-colors hover:bg-white/20 hover:text-white"
                 >
                   Clear
                 </button>
@@ -268,7 +252,7 @@ export function BlogContent() {
         </div>
 
         {/* Animated Sliding Category Tabs */}
-        <div className="mb-14 flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl max-w-4xl mx-auto">
+        <div className="mx-auto mb-14 flex max-w-4xl flex-wrap items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] p-1.5 backdrop-blur-xl">
           {blogTags.map((tag) => {
             const isActive = activeTag === tag
             const accent = tagColors[tag] ?? '#5EE7E4'
@@ -276,7 +260,7 @@ export function BlogContent() {
               <button
                 key={tag}
                 onClick={() => setActiveTag(tag)}
-                className={`relative px-4 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 ${
+                className={`relative rounded-full px-4 py-1.5 text-xs font-semibold transition-colors duration-200 ${
                   isActive ? 'text-white' : 'text-white/60 hover:text-white'
                 }`}
               >
@@ -307,11 +291,11 @@ export function BlogContent() {
             transition={{ duration: 0.55 }}
             className="mb-10"
           >
-            <SpotlightCard className="overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0D0F17]/95 via-[#131626]/90 to-[#0D0F17]/95 p-6 sm:p-8 hover:border-[#5EE7E4]/50">
+            <SpotlightCard className="overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-[#0D0F17]/95 via-[#131626]/90 to-[#0D0F17]/95 p-6 hover:border-[#5EE7E4]/50 sm:p-8">
               <div className="relative z-20 grid gap-8 lg:grid-cols-12 lg:items-center">
                 {/* Media on Left with reflection frame */}
                 <div className="lg:col-span-7">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/15 bg-black/50 shadow-2xl shadow-cyan-950/20 group-hover:border-[#5EE7E4]/40 transition-colors">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/15 bg-black/50 shadow-2xl shadow-cyan-950/20 transition-colors group-hover:border-[#5EE7E4]/40">
                     {featured.coverImage && (
                       <Image
                         src={featured.coverImage}
@@ -325,14 +309,14 @@ export function BlogContent() {
                     <div className="absolute inset-0 bg-gradient-to-tr from-[#07050E]/80 via-transparent to-transparent" />
 
                     <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#5EE7E4] to-[#743CFF] px-3 py-1 text-xs font-extrabold text-black uppercase tracking-wider shadow-lg">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#5EE7E4] to-[#743CFF] px-3 py-1 text-xs font-extrabold tracking-wider text-black uppercase shadow-lg">
                         <Sparkles className="size-3" />
                         Flagship Blueprint
                       </span>
                     </div>
 
-                    <div className="absolute bottom-3 right-3 z-20">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-black/80 px-3 py-1 text-xs font-mono text-[#5EE7E4] border border-[#5EE7E4]/30 backdrop-blur-md">
+                    <div className="absolute right-3 bottom-3 z-20">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#5EE7E4]/30 bg-black/80 px-3 py-1 font-mono text-xs text-[#5EE7E4] backdrop-blur-md">
                         <Terminal className="size-3" />
                         RouterOS 7 Certified
                       </span>
@@ -341,9 +325,9 @@ export function BlogContent() {
                 </div>
 
                 {/* Text Info on Right */}
-                <div className="lg:col-span-5 flex flex-col gap-4">
+                <div className="flex flex-col gap-4 lg:col-span-5">
                   <div className="flex items-center gap-3 text-xs text-white/50">
-                    <span className="inline-flex items-center gap-1 text-[#5EE7E4] font-semibold">
+                    <span className="inline-flex items-center gap-1 font-semibold text-[#5EE7E4]">
                       <Layers className="size-3.5" />
                       {featured.category}
                     </span>
@@ -354,22 +338,18 @@ export function BlogContent() {
                     </span>
                   </div>
 
-                  <h2 className="text-2xl sm:text-3xl font-bold leading-snug text-white group-hover:text-[#5EE7E4] transition-colors">
-                    <Link href={`/blog/${featured.slug}`}>
-                      {featured.title}
-                    </Link>
+                  <h2 className="text-2xl leading-snug font-bold text-white transition-colors group-hover:text-[#5EE7E4] sm:text-3xl">
+                    <Link href={`/blog/${featured.slug}`}>{featured.title}</Link>
                   </h2>
 
-                  <p className="text-sm leading-relaxed text-white/70">
-                    {featured.summary}
-                  </p>
+                  <p className="text-sm leading-relaxed text-white/70">{featured.summary}</p>
 
                   {featured.keyTakeaways && (
-                    <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3.5 my-1">
+                    <div className="my-1 rounded-xl border border-white/[0.08] bg-white/[0.02] p-3.5">
                       <ul className="space-y-1.5 text-xs text-white/70">
                         {featured.keyTakeaways.slice(0, 3).map((takeaway, i) => (
                           <li key={i} className="flex items-start gap-2">
-                            <span className="text-[#5EE7E4] font-bold">✓</span>
+                            <span className="font-bold text-[#5EE7E4]">✓</span>
                             <span>{takeaway}</span>
                           </li>
                         ))}
@@ -377,16 +357,14 @@ export function BlogContent() {
                     </div>
                   )}
 
-                  <div className="pt-2 flex items-center gap-4">
+                  <div className="flex items-center gap-4 pt-2">
                     <InteractiveHoverButton
                       href={`/blog/${featured.slug}`}
                       className="px-6 py-2.5 text-xs font-semibold"
                     >
                       Read Full Blueprint
                     </InteractiveHoverButton>
-                    <span className="text-xs text-white/40">
-                      By {featured.author.name}
-                    </span>
+                    <span className="text-xs text-white/40">By {featured.author.name}</span>
                   </div>
                 </div>
               </div>
@@ -404,9 +382,9 @@ export function BlogContent() {
               return (
                 <SpotlightCard
                   key={article.slug}
-                  className="p-6 border-white/15 bg-gradient-to-br from-[#0D0F17] to-[#121626]"
+                  className="border-white/15 bg-gradient-to-br from-[#0D0F17] to-[#121626] p-6"
                 >
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="mb-4 flex items-center justify-between">
                     <span
                       className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold tracking-wider uppercase backdrop-blur-md"
                       style={{
@@ -418,25 +396,23 @@ export function BlogContent() {
                       <Icon className="size-3.5" />
                       {article.tag} Deep-Dive
                     </span>
-                    <span className="text-xs text-white/40 font-mono flex items-center gap-1">
+                    <span className="flex items-center gap-1 font-mono text-xs text-white/40">
                       <Clock className="size-3" />
                       {article.readTime}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white group-hover:text-[#5EE7E4] transition-colors mb-3 leading-snug">
-                    <Link href={`/blog/${article.slug}`}>
-                      {article.title}
-                    </Link>
+                  <h3 className="mb-3 text-xl leading-snug font-bold text-white transition-colors group-hover:text-[#5EE7E4]">
+                    <Link href={`/blog/${article.slug}`}>{article.title}</Link>
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-white/60 leading-relaxed mb-6 flex-1">
+                  <p className="mb-6 flex-1 text-xs leading-relaxed text-white/60 sm:text-sm">
                     {article.summary}
                   </p>
 
                   {/* Thumbnail snippet */}
                   {article.coverImage && (
-                    <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl border border-white/10 mb-4 bg-black/40">
+                    <div className="relative mb-4 aspect-[21/9] w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
                       <Image
                         src={article.coverImage}
                         alt={article.title}
@@ -447,11 +423,11 @@ export function BlogContent() {
                     </div>
                   )}
 
-                  <div className="mt-auto pt-3 border-t border-white/[0.08] flex items-center justify-between">
+                  <div className="mt-auto flex items-center justify-between border-t border-white/[0.08] pt-3">
                     <span className="text-xs text-white/40">{article.author.name}</span>
                     <Link
                       href={`/blog/${article.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5EE7E4] hover:text-white transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5EE7E4] transition-colors hover:text-white"
                     >
                       Explore Technical Guide
                       <ArrowRight className="size-3.5" />
@@ -464,18 +440,18 @@ export function BlogContent() {
         )}
 
         {/* Section Heading */}
-        <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+        <div className="mb-8 flex items-center justify-between border-b border-white/10 pb-4">
           <div className="flex items-center gap-2">
             <BookOpen className="size-4 text-[#5EE7E4]" />
             <h2 className="text-lg font-bold text-white">
               {search
                 ? `Search results for "${search}"`
                 : activeTag === 'All'
-                ? 'Curated Guides & Operational Blueprints'
-                : `${activeTag} Articles`}
+                  ? 'Curated Guides & Operational Blueprints'
+                  : `${activeTag} Articles`}
             </h2>
           </div>
-          <span className="text-xs text-white/40 font-mono">
+          <span className="font-mono text-xs text-white/40">
             {restArticles.length + (isDefaultView ? 3 : 0)} articles
           </span>
         </div>
@@ -483,7 +459,7 @@ export function BlogContent() {
         {/* Articles Grid with Spotlight */}
         {restArticles.length === 0 ? (
           <div className="rounded-2xl border border-white/10 bg-white/5 p-12 text-center backdrop-blur-xl">
-            <p className="text-base text-white/60 mb-4">
+            <p className="mb-4 text-base text-white/60">
               No articles found matching &quot;{search}&quot;.
             </p>
             <button

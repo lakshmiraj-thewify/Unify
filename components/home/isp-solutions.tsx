@@ -60,7 +60,7 @@ const solutions = [
 
 export function IspSolutions() {
   return (
-    <section id="solutions" className="relative z-10 py-24 scroll-mt-24">
+    <section id="solutions" className="relative z-10 scroll-mt-24 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wider text-[#5EE7E4] uppercase">
@@ -81,12 +81,8 @@ export function IspSolutions() {
           {solutions.map((sol) => {
             const Icon = sol.icon
             return (
-              <li
-                key={sol.segment}
-                id={sol.anchorId}
-                className="scroll-mt-28"
-              >
-                <div className="unify-card-dark relative flex h-full flex-col gap-4 overflow-hidden p-6 transition-all duration-300 hover:border-white/25 hover:-translate-y-1">
+              <li key={sol.segment} id={sol.anchorId} className="scroll-mt-28">
+                <div className="unify-card-dark relative flex h-full flex-col gap-4 overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/25">
                   <NoiseTexture className="opacity-30" />
                   <div className="relative z-10 flex h-full flex-col gap-4">
                     <div className="flex items-center gap-3">

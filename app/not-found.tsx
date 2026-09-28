@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowLeft, Home, WifiOff, Compass, ShieldCheck, ReceiptText, ArrowRight } from 'lucide-react'
+import {
+  ArrowLeft,
+  Home,
+  WifiOff,
+  Compass,
+  ShieldCheck,
+  ReceiptText,
+  ArrowRight,
+} from 'lucide-react'
 import { site } from '@/content/site'
 
 export const metadata: Metadata = {
@@ -36,7 +44,7 @@ export default function NotFound() {
       {/* Background ambient radial glows */}
       <div className="pointer-events-none absolute top-1/4 left-1/2 h-[450px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-[#743CFF]/20 to-[#6C8DFF]/10 blur-[130px]" />
       <div className="pointer-events-none absolute top-1/3 left-1/4 h-[300px] w-[300px] rounded-full bg-[#5EE7E4]/10 blur-[100px]" />
-      <div className="pointer-events-none absolute bottom-1/4 right-1/4 h-[350px] w-[350px] rounded-full bg-[#743CFF]/15 blur-[120px]" />
+      <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-[350px] w-[350px] rounded-full bg-[#743CFF]/15 blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         {/* Status Pill Badge */}

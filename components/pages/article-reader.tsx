@@ -21,12 +21,7 @@ import {
 } from 'lucide-react'
 import { NoiseTexture } from '@/registry/magicui/noise-texture'
 import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button'
-import {
-  type BlogArticle,
-  type CodeSnippet,
-  type Callout,
-  tagColors,
-} from '@/content/blog'
+import { type BlogArticle, type CodeSnippet, type Callout, tagColors } from '@/content/blog'
 
 function CodeBlock({ snippet }: { snippet: CodeSnippet }) {
   const [copied, setCopied] = useState(false)
@@ -85,17 +80,15 @@ function CalloutBox({ callout }: { callout: Callout }) {
   const borderColor = isTip
     ? 'border-[#5EE7E4]/40 bg-[#5EE7E4]/5 text-[#5EE7E4]'
     : isWarning
-    ? 'border-amber-500/40 bg-amber-500/5 text-amber-400'
-    : 'border-violet-500/40 bg-violet-500/5 text-violet-400'
+      ? 'border-amber-500/40 bg-amber-500/5 text-amber-400'
+      : 'border-violet-500/40 bg-violet-500/5 text-violet-400'
 
   const Icon = isTip ? Lightbulb : isWarning ? AlertTriangle : Info
 
   return (
-    <div
-      className={`my-6 rounded-xl border p-4.5 backdrop-blur-md ${borderColor}`}
-    >
+    <div className={`my-6 rounded-xl border p-4.5 backdrop-blur-md ${borderColor}`}>
       <div className="flex items-start gap-3">
-        <Icon className="size-5 shrink-0 mt-0.5" />
+        <Icon className="mt-0.5 size-5 shrink-0" />
         <div className="space-y-1">
           <h4 className="text-sm font-bold tracking-wide">{callout.title}</h4>
           <p className="text-xs leading-relaxed text-white/70">{callout.text}</p>
@@ -131,17 +124,17 @@ export function ArticleReader({
   }
 
   return (
-    <article className="min-h-screen bg-[#07050E] text-white pt-24 pb-32">
+    <article className="min-h-screen bg-[#07050E] pt-24 pb-32 text-white">
       {/* Reading Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-gradient-to-r from-[#5EE7E4] via-[#743CFF] to-[#C084FC] origin-left"
+        className="fixed top-0 right-0 left-0 z-50 h-[3px] origin-left bg-gradient-to-r from-[#5EE7E4] via-[#743CFF] to-[#C084FC]"
         style={{ scaleX }}
       />
 
       {/* Ambient background glows */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-gradient-to-b from-[#743CFF]/15 to-transparent blur-[140px]" />
-        <div className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#5EE7E4]/10 blur-[130px]" />
+        <div className="absolute -top-32 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-gradient-to-b from-[#743CFF]/15 to-transparent blur-[140px]" />
+        <div className="absolute top-[40%] right-[-10%] h-[500px] w-[500px] rounded-full bg-[#5EE7E4]/10 blur-[130px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -155,23 +148,21 @@ export function ArticleReader({
             Back to Knowledge Hub
           </Link>
 
-          <nav className="hidden sm:flex items-center gap-2 text-xs text-white/40">
-            <Link href="/" className="hover:text-white transition-colors">
+          <nav className="hidden items-center gap-2 text-xs text-white/40 sm:flex">
+            <Link href="/" className="transition-colors hover:text-white">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <Link href="/blog" className="hover:text-white transition-colors">
+            <Link href="/blog" className="transition-colors hover:text-white">
               Blog
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#5EE7E4] truncate max-w-[200px]">
-              {article.title}
-            </span>
+            <span className="max-w-[200px] truncate text-[#5EE7E4]">{article.title}</span>
           </nav>
         </div>
 
         {/* Article Header */}
-        <header className="mx-auto max-w-4xl text-center mb-12">
+        <header className="mx-auto mb-12 max-w-4xl text-center">
           {/* Tag Pill */}
           <div className="mb-4 inline-flex items-center gap-2">
             <span
@@ -187,46 +178,42 @@ export function ArticleReader({
             </span>
           </div>
 
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl leading-tight sm:leading-tight mb-6">
+          <h1 className="mb-6 text-3xl leading-tight font-extrabold tracking-tight sm:text-5xl sm:leading-tight">
             {article.title}
           </h1>
 
-          <p className="text-base sm:text-lg leading-relaxed text-white/65 max-w-2xl mx-auto mb-8">
+          <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
             {article.summary}
           </p>
 
           {/* Author & Meta Row */}
           <div className="flex flex-wrap items-center justify-center gap-6 border-y border-white/10 py-4 text-xs text-white/50">
             <div className="flex items-center gap-2">
-              <div className="size-7 rounded-full bg-gradient-to-tr from-[#743CFF] to-[#5EE7E4] flex items-center justify-center font-bold text-black text-[10px]">
+              <div className="flex size-7 items-center justify-center rounded-full bg-gradient-to-tr from-[#743CFF] to-[#5EE7E4] text-[10px] font-bold text-black">
                 UW
               </div>
               <div className="text-left">
-                <span className="block font-semibold text-white">
-                  {article.author.name}
-                </span>
-                <span className="block text-[11px] text-white/40">
-                  {article.author.role}
-                </span>
+                <span className="block font-semibold text-white">{article.author.name}</span>
+                <span className="block text-[11px] text-white/40">{article.author.role}</span>
               </div>
             </div>
 
-            <span className="hidden sm:inline text-white/20">•</span>
+            <span className="hidden text-white/20 sm:inline">•</span>
 
             <div className="flex items-center gap-1.5">
               <Clock className="size-3.5 text-white/40" />
               <span>{article.readTime}</span>
             </div>
 
-            <span className="hidden sm:inline text-white/20">•</span>
+            <span className="hidden text-white/20 sm:inline">•</span>
 
             <span>Published {article.publishedDate}</span>
 
-            <span className="hidden sm:inline text-white/20">•</span>
+            <span className="hidden text-white/20 sm:inline">•</span>
 
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 hover:text-white transition-all hover:bg-white/10"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 transition-all hover:bg-white/10 hover:text-white"
             >
               {copiedLink ? (
                 <>
@@ -245,7 +232,7 @@ export function ArticleReader({
 
         {/* Featured Image */}
         {article.coverImage && (
-          <div className="relative mx-auto max-w-5xl mb-16 overflow-hidden rounded-3xl border border-white/15 bg-black/40 shadow-2xl">
+          <div className="relative mx-auto mb-16 max-w-5xl overflow-hidden rounded-3xl border border-white/15 bg-black/40 shadow-2xl">
             <div className="relative aspect-[21/9] w-full">
               <Image
                 src={article.coverImage}
@@ -260,13 +247,13 @@ export function ArticleReader({
         )}
 
         {/* 2-Column Article Body with Sticky Sidebar */}
-        <div className="mx-auto max-w-6xl grid gap-12 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12">
           {/* Main Content Column */}
-          <div className="lg:col-span-8 space-y-10">
+          <div className="space-y-10 lg:col-span-8">
             {/* Key Takeaways Box */}
             {article.keyTakeaways && article.keyTakeaways.length > 0 && (
               <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent p-6 backdrop-blur-xl">
-                <div className="flex items-center gap-2 mb-4 text-[#5EE7E4]">
+                <div className="mb-4 flex items-center gap-2 text-[#5EE7E4]">
                   <Sparkles className="size-4" />
                   <h3 className="text-sm font-bold tracking-wider uppercase">
                     Key Implementation Takeaways
@@ -275,7 +262,7 @@ export function ArticleReader({
                 <ul className="space-y-2.5 text-sm text-white/75">
                   {article.keyTakeaways.map((takeaway, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                      <span className="text-[#5EE7E4] font-bold mt-0.5">✓</span>
+                      <span className="mt-0.5 font-bold text-[#5EE7E4]">✓</span>
                       <span>{takeaway}</span>
                     </li>
                   ))}
@@ -287,33 +274,36 @@ export function ArticleReader({
             {article.sections && article.sections.length > 0 ? (
               article.sections.map((section) => (
                 <section key={section.id} id={section.id} className="scroll-mt-28 space-y-4">
-                  <h2 className="text-2xl font-bold tracking-tight text-white border-b border-white/10 pb-3">
+                  <h2 className="border-b border-white/10 pb-3 text-2xl font-bold tracking-tight text-white">
                     {section.title}
                   </h2>
-                  <p className="text-base leading-relaxed text-white/70">
-                    {section.content}
-                  </p>
+                  <p className="text-base leading-relaxed text-white/70">{section.content}</p>
 
                   {section.callout && <CalloutBox callout={section.callout} />}
 
-                  {section.codeSnippet && (
-                    <CodeBlock snippet={section.codeSnippet} />
-                  )}
+                  {section.codeSnippet && <CodeBlock snippet={section.codeSnippet} />}
                 </section>
               ))
             ) : (
               <div className="space-y-6 text-base leading-relaxed text-white/70">
                 <p>
-                  This guide details production-verified network configurations tested on MikroTik CCR,
-                  hEX, and CRS hardware clusters powered by Unify Wi-Fi & TheWiFy cloud controllers.
+                  This guide details production-verified network configurations tested on MikroTik
+                  CCR, hEX, and CRS hardware clusters powered by Unify Wi-Fi & TheWiFy cloud
+                  controllers.
                 </p>
                 <div className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-md">
-                  <h4 className="text-base font-bold text-white mb-2">Need direct configuration support?</h4>
-                  <p className="text-sm text-white/60 mb-4">
-                    Our network operations center is available to assist enterprise venues, ISPs, and MSPs
-                    with custom RADIUS dictionaries, CoA integration, and guest captive portal deployments.
+                  <h4 className="mb-2 text-base font-bold text-white">
+                    Need direct configuration support?
+                  </h4>
+                  <p className="mb-4 text-sm text-white/60">
+                    Our network operations center is available to assist enterprise venues, ISPs,
+                    and MSPs with custom RADIUS dictionaries, CoA integration, and guest captive
+                    portal deployments.
                   </p>
-                  <InteractiveHoverButton href="/contact" className="px-5 py-2 text-xs font-semibold">
+                  <InteractiveHoverButton
+                    href="/contact"
+                    className="px-5 py-2 text-xs font-semibold"
+                  >
                     Schedule Engineering Consult
                   </InteractiveHoverButton>
                 </div>
@@ -321,27 +311,30 @@ export function ArticleReader({
             )}
 
             {/* Bottom Article CTA Card */}
-            <div className="mt-14 rounded-3xl border border-white/15 bg-gradient-to-r from-[#743CFF]/20 via-[#0D0F17] to-[#5EE7E4]/15 p-8 backdrop-blur-2xl relative overflow-hidden">
-              <NoiseTexture className="opacity-20 pointer-events-none" />
+            <div className="relative mt-14 overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-r from-[#743CFF]/20 via-[#0D0F17] to-[#5EE7E4]/15 p-8 backdrop-blur-2xl">
+              <NoiseTexture className="pointer-events-none opacity-20" />
               <div className="relative z-10">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#5EE7E4] mb-3">
+                <span className="mb-3 inline-flex items-center gap-1.5 text-xs font-bold tracking-wider text-[#5EE7E4] uppercase">
                   <Sparkles className="size-3.5" />
                   Automate Your Network
                 </span>
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="mb-3 text-2xl font-bold text-white">
                   Ready to deploy cloud captive portals on your MikroTik fleet?
                 </h3>
-                <p className="text-sm text-white/65 max-w-xl mb-6">
-                  Get high-conversion guest onboarding, automated WhatsApp renewal notifications, and
-                  telecom compliance logging in less than 10 minutes.
+                <p className="mb-6 max-w-xl text-sm text-white/65">
+                  Get high-conversion guest onboarding, automated WhatsApp renewal notifications,
+                  and telecom compliance logging in less than 10 minutes.
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
-                  <InteractiveHoverButton href="/contact" className="px-6 py-2.5 text-xs font-semibold">
+                  <InteractiveHoverButton
+                    href="/contact"
+                    className="px-6 py-2.5 text-xs font-semibold"
+                  >
                     Request Live Demo
                   </InteractiveHoverButton>
                   <Link
                     href="/blog"
-                    className="text-xs font-semibold text-white/60 hover:text-white transition-colors"
+                    className="text-xs font-semibold text-white/60 transition-colors hover:text-white"
                   >
                     Browse all guides →
                   </Link>
@@ -351,12 +344,12 @@ export function ArticleReader({
           </div>
 
           {/* Sticky Sidebar on Right */}
-          <aside className="lg:col-span-4 space-y-6">
+          <aside className="space-y-6 lg:col-span-4">
             <div className="sticky top-28 space-y-6">
               {/* Table of Contents */}
               {article.sections && article.sections.length > 0 && (
                 <div className="rounded-2xl border border-white/10 bg-[#0D0F17]/90 p-5 backdrop-blur-xl">
-                  <div className="flex items-center gap-2 mb-3 text-xs font-bold tracking-wider text-white/40 uppercase">
+                  <div className="mb-3 flex items-center gap-2 text-xs font-bold tracking-wider text-white/40 uppercase">
                     <BookOpen className="size-3.5 text-[#5EE7E4]" />
                     On This Page
                   </div>
@@ -365,7 +358,7 @@ export function ArticleReader({
                       <a
                         key={sec.id}
                         href={`#${sec.id}`}
-                        className="block text-xs text-white/60 hover:text-[#5EE7E4] transition-colors leading-snug py-1"
+                        className="block py-1 text-xs leading-snug text-white/60 transition-colors hover:text-[#5EE7E4]"
                       >
                         {sec.title}
                       </a>
@@ -376,15 +369,13 @@ export function ArticleReader({
 
               {/* Quick Action Box */}
               <div className="rounded-2xl border border-white/10 bg-[#0D0F17]/90 p-5 backdrop-blur-xl">
-                <h4 className="text-sm font-bold text-white mb-2">
-                  Need Help Configuring?
-                </h4>
-                <p className="text-xs text-white/55 leading-relaxed mb-4">
+                <h4 className="mb-2 text-sm font-bold text-white">Need Help Configuring?</h4>
+                <p className="mb-4 text-xs leading-relaxed text-white/55">
                   Connect your MikroTik routers to Unify Cloud RADIUS today with zero setup fee.
                 </p>
                 <InteractiveHoverButton
                   href="/contact"
-                  className="w-full py-2 text-xs font-semibold text-center"
+                  className="w-full py-2 text-center text-xs font-semibold"
                 >
                   Talk to Sales
                 </InteractiveHoverButton>
@@ -392,13 +383,13 @@ export function ArticleReader({
 
               {/* Share Box */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-xl">
-                <span className="text-xs font-semibold text-white/40 block mb-3">
+                <span className="mb-3 block text-xs font-semibold text-white/40">
                   Share this blueprint
                 </span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleShare}
-                    className="flex-1 flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-2 text-xs text-white/70 hover:bg-white/10 hover:text-white transition-all"
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-2 text-xs text-white/70 transition-all hover:bg-white/10 hover:text-white"
                   >
                     <Share2 className="size-3.5" />
                     {copiedLink ? 'Link Copied' : 'Copy Link'}
@@ -412,7 +403,7 @@ export function ArticleReader({
         {/* Related Articles Row */}
         {relatedArticles.length > 0 && (
           <div className="mt-24 border-t border-white/10 pt-16">
-            <div className="flex items-center justify-between mb-8">
+            <div className="mb-8 flex items-center justify-between">
               <h3 className="text-xl font-bold text-white">Related Technical Blueprints</h3>
               <Link href="/blog" className="text-xs font-semibold text-[#5EE7E4] hover:underline">
                 View all articles →
@@ -423,18 +414,16 @@ export function ArticleReader({
                 <Link
                   key={rel.slug}
                   href={`/blog/${rel.slug}`}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0D0F17]/80 p-5 backdrop-blur-xl hover:border-[#743CFF]/50 transition-all duration-300 hover:-translate-y-1"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0D0F17]/80 p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#743CFF]/50"
                 >
-                  <span className="text-[11px] font-bold text-[#5EE7E4] uppercase mb-2">
+                  <span className="mb-2 text-[11px] font-bold text-[#5EE7E4] uppercase">
                     {rel.tag}
                   </span>
-                  <h4 className="line-clamp-2 text-sm font-bold text-white group-hover:text-[#5EE7E4] transition-colors mb-2">
+                  <h4 className="mb-2 line-clamp-2 text-sm font-bold text-white transition-colors group-hover:text-[#5EE7E4]">
                     {rel.title}
                   </h4>
-                  <p className="line-clamp-2 text-xs text-white/50 mb-4">
-                    {rel.summary}
-                  </p>
-                  <span className="mt-auto text-xs text-white/35 flex items-center gap-1">
+                  <p className="mb-4 line-clamp-2 text-xs text-white/50">{rel.summary}</p>
+                  <span className="mt-auto flex items-center gap-1 text-xs text-white/35">
                     <Clock className="size-3" />
                     {rel.readTime}
                   </span>

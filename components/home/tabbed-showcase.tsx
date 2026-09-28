@@ -139,12 +139,12 @@ export function TabbedShowcase() {
   }
 
   return (
-    <section ref={sectionRef} id="tabs-showcase" className="relative z-10 py-24 scroll-mt-24">
+    <section ref={sectionRef} id="tabs-showcase" className="relative z-10 scroll-mt-24 py-24">
       {/* Anchor targets for direct tab deep-linking */}
-      <span id="tab-radius" className="absolute -top-24 pointer-events-none" />
-      <span id="tab-billing" className="absolute -top-24 pointer-events-none" />
-      <span id="tab-fup" className="absolute -top-24 pointer-events-none" />
-      <span id="tab-reseller" className="absolute -top-24 pointer-events-none" />
+      <span id="tab-radius" className="pointer-events-none absolute -top-24" />
+      <span id="tab-billing" className="pointer-events-none absolute -top-24" />
+      <span id="tab-fup" className="pointer-events-none absolute -top-24" />
+      <span id="tab-reseller" className="pointer-events-none absolute -top-24" />
 
       {/* Background glow — oversized to bleed beyond this section */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[700px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#743CFF]/[0.08] blur-[180px]" />
@@ -423,26 +423,28 @@ export function TabbedShowcase() {
                       </div>
 
                       {/* Right column: Enhanced Invoicing & WhatsApp Showcase */}
-                      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D14] p-5 shadow-2xl lg:col-span-7 space-y-4">
+                      <div className="space-y-4 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D14] p-5 shadow-2xl lg:col-span-7">
                         {/* KPI Bar */}
                         <div className="grid grid-cols-3 gap-2 border-b border-white/10 pb-3 text-center">
                           <div className="rounded-xl bg-white/[0.03] p-2.5">
-                            <div className="text-xs text-white/40 font-mono">Monthly Collections</div>
-                            <div className="text-sm sm:text-base font-bold text-white flex items-center justify-center gap-1 mt-0.5">
+                            <div className="font-mono text-xs text-white/40">
+                              Monthly Collections
+                            </div>
+                            <div className="mt-0.5 flex items-center justify-center gap-1 text-sm font-bold text-white sm:text-base">
                               <DollarSign className="size-3.5 text-[#5EE7E4]" />
                               ₹8,45,000
                             </div>
                           </div>
                           <div className="rounded-xl bg-white/[0.03] p-2.5">
-                            <div className="text-xs text-white/40 font-mono">Auto-Pay Rate</div>
-                            <div className="text-sm sm:text-base font-bold text-emerald-400 flex items-center justify-center gap-1 mt-0.5">
+                            <div className="font-mono text-xs text-white/40">Auto-Pay Rate</div>
+                            <div className="mt-0.5 flex items-center justify-center gap-1 text-sm font-bold text-emerald-400 sm:text-base">
                               <TrendingUp className="size-3.5 text-emerald-400" />
                               98.6%
                             </div>
                           </div>
                           <div className="rounded-xl bg-white/[0.03] p-2.5">
-                            <div className="text-xs text-white/40 font-mono">Invoice Engine</div>
-                            <div className="text-sm sm:text-base font-bold text-[#A78BFA] mt-0.5">
+                            <div className="font-mono text-xs text-white/40">Invoice Engine</div>
+                            <div className="mt-0.5 text-sm font-bold text-[#A78BFA] sm:text-base">
                               GST Ready
                             </div>
                           </div>
@@ -534,14 +536,16 @@ export function TabbedShowcase() {
                       </div>
 
                       {/* Right column: Enhanced FUP Speed Regulator Showcase */}
-                      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D14] p-5 shadow-2xl lg:col-span-7 space-y-3.5">
+                      <div className="space-y-3.5 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D14] p-5 shadow-2xl lg:col-span-7">
                         {/* Live Queue Header */}
                         <div className="flex items-center justify-between border-b border-white/10 pb-2.5 text-xs text-white/60">
                           <div className="flex items-center gap-2">
-                            <Activity className="size-3.5 text-[#5EE7E4] animate-pulse" />
-                            <span className="font-mono text-white/80">MikroTik Simple Queue Status</span>
+                            <Activity className="size-3.5 animate-pulse text-[#5EE7E4]" />
+                            <span className="font-mono text-white/80">
+                              MikroTik Simple Queue Status
+                            </span>
                           </div>
-                          <span className="rounded bg-emerald-400/10 px-2 py-0.5 text-[10px] font-mono text-emerald-400">
+                          <span className="rounded bg-emerald-400/10 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
                             Queue Active
                           </span>
                         </div>
@@ -549,9 +553,7 @@ export function TabbedShowcase() {
                         <div className="rounded-xl border border-white/10 bg-[#141A24] p-3.5">
                           <div className="mb-2 flex items-center justify-between text-xs text-white/60">
                             <span>Base Plan Speed Provisioned</span>
-                            <span className="text-sm font-bold text-white">
-                              100 Mbps (Tx / Rx)
-                            </span>
+                            <span className="text-sm font-bold text-white">100 Mbps (Tx / Rx)</span>
                           </div>
                           <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
                             <div className="h-full w-full bg-gradient-to-r from-[#5EE7E4] to-[#743CFF]" />
@@ -640,14 +642,18 @@ export function TabbedShowcase() {
                       </div>
 
                       {/* Right column: Enhanced Multi-tenant Reseller Showcase */}
-                      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D14] p-5 shadow-2xl lg:col-span-7 space-y-3">
+                      <div className="space-y-3 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0D14] p-5 shadow-2xl lg:col-span-7">
                         {/* Master Tenant Overview Strip */}
                         <div className="flex items-center justify-between border-b border-white/10 pb-2.5 text-xs text-white/60">
                           <div className="flex items-center gap-2">
                             <Users className="size-3.5 text-[#743CFF]" />
-                            <span className="font-mono text-white/80">Master NOC Account: 3 Active LCO Partners</span>
+                            <span className="font-mono text-white/80">
+                              Master NOC Account: 3 Active LCO Partners
+                            </span>
                           </div>
-                          <span className="font-mono text-[11px] text-[#5EE7E4]">1,620 Total Subs</span>
+                          <span className="font-mono text-[11px] text-[#5EE7E4]">
+                            1,620 Total Subs
+                          </span>
                         </div>
 
                         {/* LCO 1 Card */}
@@ -714,9 +720,12 @@ export function TabbedShowcase() {
                         <div className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] p-2.5 text-[11px] text-white/50">
                           <div className="flex items-center gap-1.5">
                             <Wallet className="size-3 text-emerald-400" />
-                            <span>Partner Wallet Settlement: <strong className="text-white">₹3,18,400 Disbursed</strong></span>
+                            <span>
+                              Partner Wallet Settlement:{' '}
+                              <strong className="text-white">₹3,18,400 Disbursed</strong>
+                            </span>
                           </div>
-                          <span className="text-[#5EE7E4] font-semibold">Automated UPI</span>
+                          <span className="font-semibold text-[#5EE7E4]">Automated UPI</span>
                         </div>
                       </div>
                     </div>
