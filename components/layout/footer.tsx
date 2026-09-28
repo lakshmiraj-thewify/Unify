@@ -12,12 +12,7 @@ export function SiteFooter() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-[#743CFF] to-[#5EE7E4]">
                 <Radio className="h-4 w-4 text-white" />
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-lg font-bold text-white">Unify</span>
-                <span className="rounded bg-[#5EE7E4]/10 px-1.5 py-0.5 text-[10px] font-semibold text-[#5EE7E4] uppercase">
-                  Wi-Fi
-                </span>
-              </div>
+              <span className="text-lg font-bold text-white">Unify</span>
             </Link>
             <p className="max-w-sm text-xs leading-relaxed text-white/50 sm:text-sm">
               Cloud RADIUS and ISP billing automation for MikroTik network operators, WISPs, and
@@ -28,7 +23,7 @@ export function SiteFooter() {
                 A product of{' '}
                 <strong className="text-white/60">TheWiFy Technologies Private Limited</strong>
               </div>
-              <div>Hyderabad, India · support@thewify.com</div>
+              <div>Hyderabad, India · support@thewify.com · +91 83339 63405</div>
             </div>
           </div>
 
@@ -37,27 +32,27 @@ export function SiteFooter() {
             <div className="text-xs font-bold tracking-wider text-white uppercase">Platform</div>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/features/cloud-radius" className="transition-colors hover:text-white">
                   Cloud RADIUS & AAA
                 </Link>
               </li>
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/features/billing-invoicing" className="transition-colors hover:text-white">
                   Automated Invoicing
                 </Link>
               </li>
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/features/bandwidth-throttling" className="transition-colors hover:text-white">
                   Bandwidth & FUP
                 </Link>
               </li>
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/features/reseller-portal" className="transition-colors hover:text-white">
                   White-Label Reseller
                 </Link>
               </li>
               <li>
-                <Link href="#integrations" className="transition-colors hover:text-white">
+                <Link href="/features/hardware-api" className="transition-colors hover:text-white">
                   MikroTik RouterOS
                 </Link>
               </li>
@@ -69,28 +64,23 @@ export function SiteFooter() {
             <div className="text-xs font-bold tracking-wider text-white uppercase">Solutions</div>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/#solution-wisp" className="transition-colors hover:text-white">
                   Wireless ISPs (WISPs)
                 </Link>
               </li>
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/#solution-fiber" className="transition-colors hover:text-white">
                   Fiber Broadband ISPs
                 </Link>
               </li>
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/#solution-lco" className="transition-colors hover:text-white">
                   LCO Franchise Networks
                 </Link>
               </li>
               <li>
-                <Link href="#tabs-showcase" className="transition-colors hover:text-white">
+                <Link href="/#solution-hotspot" className="transition-colors hover:text-white">
                   Public Hotspots
-                </Link>
-              </li>
-              <li>
-                <Link href="#pricing" className="transition-colors hover:text-white">
-                  Pricing & Plans
                 </Link>
               </li>
             </ul>

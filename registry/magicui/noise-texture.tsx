@@ -8,12 +8,12 @@ export interface NoiseTextureProps extends ComponentProps<'svg'> {
   className?: string
   /**
    * `baseFrequency` for `feTurbulence`; higher values yield finer-grained noise.
-   * @default 0.4
+   * @default 0.45
    */
   frequency?: number
   /**
-   * `numOctaves` for `feTurbulence`; more octaves add detail at smaller scales.
-   * @default 6
+   * `numOctaves` for `feTurbulence`. 2 octaves gives crisp grain at high framerates.
+   * @default 2
    */
   octaves?: number
   /**
@@ -23,17 +23,17 @@ export interface NoiseTextureProps extends ComponentProps<'svg'> {
   slope?: number
   /**
    * Opacity of the filled noise layer (`rect`).
-   * @default 0.6
+   * @default 0.5
    */
   noiseOpacity?: number
 }
 
 export const NoiseTexture = ({
   className,
-  frequency = 0.4,
-  octaves = 6,
+  frequency = 0.45,
+  octaves = 2,
   slope = 0.15,
-  noiseOpacity = 0.6,
+  noiseOpacity = 0.5,
   ...props
 }: NoiseTextureProps) => {
   const filterId = useId()
@@ -41,7 +41,7 @@ export const NoiseTexture = ({
   return (
     <svg
       className={cn(
-        'pointer-events-none absolute inset-0 z-0 size-full opacity-30 mix-blend-overlay select-none dark:opacity-40',
+        'pointer-events-none absolute inset-0 z-0 size-full opacity-25 select-none',
         className,
       )}
       xmlns="http://www.w3.org/2000/svg"

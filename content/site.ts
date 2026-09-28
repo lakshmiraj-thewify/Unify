@@ -41,7 +41,6 @@ type SiteConfig = {
     guestWifiLabel: string
     guestWifiUrl: string
   }
-  signInUrl: Provided<string>
 }
 
 export const site: SiteConfig = {
@@ -60,10 +59,8 @@ export const site: SiteConfig = {
   contact: {
     /** Updated to support@thewify.com — the website contact and notification recipient. */
     email: 'support@thewify.com',
-    /** PENDING(Q10): the blueprint says a phone number is shown but never gives one. */
-    phone: null,
-    /** PENDING(Q10): the blueprint says a WhatsApp number is shown but never gives one. */
-    whatsapp: null,
+    phone: '+91 83339 63405',
+    whatsapp: '+91 83339 63405',
     address: {
       locality: 'Hyderabad',
       country: 'India',
@@ -80,13 +77,6 @@ export const site: SiteConfig = {
     guestWifiLabel: 'guestwifi.thewify.com',
     guestWifiUrl: 'https://guestwifi.thewify.com',
   },
-
-  /**
-   * PENDING(Q6): the blueprint specifies a `Sign In` CTA for existing subscribers
-   * but not where it points. Until it is supplied the nav renders the control in
-   * a clearly unavailable state rather than guessing a URL.
-   */
-  signInUrl: null,
 }
 
 export type Site = SiteConfig

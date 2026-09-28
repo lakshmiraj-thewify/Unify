@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Copy, Check, ShieldCheck, Activity, HelpCircle } from 'lucide-react'
+import { Copy, Check, ShieldCheck, Activity, HelpCircle } from 'lucide-react'
 
 import { AnimatedSpan, Terminal, TypingAnimation } from '@/registry/magicui/terminal'
 import { AuroraText } from '@/registry/magicui/aurora-text'
 import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button'
+import { Cobe } from '@/registry/eldoraui/cobe-globe'
 
 export function HeroSection() {
   const [copied, setCopied] = useState(false)
@@ -26,15 +27,17 @@ export function HeroSection() {
       <div className="pointer-events-none absolute top-1/4 left-1/2 h-[450px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-[#743CFF]/25 to-[#6C8DFF]/15 blur-[120px]" />
       <div className="pointer-events-none absolute top-1/3 left-1/4 h-[350px] w-[350px] rounded-full bg-[#5EE7E4]/10 blur-[100px]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        {/* Glowing Announcement Pill */}
-        <div className="unify-pill-badge group mb-8 inline-flex cursor-pointer items-center gap-2 rounded-full px-4 py-1.5 transition-all">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-[#5EE7E4]" />
-          <span className="text-xs font-medium text-white/90 sm:text-sm">
-            Cloud RADIUS Platform · Built for ISPs & MikroTik Operators
-          </span>
-          <ArrowRight className="h-3.5 w-3.5 text-white/60 transition-all group-hover:translate-x-0.5 group-hover:text-white" />
+      {/* 3D Animated Globe Background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-6 left-1/2 z-0 flex -translate-x-1/2 items-center justify-center opacity-50 sm:top-10 sm:opacity-60"
+      >
+        <div className="h-[520px] w-[520px] max-w-none sm:h-[680px] sm:w-[680px] md:h-[780px] md:w-[780px]">
+          <Cobe variant="auto-rotation" />
         </div>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
 
         {/* Display Headline */}
         <h1 className="mx-auto mb-6 max-w-4xl text-4xl leading-[1.1] font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">

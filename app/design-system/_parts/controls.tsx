@@ -34,7 +34,7 @@ export function Controls() {
           </SpecRow>
           <SpecRow label="variant — ghost / link">
             <Button variant="ghost" size="md">
-              Sign In
+              Learn More
             </Button>
             <Button variant="link" size="md" trailingIcon={<ArrowRight />}>
               View all features

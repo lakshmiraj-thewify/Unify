@@ -71,3 +71,43 @@ export const demoBookingSchema = z.object({
 })
 
 export type DemoBookingPayload = z.infer<typeof demoBookingSchema>
+
+/**
+ * ---------------------------------------------------------------------------
+ * Server-side Zod schema for pre-meeting questions before Calendly.
+ * ---------------------------------------------------------------------------
+ */
+export const demoLeadSchema = z.object({
+  name: z
+    .string({ required_error: 'Full name is required.' })
+    .trim()
+    .min(1, 'Full name is required.')
+    .max(120, 'Name must be 120 characters or fewer.'),
+
+  email: z
+    .string({ required_error: 'Work email is required.' })
+    .trim()
+    .min(1, 'Work email is required.')
+    .max(254, 'Email must be 254 characters or fewer.')
+    .email('A valid email address is required.'),
+
+  company: z
+    .string({ required_error: 'Company or ISP name is required.' })
+    .trim()
+    .min(1, 'Company or ISP name is required.')
+    .max(200, 'Company name must be 200 characters or fewer.'),
+
+  subscribers: z
+    .string({ required_error: 'Please select your subscriber range.' })
+    .trim()
+    .min(1, 'Please select your subscriber range.'),
+
+  hardware: z
+    .string({ required_error: 'Please select your router / hardware.' })
+    .trim()
+    .min(1, 'Please select your router / hardware.'),
+
+  note: z.string().trim().max(1000).optional(),
+})
+
+export type DemoLeadPayload = z.infer<typeof demoLeadSchema>

@@ -16,12 +16,20 @@
 import type { MetadataRoute } from 'next'
 import { SITE_ORIGIN } from '@/lib/seo'
 import { featureDetails } from '@/content/feature-details'
+import { blogArticles } from '@/content/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
 
   const featurePages: MetadataRoute.Sitemap = featureDetails.map((f) => ({
     url: `${SITE_ORIGIN}/features/${f.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
+
+  const blogPages: MetadataRoute.Sitemap = blogArticles.map((article) => ({
+    url: `${SITE_ORIGIN}/blog/${article.slug}`,
     lastModified: now,
     changeFrequency: 'monthly',
     priority: 0.7,
@@ -35,17 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${SITE_ORIGIN}/pricing`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
       url: `${SITE_ORIGIN}/blog`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    ...blogPages,
     {
       url: `${SITE_ORIGIN}/contact`,
       lastModified: now,

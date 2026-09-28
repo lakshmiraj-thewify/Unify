@@ -12,8 +12,8 @@ import { BusinessModel } from '@/components/home/business-model'
 import { FeatureStack } from '@/components/home/feature-stack'
 import { PlatformArchitecture } from '@/components/home/platform-architecture'
 import { EcosystemTransition } from '@/components/home/ecosystem-transition'
+import { AboutSection } from '@/components/home/about-section'
 import { HomeBlogTeaser } from '@/components/home/home-blog-teaser'
-import { PricingSection } from '@/components/home/pricing-section'
 import { FaqSection } from '@/components/home/faq'
 import { CtaBanner } from '@/components/home/cta-banner'
 
@@ -78,7 +78,7 @@ export default function HomePage() {
         }}
       />
 
-      {/* ── Aurora Zone 5: Blog → Pricing → FAQ → CTA ───────────────────────
+      {/* ── Aurora Zone 5: Blog → FAQ → CTA ───────────────────────
           Fades back out — smaller, cooler tone */}
       <div
         aria-hidden="true"
@@ -104,8 +104,8 @@ export default function HomePage() {
       <FeatureStack />
       <PlatformArchitecture />
       <EcosystemTransition />
+      <AboutSection />
       <HomeBlogTeaser />
-      <PricingSection />
       <FaqSection />
       <CtaBanner />
     </div>

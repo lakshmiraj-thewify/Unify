@@ -20,8 +20,8 @@ export const primaryNav: NavItem[] = [
   { label: 'Solutions', href: '/#solutions' },
   { label: 'Features', href: '/#tabs-showcase' },
   { label: 'Hardware', href: '/#integrations' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/#about' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -35,6 +35,7 @@ export const sectionIds = {
   calculator: 'savings-calculator',
   ownership: 'ownership',
   architecture: 'architecture',
+  about: 'about',
   blog: 'blog',
   faq: 'faq',
   contact: 'contact',
@@ -54,7 +55,7 @@ export const footerNav: NavGroup[] = [
   {
     heading: 'Company',
     items: [
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'About TheWiFy', href: '/#about' },
       { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
     ],
