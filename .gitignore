@@ -50,3 +50,4 @@ yarn-error.log*
 # local agent / editor state
 AGENTS.md
 .claude/
+sa-key.json
