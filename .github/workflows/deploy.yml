@@ -1,4 +1,4 @@
-name: Deploy Unify to Cloud Run
+name: Deploy Unify to Cloud Run and Auto-Destroy
 
 on:
   push:
@@ -27,9 +27,6 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
           service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
 
       - name: Ensure Artifact Registry Exists
         run: |
@@ -71,9 +68,23 @@ jobs:
             -var="service_name=${{ env.SERVICE_NAME }}" \
             -var="image_tag=$IMAGE_URI"
 
-      - name: Print Application URL
+      - name: Print Application URL & Wait
         run: |
           cd terraform
           echo "=========================================="
           echo "Live URL: $(terraform output -raw website_url)"
           echo "=========================================="
+          echo "Waiting 30 seconds before auto-destroying..."
+          sleep 30
+
+      - name: Terraform Auto-Destroy
+        if: always()
+        env:
+          IMAGE_URI: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPO }}/unify-app:${{ github.sha }}
+        run: |
+          cd terraform
+          terraform destroy -auto-approve \
+            -var="project_id=${{ env.PROJECT_ID }}" \
+            -var="region=${{ env.REGION }}" \
+            -var="service_name=${{ env.SERVICE_NAME }}" \
+            -var="image_tag=$IMAGE_URI"
