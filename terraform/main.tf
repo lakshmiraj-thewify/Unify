@@ -30,11 +30,6 @@ resource "google_cloud_run_v2_service" "unify_service" {
       }
 
       env {
-        name  = "PORT"
-        value = "3000"
-      }
-
-      env {
         name  = "HOSTNAME"
         value = "0.0.0.0"
       }
