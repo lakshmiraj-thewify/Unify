@@ -1,14 +1,13 @@
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.0"
   required_providers {
     google = {
       source  = "hashicorp/google"
       version = "~> 5.0"
     }
   }
-
   backend "gcs" {
-    prefix = "terraform/state/unify"
+    prefix = "terraform/state"
   }
 }
 
@@ -17,7 +16,6 @@ provider "google" {
   region  = var.region
 }
 
-# Cloud Run Service running the Next.js container
 resource "google_cloud_run_v2_service" "unify_service" {
   name     = var.service_name
   location = var.region
@@ -31,26 +29,39 @@ resource "google_cloud_run_v2_service" "unify_service" {
         container_port = 3000
       }
 
+      env {
+        name  = "PORT"
+        value = "3000"
+      }
+
+      env {
+        name  = "HOSTNAME"
+        value = "0.0.0.0"
+      }
+
       resources {
         limits = {
           cpu    = "1"
-          memory = "512Mi"
+          memory = "1Gi"
         }
       }
+    }
+    scaling {
+      min_instance_count = 0
+      max_instance_count = 2
     }
   }
 }
 
-# Allow anyone on the public internet to visit the website
-resource "google_cloud_run_v2_service_iam_member" "public_access" {
-  project  = google_cloud_run_v2_service.unify_service.project
+resource "google_cloud_run_service_iam_member" "public_access" {
   location = google_cloud_run_v2_service.unify_service.location
-  name     = google_cloud_run_v2_service.unify_service.name
+  project  = google_cloud_run_v2_service.unify_service.project
+  service  = google_cloud_run_v2_service.unify_service.name
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
 
 output "website_url" {
+  description = "The public URL of the Unify website"
   value       = google_cloud_run_v2_service.unify_service.uri
-  description = "Public URL for the deployed Unify application"
 }
