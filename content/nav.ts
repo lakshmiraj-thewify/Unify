@@ -17,11 +17,11 @@ export type NavGroup = {
  * source of truth for both.
  */
 export const primaryNav: NavItem[] = [
-  { label: 'Solutions', href: '/#solutions' },
   { label: 'Features', href: '/#tabs-showcase' },
+  { label: 'Solutions', href: '/#solutions' },
   { label: 'Hardware', href: '/#integrations' },
-  { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/#about' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]
 

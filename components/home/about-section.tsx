@@ -38,10 +38,10 @@ function SpotlightCard({
   return (
     <div
       onMouseMove={handleMouseMove}
-      className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0D0F17]/85 backdrop-blur-2xl transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-violet-950/30 ${className}`}
+      className={`group/spotlight relative overflow-hidden rounded-3xl border border-white/10 bg-[#0D0F17]/85 backdrop-blur-2xl transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-violet-950/30 ${className}`}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px z-10 rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px z-10 rounded-3xl opacity-0 transition-opacity duration-300 group-hover/spotlight:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(

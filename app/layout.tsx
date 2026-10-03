@@ -4,6 +4,7 @@ import { JetBrains_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import { SiteHeader } from '@/components/layout/header'
 import { SiteFooter } from '@/components/layout/footer'
+import { NavigationScrollHandler } from '@/components/ui/navigation-scroll-handler'
 import { site } from '@/content/site'
 import { OG_IMAGE_URL } from '@/lib/seo'
 import './globals.css'
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-IN" className={`${inter.variable} ${spaceGrotesk.variable} ${mono.variable}`}>
       <body className="flex min-h-dvh flex-col bg-[#0D0F17] text-white antialiased selection:bg-[#743CFF] selection:text-white">
+        <NavigationScrollHandler />
         <SiteHeader />
         <main id="main" tabIndex={-1} className="flex-1 focus-visible:outline-none">
           {children}
