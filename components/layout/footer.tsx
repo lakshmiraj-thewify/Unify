@@ -100,7 +100,7 @@ export function SiteFooter() {
             <div className="text-xs font-bold tracking-wider text-white uppercase">Company</div>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
-                <Link href="/contact" className="transition-colors hover:text-white">
+                <Link href="/contact#demo" className="transition-colors hover:text-white">
                   Book a Demo
                 </Link>
               </li>

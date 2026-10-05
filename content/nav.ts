@@ -17,13 +17,10 @@ export type NavGroup = {
  * source of truth for both.
  */
 export const primaryNav: NavItem[] = [
+  { label: 'Blog', href: '/blog' },
   { label: 'Features', href: '/#tabs-showcase' },
   { label: 'Solutions', href: '/#solutions' },
   { label: 'Hardware', href: '/#integrations' },
-  { label: 'About', href: '/#about' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
-]
 
 /** Anchor ids owned by the homepage. Sections import these so links cannot drift. */
 export const sectionIds = {

@@ -32,7 +32,7 @@ export function CtaBanner() {
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <InteractiveHoverButton
-                href="/contact"
+                href="/contact#demo-block"
                 variant="white"
                 className="px-8 py-4 text-base shadow-2xl shadow-black/20 hover:scale-105"
               >

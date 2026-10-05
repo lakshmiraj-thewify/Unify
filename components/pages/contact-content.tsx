@@ -123,7 +123,7 @@ function DemoBookingSection() {
   return (
     <div className="flex flex-col">
       {step === 'questions' ? (
-        <form onSubmit={handleProceedToCalendar} noValidate className="flex flex-col gap-4">
+        <form onSubmit={handleProceedToCalendar} noValidate id="demo-block" className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <span className="text-xs font-semibold tracking-wider text-violet-600 uppercase">
               Step 1 of 2: Network Details

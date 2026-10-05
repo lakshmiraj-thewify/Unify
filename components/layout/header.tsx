@@ -88,7 +88,7 @@ export function SiteHeader() {
 
             <DockIcon asPill size={40} magnification={44} distance={70}>
               <InteractiveHoverButton
-                href="/contact"
+                href="/contact#demo-block"
                 variant="white"
                 className="px-5 py-2 text-sm font-semibold whitespace-nowrap"
               >
